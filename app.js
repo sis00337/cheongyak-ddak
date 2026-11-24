@@ -278,8 +278,8 @@
     var groups = {}, map = {};
     state.favs.forEach(function (id) {
       var L = byId(id);
-      if (!L || !L.announceDate) return;
-      (groups[L.announceDate] = groups[L.announceDate] || []).push(L);
+      if (!L || !L.winnersDate) return;
+      (groups[L.winnersDate] = groups[L.winnersDate] || []).push(L);
     });
     Object.keys(groups).forEach(function (k) {
       if (groups[k].length > 1) groups[k].forEach(function (L) { map[L.id] = groups[k]; });
@@ -319,7 +319,7 @@
         return ub - ua;
       }
       if (s === 'announce') {
-        var aa = A.l.announceDate, ba = B.l.announceDate;
+        var aa = A.l.winnersDate, ba = B.l.winnersDate;
         if (!aa && !ba) return 0;
         if (!aa) return 1;
         if (!ba) return -1;
@@ -377,7 +377,7 @@
     }).join('');
     if (rs.extra > 0) reasonsHTML += '<li class="r-more">외 ' + rs.extra + '가지 조건</li>';
 
-    var announce = L.announceDate ? '발표 <b>' + mdw(L.announceDate) + '</b>' : '발표일 미정';
+    var announce = L.winnersDate ? '발표 <b>' + mdw(L.winnersDate) + '</b>' : '발표일 미정';
 
     return '' +
       '<article class="card' + (isFav ? ' is-fav' : '') + '" data-id="' + esc(L.id) + '" tabindex="0" role="button" ' +
@@ -516,9 +516,13 @@
 
   /* ───────────────────────── 드로어 ───────────────────────── */
   function timelineHTML(L, st) {
+    var wd = L.winnersDate ? parseDate(L.winnersDate) : null;
+    var wdLeft = wd ? diffDays(wd, startOfToday()) : null;
     var rows = [
+      { k: '모집공고', v: L.announceDate ? md(L.announceDate) : '공고문 확인', side: '' },
       { k: '접수', v: L.applyDates || '공고문 확인', side: st.key === 'closed' ? '마감' : (L.applyStart ? md(L.applyStart) + '~' + md(L.applyEnd) : '') },
-      { k: '당첨자 발표', v: L.announceDate ? mdw(L.announceDate) : '공고문 확인', side: L.announceDate ? 'D-' + Math.max(0, diffDays(parseDate(L.announceDate), startOfToday())) : '' },
+      { k: '당첨자 발표', v: L.winnersDate ? mdw(L.winnersDate) : '발표일 미정',
+        side: wdLeft === null ? '' : (wdLeft < 0 ? '발표 완료' : wdLeft === 0 ? '오늘 발표' : 'D-' + wdLeft) },
       { k: '계약', v: L.contractStart ? mdw(L.contractStart) : '공고문 확인', side: L.contractStart ? '발표 후' : '' },
       { k: '입주', v: L.moveIn || '공고문 확인', side: '' }
     ];

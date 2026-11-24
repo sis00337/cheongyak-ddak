@@ -7,7 +7,8 @@
     "unverified": [
       "ah2026820015"
     ],
-    "unit": "금액 단위: 만 원"
+    "unit": "금액 단위: 만 원",
+    "winnersSyncedAt": "2026-11-25"
   },
   "listings": [
     {
@@ -78,7 +79,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "소득·자산 기준 있음"
-      ]
+      ],
+      "winnersDate": "2026-12-01"
     },
     {
       "id": "ah2026000576",
@@ -152,7 +154,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
-      ]
+      ],
+      "winnersDate": "2026-12-01"
     },
     {
       "id": "ah2026000536",
@@ -219,7 +222,8 @@
         "residence": "지역 : 해당지역 거주자(구미시 거주자) → 기타지역 거주자(경상북도 및 대구광역시 거주자)"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-02"
     },
     {
       "id": "ah2026910298",
@@ -278,7 +282,8 @@
         "housing_alt": "본 주택은 무순위사후입주자모집공고일 현재 전국에 거주하는 무주택세대구성원을 대상으로 공급합니다외국인 청약불가 ( ) ( )"
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 없음 최초 당첨자발표일 로부터 개월 (2026.10.26.) 6 없음 미적용",
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-11-30"
     },
     {
       "id": "ah2026910306",
@@ -323,7 +328,8 @@
         "housing_alt": "■ 본 주택은 무순위(사후) 입주자모집공고일 현재 부산광역시, 울산광역시, 경상남도에 거주하는 무주택세대구성원을 대상으로 공급합니다(외국인 청약불가)"
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 없음 최초 당첨자발표일 (2026.11.02.)로부터 6개월 없음 미적용",
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-11-30"
     },
     {
       "id": "ah2026000563",
@@ -385,7 +391,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
-      ]
+      ],
+      "winnersDate": "2026-12-01"
     },
     {
       "id": "ah2026850056",
@@ -463,7 +470,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "소득 기준 있음"
-      ]
+      ],
+      "winnersDate": "2026-12-01"
     },
     {
       "id": "ah2026000566",
@@ -529,7 +537,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
-      ]
+      ],
+      "winnersDate": "2026-12-01"
     },
     {
       "id": "ah2026940257",
@@ -601,7 +610,8 @@
         "housing": "청약통장 가입여부와 무관하게 신청가능 → 청약통장·주택 수 요건 없음"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-11-30"
     },
     {
       "id": "ah2026000558",
@@ -675,7 +685,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
-      ]
+      ],
+      "winnersDate": "2026-12-01"
     },
     {
       "id": "ah2026000559",
@@ -733,7 +744,8 @@
         "residence": "입주자모집공고일 현재 익산시 또는 전북특별자치도에 거주하는"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-01"
     },
     {
       "id": "ah2026000540",
@@ -793,7 +805,8 @@
         "residence": "지역 : 해당지역 거주자(논산시 거주자) → 기타지역 거주자(충청남도, 대전광역시, 세종특별자치시 거주자)"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-02"
     },
     {
       "id": "ah2026940259",
@@ -873,7 +886,8 @@
         "housing": "청약통장 가입여부와 무관하게 신청가능 → 청약통장·주택 수 요건 없음"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-11-30"
     },
     {
       "id": "ah2026950097",
@@ -969,7 +983,8 @@
         "housing": ") 현재 대한민국에 거주하는 만 19세 이상인 자[국내에 거주하고 있는 재외동포(재외국민, 외국국적 동포) 및 외국인 포함] 또는 법인의 경우 신청 가능합니다 → 청약통장·주택 수 요건 없음"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-04"
     },
     {
       "id": "ah2026940258",
@@ -1041,7 +1056,8 @@
         "housing": "청약통장 가입여부와 무관하게 신청가능 → 청약통장·주택 수 요건 없음"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-01"
     },
     {
       "id": "ah2026950090",
@@ -1121,7 +1137,8 @@
         "housing": ") 현재 대한민국에 거주하는 만 19세 이상인 자[국내에 거주하고 있는 재외동포(재외국민, 외국국적 동포) 및 외국인 포함] 또는 법인의 경우 신청 가능함 → 청약통장·주택 수 요건 없음"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-02"
     },
     {
       "id": "ah2026000560",
@@ -1183,7 +1200,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
-      ]
+      ],
+      "winnersDate": "2026-12-02"
     },
     {
       "id": "ah2026820015",
@@ -1238,7 +1256,8 @@
       "verified": false,
       "evidence": {},
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-08"
     },
     {
       "id": "ah2026910304",
@@ -1283,7 +1302,8 @@
         "housing_alt": "▌본 주택은 무순위(사후) 입주자모집공고일 현재 수도권(경기도·서울특별시·인천광역시)에 거주하는 무주택세대구성원을 대상으로 공급합니다"
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 택지유형 10년 최초 당첨자발표일(2026.10.02.)로부터 3년간 (단, 소유권이전등기를 완료한 경우 소유권이전등기를 완료한 때까지) 없음 미적용 민간택지",
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-03"
     },
     {
       "id": "ah2026930048",
@@ -1326,7 +1346,8 @@
         "residence": "경기도 화성시에 거주하는 무주택세대주(무주택세대의 세대주) 당첨자 선정방법 ■ 경쟁이 있는 경우 추첨의 방법으로 입"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-03"
     },
     {
       "id": "ah2026910303",
@@ -1369,7 +1390,8 @@
         "housing_alt": "■ 본 주택은 무순위(사후) 입주자모집공고일 현재 경기도에 거주하는 무주택세대구성원을 대상으로 공급합니다(외국인 청약불가)"
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 없음 최초 당첨자발표일(2023.11.07.)로부터 3년간 적용되어 현재 전매제한 기간 도과 5년 적용",
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-03"
     },
     {
       "id": "ah2026850057",
@@ -1455,7 +1477,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "소득 기준 있음"
-      ]
+      ],
+      "winnersDate": "2026-12-03"
     },
     {
       "id": "ah2026910305",
@@ -1500,7 +1523,8 @@
         "housing_alt": "■ 본 주택은 무순위(사후) 입주자모집공고일 현재 수도권(경기도, 서울특별시, 인천광역시)에 거주하는 무주택세대구성원을 대상으로 공급합니다(외국인 청약불가)"
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 없음 최초 당첨자 발표일(2024.02.27.)로부터 3년 3년 적용",
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-03"
     },
     {
       "id": "ah2026910289",
@@ -1558,7 +1582,8 @@
         "residence": "전국 에 거주하는 무주택세대구성원 없음"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-03"
     },
     {
       "id": "ah2026000505",
@@ -1624,7 +1649,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
-      ]
+      ],
+      "winnersDate": "2026-12-04"
     },
     {
       "id": "ah2026910301",
@@ -1669,7 +1695,8 @@
         "housing_alt": "■ 본 주택은 무순위(사후) 입주자모집공고일 현재 수도권(서울·경기·인천)에 거주하는 무주택세대구성원을 대상으로 공급합니다(외국인 청약불가)"
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 없음 최초 당첨자발표일(2026.07.09.)로부터 6개월 없음 미적용",
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-04"
     },
     {
       "id": "ah2026910302",
@@ -1712,7 +1739,8 @@
         "housing_alt": "■ 본 주택은 무순위(사후) 입주자모집공고일 현재 경기도에 거주하는 무주택세대구성원을 대상으로 공급합니다(외국인 청약불가)"
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 10년 최초 당첨자발표일(2021.09.08.)로부터 3년간 적용되어 현재 전매제한 기간 도과 없음 미적용",
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-04"
     },
     {
       "id": "ah2026850058",
@@ -1780,7 +1808,8 @@
         "residence": "임차인 모집공고일 현재 만 19세 이상 대한민국 국적을 가진 자 — 거주지 제한 없음"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-04"
     },
     {
       "id": "ah2026000585",
@@ -1842,7 +1871,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
-      ]
+      ],
+      "winnersDate": "2026-12-09"
     },
     {
       "id": "ah2026000591",
@@ -1920,7 +1950,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
-      ]
+      ],
+      "winnersDate": "2026-12-08"
     },
     {
       "id": "ah2026000575",
@@ -1982,7 +2013,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "소득·자산 기준 있음"
-      ]
+      ],
+      "winnersDate": "2026-12-08"
     },
     {
       "id": "ah2026000510",
@@ -2048,7 +2080,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
-      ]
+      ],
+      "winnersDate": "2026-12-08"
     },
     {
       "id": "ah2026000590",
@@ -2127,7 +2160,8 @@
         "residence": "지역 : 해당지역 거주자(광양시 6개월 이상 계속 거주자) → 기타지역 거주자(광양시 6개월 미만 거주자 및 기존 전라남도 및 기존 광주광역시 거주자) ② 배점 : 다자녀가구 특별공급 우선순위 배점 기준표(다자녀가구 특별"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-08"
     },
     {
       "id": "ah2026000598",
@@ -2187,7 +2221,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "소득·자산 기준 있음"
-      ]
+      ],
+      "winnersDate": "2026-12-08"
     },
     {
       "id": "ah2026000596",
@@ -2245,7 +2280,8 @@
         "residence": "지역 : 해당지역 거주자(고창군 거주자) → 기타지역 거주자(전북특별자치도 거주자)"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-08"
     },
     {
       "id": "ah2026000597",
@@ -2309,7 +2345,8 @@
       "ruleNote": null,
       "extraRequirements": [
         "소득·자산 기준 있음"
-      ]
+      ],
+      "winnersDate": "2026-12-08"
     },
     {
       "id": "ah2026000521",
@@ -2373,7 +2410,8 @@
         "residence": "입주자모집공고일 현재 ■ 천안시에 거주하거나 충청남도대전광역시세종특별자치시에 거주하는"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-09"
     },
     {
       "id": "ah2026950089",
@@ -2465,7 +2503,8 @@
         "housing": ") 현재 대한민국에 거주하는 만19세 이상인 자[국내에 거주하고 있는 재외동포(재외국민, 외국국적 동포) 및 외국인 포함] 또는 법인 → 청약통장·주택 수 요건 없음"
       },
       "ruleNote": null,
-      "extraRequirements": []
+      "extraRequirements": [],
+      "winnersDate": "2026-12-11"
     }
   ]
 }
