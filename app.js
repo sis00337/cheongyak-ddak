@@ -331,6 +331,7 @@
         return '<button type="button" data-ia-hh="' + i + '" aria-pressed="' + (i === idx) + '">' + esc(c) + '</button>';
       }).join('') + '</div>' : '';
     var rows = ia.rows || [], body = '', lastGroup = null;
+    var hasDual = rows.some(function (r) { return !!(r.dualPct && r.dualAmounts); });
     rows.forEach(function (r) {
       var amt = (r.amounts || [])[idx];
       var dual = r.dualAmounts ? r.dualAmounts[idx] : null;
@@ -339,21 +340,22 @@
       body += '<tr>' +
         '<td class="ia-what">' + groupCell + (r.label ? '<span>' + esc(r.label) + '</span>' : '') + '</td>' +
         '<td class="ia-num"><span>' + r.pct + '%</span><b>' + (amt == null ? '—' : wonShort(amt)) + '</b></td>' +
-        '<td class="ia-num">' + (r.dualPct
+        (hasDual ? '<td class="ia-num">' + (r.dualPct
           ? '<span>' + r.dualPct + '%</span><b>' + (dual == null ? '—' : wonShort(dual)) + '</b>'
-          : '<span class="ia-dash">—</span>') + '</td>' +
+          : '<span class="ia-dash">—</span>') + '</td>' : '') +
         '</tr>';
     });
     var levelRows = '';
     (ia.levels || []).forEach(function (l) {
       var amt = (l.amounts || [])[idx];
       levelRows += '<tr><td class="ia-what"><span>소득 ' + l.pct + '% 이하</span></td>' +
-        '<td class="ia-num"><b>' + (amt == null ? '—' : wonShort(amt)) + '</b></td><td class="ia-num ia-dash">—</td></tr>';
+        '<td class="ia-num"><b>' + (amt == null ? '—' : wonShort(amt)) + '</b></td>' +
+        (hasDual ? '<td class="ia-num ia-dash">—</td>' : '') + '</tr>';
     });
     if (!body && !levelRows) return hh;
     return hh +
       '<div class="ia-table-wrap"><table class="d-table ia-table">' +
-      '<thead><tr><th>구분</th><th>소득 기준</th><th>맞벌이</th></tr></thead>' +
+      '<thead><tr><th>구분</th><th>소득 기준</th>' + (hasDual ? '<th>맞벌이</th>' : '') + '</tr></thead>' +
       '<tbody>' + body + levelRows + '</tbody></table></div>'; }
 
   function incomeAssetHTML(L) {
