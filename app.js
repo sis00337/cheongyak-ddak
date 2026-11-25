@@ -919,6 +919,7 @@
   }
 
   /* ─────────────── 청약 접수 시간 안내 스트립 ─────────────── */
+  var lastWindowHTML = '';
   var CLOCK_SVG = '<svg class="apply-cta-ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">' +
     '<circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
     '<path d="M12 7.4V12l3.2 2.1" fill="none" stroke="currentColor" stroke-width="1.8" ' +
@@ -929,14 +930,18 @@
     if (!host) return;
     var g = applyGate();
     var tone = g.open ? (g.left <= 60 ? 'soon' : 'open') : g.reason;
-    host.className = 'apply-window apply-window--' + tone;
-    host.innerHTML =
+    var html =
       '<span class="aw-dot" aria-hidden="true"></span>' +
       '<div class="aw-body">' +
         '<b class="aw-title">' + esc(g.head) + '</b>' +
         '<span class="aw-tip">' + esc(g.tip) + '</span>' +
       '</div>' +
       '<span class="aw-hours">청약 접수 ' + esc(g.hours.replace(' (KST)', '')) + ' <b>KST</b></span>';
+    /* 20초마다 다시 그려도 같은 내용이면 건드리지 않는다(스크린리더 재낭독 방지) */
+    if (html === lastWindowHTML && host.className === 'apply-window apply-window--' + tone) return;
+    lastWindowHTML = html;
+    host.className = 'apply-window apply-window--' + tone;
+    host.innerHTML = html;
   }
 
   /* ─────────────────── 관심 공고 연속 신청 모드 ─────────────────── */
