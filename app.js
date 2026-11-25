@@ -969,6 +969,13 @@
   /* ─────────────────── 관심 공고 연속 신청 모드 ─────────────────── */
   function appliedAt(id) { return state.applied[id] || null; }
 
+  /* 실제로 신청할 수 있는 공고 — 접수 기간 중(접수중)이면서 내 조건을 충족한 공고.
+     접수 시작 전(D-n)이거나 조건 미달인 공고는 공고만 볼 수 있으므로 '신청 완료 체크' 대상이 아니다.
+     접수 시간(09:00~17:30) 밖이어도 접수 기간 중이면 신청 대상이므로 포함한다. */
+  function canApplyNow(e) {
+    return !!e.ok && e.status.key === 'open' && !isEnded(e);
+  }
+
   function seqRows() {
     var out = [];
     state.favs.forEach(function (id) {
@@ -988,6 +995,7 @@
   function seqStepHTML(e, i) {
     var L = e.l, st = e.status;
     var done = !!appliedAt(L.id);
+    var applicable = canApplyNow(e);
     var cta = applyMeta(L, st, e.ok);
     var canApply = cta.kind === 'apply';
     var gated = cta.kind === 'time';
@@ -1001,7 +1009,8 @@
         ? (L.applyStart ? md(L.applyStart) + ' 접수 시작' : '접수일 미정')
         : st.key === 'closed' ? '접수 마감' : '일정 미확인';
     var reason = !e.ok && e.fails.length ? e.fails[0].text : '';
-    return '<li class="seq-step' + (done ? ' is-done' : '') + '">' +
+    return '<li class="seq-step' + (done ? ' is-done' : '') + '"' +
+      (applicable ? ' data-can-apply="1"' : '') + '>' +
       '<div class="seq-rail"><span class="seq-no">' + (done ? '✓' : (i + 1)) + '</span></div>' +
       '<div class="seq-body">' +
         '<div class="seq-top">' +
@@ -1012,7 +1021,7 @@
         '<p class="seq-name">' + esc(L.name) + '</p>' +
         '<p class="seq-meta">' + esc(when) + (L.applyPath ? ' · ' + esc(L.applyPath) : '') + '</p>' +
         (reason ? '<p class="seq-reason">✕ ' + esc(reason) + '</p>' : '') +
-        '<div class="seq-actions">' +
+        '<div class="seq-actions' + (applicable || done ? '' : ' seq-actions--no-check') + '">' +
           (gated
             ? '<button type="button" class="seq-open seq-open--time" data-time-note>' +
               CLOCK_SVG + '접수 시간 아님 · ' + esc(cta.gate.card) + '</button>'
@@ -1022,8 +1031,10 @@
               (canApply ? '청약홈 신청 열기 <b>→</b>'
                 : ended ? '오늘 접수 마감 · 공고 보기 <b>↗</b>'
                 : '공고 보기 <b>↗</b>') + '</a>' : '')) +
-          '<button type="button" class="seq-check" data-seq-check="' + esc(L.id) + '" aria-pressed="' + done + '">' +
-            (done ? '신청 완료 ✓' : '신청 완료 체크') + '</button>' +
+          (applicable || done
+            ? '<button type="button" class="seq-check" data-seq-check="' + esc(L.id) + '" aria-pressed="' + done + '">' +
+              (done ? '신청 완료 ✓' : '신청 완료 체크') + '</button>'
+            : '') +
           '<button type="button" class="seq-detail" data-seq-detail="' + esc(L.id) + '">자세히</button>' +
         '</div>' +
       '</div></li>';
@@ -1036,20 +1047,32 @@
     var rows = seqRows();
     if (!rows.length) { host.innerHTML = ''; host.hidden = true; return; }
     host.hidden = false;
-    var done = rows.filter(function (e) { return !!appliedAt(e.l.id); }).length;
-    var pct = Math.round(done / rows.length * 100);
+    /* 진행률 분모는 '지금 실제로 신청할 수 있는 공고'만 센다.
+       접수 예정(D-n)·조건 미달 공고는 신청 대상이 아니라 분모에서 빠지고, 진행률이 비어 보이지 않게
+       그 경우에는 숫자 대신 '신청 가능 공고 없음'으로 알린다.
+       이미 체크해 둔 공고는 그대로 두되(체크 해제 가능), 분모·분자에는 넣지 않는다. */
+    var apt = rows.filter(canApplyNow);
+    var done = apt.filter(function (e) { return !!appliedAt(e.l.id); }).length;
+    var anyDone = rows.some(function (e) { return !!appliedAt(e.l.id); });
+    var pct = apt.length ? Math.round(done / apt.length * 100) : 0;
     host.innerHTML = '<section class="seq" aria-labelledby="seqTitle">' +
       '<div class="seq-head">' +
         '<div class="seq-head-top">' +
           '<h3 class="seq-title" id="seqTitle">연속 신청 모드</h3>' +
-          '<span class="seq-progress-label"><b>' + done + '</b>/' + rows.length + ' 신청 완료</span>' +
+          (apt.length
+            ? '<span class="seq-progress-label"><b>' + done + '</b>/' + apt.length + ' 신청 완료</span>'
+            : '<span class="seq-progress-label seq-progress-label--none">신청 가능 공고 없음</span>') +
         '</div>' +
-        '<div class="seq-bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + rows.length + '" aria-valuenow="' + done + '">' +
-          '<span style="width:' + pct + '%"></span></div>' +
-        '<p class="seq-help">청약홈은 단지마다 <b>주택형·자격 선택</b>과 <b>전자서명</b>을 거쳐야 해서 한 번에 일괄 신청은 안 돼요. 마감이 급한 순서로 열어 하나씩 신청하고 체크하세요.</p>' +
+        (apt.length
+          ? '<div class="seq-bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + apt.length + '" aria-valuenow="' + done + '">' +
+            '<span style="width:' + pct + '%"></span></div>'
+          : '') +
+        '<p class="seq-help">' + (apt.length
+          ? '청약홈은 단지마다 <b>주택형·자격 선택</b>과 <b>전자서명</b>을 거쳐야 해서 한 번에 일괄 신청은 안 돼요. 마감이 급한 순서로 열어 하나씩 신청하고 체크하세요.'
+          : '청약홈은 단지마다 <b>주택형·자격 선택</b>과 <b>전자서명</b>을 거쳐야 해서 한 번에 일괄 신청은 안 돼요. <b>지금은 접수 기간 중인 공고가 없어요</b> — 접수가 시작되면 그 단계에 <b>신청 완료 체크</b>가 나타나요.') + '</p>' +
       '</div>' +
       '<ol class="seq-list">' + rows.map(seqStepHTML).join('') + '</ol>' +
-      (done ? '<button type="button" class="seq-reset" id="seqReset">신청 완료 체크 모두 지우기</button>' : '') +
+      (anyDone ? '<button type="button" class="seq-reset" id="seqReset">신청 완료 체크 모두 지우기</button>' : '') +
       '</section>';
   }
 
@@ -1121,18 +1144,18 @@
     var cm = conflictMap();
     var conflictCount = Object.keys(cm.groups).filter(function (k) { return cm.groups[k].length > 1; }).length;
     $('#ibCount').textContent = state.favs.length;
-    /* 진행률은 연속 신청 모드와 같게 — 마감된 관심 공고는 분모에서 뺀다 */
-    var liveIds = state.favs.filter(function (id) {
+    /* 진행률은 연속 신청 모드와 같게 — 마감된 공고와 접수 예정·조건 미달 공고는 분모에서 뺀다 */
+    var aptIds = state.favs.filter(function (id) {
       for (var i = 0; i < evalCache.length; i++) {
-        if (evalCache[i].l.id === id) return !isEnded(evalCache[i]);
+        if (evalCache[i].l.id === id) return canApplyNow(evalCache[i]);
       }
       return false;
     });
-    var appliedN = liveIds.filter(function (id) { return !!state.applied[id]; }).length;
+    var appliedN = aptIds.filter(function (id) { return !!state.applied[id]; }).length;
     $('#ibSub').textContent = (conflictCount
       ? '발표일 겹침 ' + conflictCount + '쌍 — 확인이 필요해요'
       : '발표일이 겹치는 공고가 없어요') +
-      (appliedN ? ' · 신청 완료 ' + appliedN + '/' + liveIds.length : '');
+      (appliedN ? ' · 신청 완료 ' + appliedN + '/' + aptIds.length : '');
   }
 
   /* ───────────────────────── 드로어 ───────────────────────── */

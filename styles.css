@@ -1558,6 +1558,7 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   font-feature-settings: "tnum" on; white-space: nowrap;
 }
 .seq-progress-label b { color: var(--blue-deep); font-size: 15px; font-weight: 800; }
+.seq-progress-label--none { color: var(--ink-3); font-weight: 600; }
 .seq-bar {
   position: relative; height: 6px; margin-top: 10px;
   border-radius: 99px; background: #eef1f5; overflow: hidden;
@@ -1640,6 +1641,8 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   .seq-actions { display: grid; grid-template-columns: 1fr 1fr; }
   .seq-open { grid-column: 1 / -1; }
   .seq-check, .seq-detail { justify-content: center; }
+  /* 신청 완료 체크가 없는 단계(접수 예정·조건 미달)는 '자세히'가 한 줄을 다 쓴다 */
+  .seq-actions--no-check .seq-detail { grid-column: 1 / -1; }
 }
 
 /* 관심 바 — 연속 신청 버튼 */
