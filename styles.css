@@ -1549,7 +1549,7 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
 }
 
 /* 앵커 스크롤이 상단 고정 헤더(+모바일 미니 바)에 가리지 않게 */
-#seqPanel, #cards, #overlapBanner { scroll-margin-top: 118px; }
+#seqPanel, #cards, #overlapBanner { scroll-margin-top: 132px; }
 @media (min-width: 980px) {
   #seqPanel, #cards, #overlapBanner { scroll-margin-top: 80px; }
 }
