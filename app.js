@@ -420,7 +420,12 @@
     var bits = [];
     var range = dateRange(L.applyStart, L.applyEnd);
     if (st.key === 'upcoming') {
-      bits.push(range ? '접수 ' + (L.applyStart === L.applyEnd ? mdw(L.applyStart) : range) + ' 시작' : '접수일 미정');
+      if (L.applyStart) {
+        bits.push('접수 시작 ' + mdw(L.applyStart) +
+          (L.applyEnd && L.applyEnd !== L.applyStart ? ' · 마감 ' + md(L.applyEnd) : ''));
+      } else {
+        bits.push('접수일 미정');
+      }
     } else if (st.key === 'closed') {
       bits.push(range ? '접수 ' + range + ' 마감' : '접수 마감');
     } else if (range) {
