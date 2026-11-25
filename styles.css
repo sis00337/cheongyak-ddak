@@ -1547,3 +1547,9 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   .ib-btn { padding: 8px 10px; font-size: 11.5px; }
   .ib-text span { display: none; }
 }
+
+/* 앵커 스크롤이 상단 고정 헤더(+모바일 미니 바)에 가리지 않게 */
+#seqPanel, #cards, #overlapBanner { scroll-margin-top: 118px; }
+@media (min-width: 980px) {
+  #seqPanel, #cards, #overlapBanner { scroll-margin-top: 80px; }
+}
