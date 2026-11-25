@@ -1521,8 +1521,9 @@
     });
   }
 
-  /* ─────────────── 접수 시간이 바뀌면 화면을 다시 그린다 ─────────────── */
+  /* ─────────────── 접수 시간·날자가 바뀌면 화면을 다시 그린다 ─────────────── */
   var lastGateOpen = null;
+  var lastIso = null;
   function redrawOpenDrawer() {
     var d = $('#drawer');
     if (!d || d.hidden) return;
@@ -1536,7 +1537,17 @@
     d.scrollTop = sc;
   }
   function tickClock() {
-    var open = applyGate().open;
+    var g = applyGate();
+    var open = g.open;
+    if (lastIso !== null && g.iso !== lastIso) {
+      /* 날짜가 바뀌면 어제까지 접수하던 공고가 목록에서 빠지도록 다시 그린다 */
+      lastIso = g.iso;
+      lastGateOpen = open;
+      refresh();
+      redrawOpenDrawer();
+      return;
+    }
+    lastIso = g.iso;
     if (lastGateOpen !== null && open !== lastGateOpen) {
       lastGateOpen = open;
       refresh();
@@ -1548,6 +1559,7 @@
   }
   function startClock() {
     lastGateOpen = applyGate().open;
+    lastIso = applyGate().iso;
     setInterval(tickClock, 20000);
     document.addEventListener('visibilitychange', function () {
       if (!document.hidden) tickClock();
