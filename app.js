@@ -202,6 +202,20 @@
     return { key: 'open', label: 'D-' + left, days: left, urgent: left <= 2 };
   }
 
+  /* 이미 끝난 공고 — 기본 목록·연속 신청 모드에 올리지 않는다.
+     · 접수 기간이 지난 공고(접수 마감)
+     · 오늘이 마지막 접수일인데 17:30이 지나(또는 주말·공휴일이라) 오늘 안에 접수할 수 없는 공고
+     날짜만 보는 statusOf로는 두 번째 경우를 알 수 없어 접수 시간 게이트를 함께 본다. */
+  function isEnded(e) {
+    var st = e.status;
+    if (st.key === 'closed') return true;
+    if (st.key === 'open' && st.days === 0) {
+      var r = applyGate().reason;
+      return r === 'after' || r === 'weekend' || r === 'holiday';
+    }
+    return false;
+  }
+
   /* ─────────────────── 청약 접수 시간 게이트 ───────────────────
      접수 기간(접수중)이라도 한국 시간 09:00~17:30 밖이거나 주말·공휴일이면
      실제 신청 화면으로 넘어가지 않게 막고, 언제 열리는지 알려 준다. */
@@ -601,14 +615,16 @@
 
   /* ───────────────────────── 결과 ───────────────────────── */
   function counts() {
-    var ok = 0, open = 0;
+    var ok = 0, open = 0, total = 0;
     evalCache.forEach(function (e) {
+      if (isEnded(e)) return;      /* 마감된 공고는 카운트에도 넣지 않는다 */
+      total++;
       if (e.ok) {
         ok++;
         if (e.status.key === 'open' || e.status.key === 'upcoming') open++;
       }
     });
-    return { ok: ok, excluded: evalCache.length - ok, open: open, total: evalCache.length };
+    return { ok: ok, excluded: total - ok, open: open, total: total };
   }
 
   function conflictMap() {
@@ -627,9 +643,11 @@
   function filterList() {
     var cm = conflictMap();
     return evalCache.filter(function (e) {
+      /* 관심에 담아 둔 공고는 마감돼도 '관심'에서만 남긴다 */
+      if (state.filter === 'fav') return state.favs.indexOf(e.l.id) !== -1;
+      if (isEnded(e)) return false;
       if (state.filter === 'eligible') return e.ok;
       if (state.filter === 'excluded') return !e.ok;
-      if (state.filter === 'fav') return state.favs.indexOf(e.l.id) !== -1;
       return true;
     }).map(function (e) {
       return { e: e, conflict: !!cm.map[e.l.id] };
@@ -711,7 +729,8 @@
         bits.push('접수일 미정');
       }
     } else if (st.key === 'closed') {
-      bits.push(range ? '접수 ' + range + ' 마감' : '접수 마감');
+      /* 이미 끝난 접수다 — '청약홈 로그인 후 신청'을 붙이면 지금도 신청할 수 있는 것처럼 읽힌다 */
+      return range ? '접수 ' + range + ' 마감' : '접수 마감';
     } else if (range) {
       bits.push('접수 ' + range);
       if (st.key === 'open' && st.days === 0) bits.push('오늘 17:30까지');
@@ -786,7 +805,9 @@
     }
 
     var alt = [];
-    if (L.applyUrl && L.applyUrl !== cta.url && cta.kind !== 'ended') {
+    /* 신청 화면 참고 링크는 접수 예정·일정 미확인 공고에만 둔다.
+       마감·조건 미달 공고는 신청할 수 없으므로 공고 상세·공고문만 연다. */
+    if (L.applyUrl && L.applyUrl !== cta.url && (cta.kind === 'wait' || cta.kind === 'detail')) {
       alt.push('<a class="d-link" href="' + esc(L.applyUrl) + '" target="_blank" rel="noopener">' +
         esc(L.applyPath || '청약신청 화면') + ' ↗</a>');
     }
@@ -887,6 +908,7 @@
   function renderResults() {
     var c = counts();
     var gate = applyGate();
+    $('#hdrCount').textContent = c.total;   /* 헤더 카운트도 지금 볼 수 있는 공고만 센다 */
     $('#eligibleCount').textContent = c.ok;
     $('#resultsSub').innerHTML = gate.open
       ? '지원 가능 <b>' + c.ok + '건</b> 중 지금 접수 가능 <b>' + c.open + '건</b> · 조건 미달 ' + c.excluded + '건'
@@ -952,7 +974,7 @@
     state.favs.forEach(function (id) {
       var e = null;
       for (var i = 0; i < evalCache.length; i++) if (evalCache[i].l.id === id) { e = evalCache[i]; break; }
-      if (e) out.push(e);
+      if (e && !isEnded(e)) out.push(e);     /* 마감된 공고는 연속 신청 모드에서 뺀다 */
     });
     var rank = { open: 0, upcoming: 1, unknown: 2, closed: 3 };
     return out.sort(function (a, b) {
@@ -970,7 +992,9 @@
     var canApply = cta.kind === 'apply';
     var gated = cta.kind === 'time';
     var ended = cta.kind === 'ended';
-    var url = canApply ? cta.url : (L.detailUrl || L.applyUrl || '');
+    /* 신청할 수 없는 공고는 신청 화면이 아니라 공고 상세로만 보낸다 */
+    var detail = L.detailUrl || L.link || '';
+    var url = canApply ? cta.url : detail;
     var when = st.key === 'open'
       ? (st.days === 0 ? '오늘 17:30 마감' : st.label + ' · ' + md(L.applyEnd) + ' 마감')
       : st.key === 'upcoming'
@@ -993,10 +1017,11 @@
             ? '<button type="button" class="seq-open seq-open--time" data-time-note>' +
               CLOCK_SVG + '접수 시간 아님 · ' + esc(cta.gate.card) + '</button>'
             : (url ? '<a class="seq-open" href="' + esc(url) + '" target="_blank" rel="noopener"' +
-              (canApply ? ' data-apply' : '') + '>' +
+              (canApply ? ' data-apply' : '') +
+              (canApply ? '' : ' aria-label="' + esc(L.name) + ' — 청약홈 공고 보기"') + '>' +
               (canApply ? '청약홈 신청 열기 <b>→</b>'
                 : ended ? '오늘 접수 마감 · 공고 보기 <b>↗</b>'
-                : '공고·신청 화면 열기 <b>↗</b>') + '</a>' : '')) +
+                : '공고 보기 <b>↗</b>') + '</a>' : '')) +
           '<button type="button" class="seq-check" data-seq-check="' + esc(L.id) + '" aria-pressed="' + done + '">' +
             (done ? '신청 완료 ✓' : '신청 완료 체크') + '</button>' +
           '<button type="button" class="seq-detail" data-seq-detail="' + esc(L.id) + '">자세히</button>' +
@@ -1041,6 +1066,11 @@
       return '<div class="empty"><div class="empty-emoji">🤍</div>' +
         '<p class="empty-title">아직 담은 공고가 없어요</p>' +
         '<p class="empty-copy">카드의 <b>관심</b>을 눌러 두면<br>발표일이 겹치는지 한 번에 확인해 드려요.</p></div>';
+    }
+    if (!counts().total) {
+      return '<div class="empty"><div class="empty-emoji">🗓️</div>' +
+        '<p class="empty-title">지금은 접수 중인 공고가 없어요</p>' +
+        '<p class="empty-copy">접수가 끝난 공고는 목록에서 빠집니다.<br>매일 오전 10시에 새 공고를 다시 받아와요.</p></div>';
     }
     if (state.filter === 'excluded') {
       return '<div class="empty"><div class="empty-emoji">🎉</div>' +
@@ -1091,11 +1121,18 @@
     var cm = conflictMap();
     var conflictCount = Object.keys(cm.groups).filter(function (k) { return cm.groups[k].length > 1; }).length;
     $('#ibCount').textContent = state.favs.length;
-    var appliedN = state.favs.filter(function (id) { return !!state.applied[id]; }).length;
+    /* 진행률은 연속 신청 모드와 같게 — 마감된 관심 공고는 분모에서 뺀다 */
+    var liveIds = state.favs.filter(function (id) {
+      for (var i = 0; i < evalCache.length; i++) {
+        if (evalCache[i].l.id === id) return !isEnded(evalCache[i]);
+      }
+      return false;
+    });
+    var appliedN = liveIds.filter(function (id) { return !!state.applied[id]; }).length;
     $('#ibSub').textContent = (conflictCount
       ? '발표일 겹침 ' + conflictCount + '쌍 — 확인이 필요해요'
       : '발표일이 겹치는 공고가 없어요') +
-      (appliedN ? ' · 신청 완료 ' + appliedN + '/' + state.favs.length : '');
+      (appliedN ? ' · 신청 완료 ' + appliedN + '/' + liveIds.length : '');
   }
 
   /* ───────────────────────── 드로어 ───────────────────────── */
