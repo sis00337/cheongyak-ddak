@@ -272,16 +272,6 @@
   /* ─────────────────── 소득·자산 기준 표시 ─────────────────── */
   var iaHousehold = 0;   /* 드로어에서 고른 가구원수 칸(0부터) */
 
-  function iaPcts(ia) {
-    var out = [];
-    (ia.rows || []).forEach(function (r) {
-      if (out.indexOf(r.pct) === -1) out.push(r.pct);
-      if (r.dualPct && out.indexOf(r.dualPct) === -1) out.push(r.dualPct);
-    });
-    (ia.levels || []).forEach(function (l) { if (out.indexOf(l.pct) === -1) out.push(l.pct); });
-    return out.sort(function (a, b) { return a - b; });
-  }
-
   /* 카드·판정에 쓰는 한 줄 요약 */
   function iaSummary(ia) {
     if (!ia) return '';
