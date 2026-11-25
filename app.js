@@ -40,6 +40,7 @@
   var DEP_MAX = 15000000;   /* 슬라이더 상한 1,500만 원 */
   var DEP_STEP = 100000;    /* 슬라이더 10만 원 단위 */
   var STORE_KEY = 'cheongyakddak:v3';
+  var APPLIED_KEY = 'cheongyakddak:applied:v1';
   var LEGACY_KEY = 'cheongyakddak:v2';
   var WD = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -51,7 +52,8 @@
     householder: '세대주',
     filter: 'eligible',
     sort: 'deadline',
-    favs: []
+    favs: [],
+    applied: {}            /* 관심 공고별 '신청 완료' 체크 시각 */
   };
 
   var LISTINGS = [];
@@ -81,6 +83,20 @@
     if (n % 10000 === 0) return num(n / 10000) + '만';
     return won(n);
   }
+  /* 원 단위 금액을 카드·표에 짧게: 2억 1,550만 / 753만 */
+  function wonShort(w) {
+    w = Math.round(Number(w) || 0);
+    if (w >= 100000000) {
+      var eok = Math.floor(w / 100000000);
+      var man = Math.round((w % 100000000) / 10000);
+      return num(eok) + '억' + (man ? ' ' + num(man) + '만' : '');
+    }
+    if (w >= 10000) return num(Math.round(w / 10000)) + '만';
+    return num(w) + '원';
+  }
+  /* 공고문 표 단위(천원) → 짧은 금액 */
+  function cheonShort(n) { return wonShort((Number(n) || 0) * 1000); }
+
   function parseWon(s) {
     var digits = String(s == null ? '' : s).replace(/[^0-9]/g, '');
     if (!digits) return 0;
@@ -174,6 +190,17 @@
       if (HOUSEHOLDER.some(function (o) { return o.v === s.householder; })) state.householder = s.householder;
       if (Array.isArray(s.favs)) state.favs = s.favs.slice(0, 20);
     } catch (e) { /* 무시 */ }
+    try {
+      var rawA = localStorage.getItem(APPLIED_KEY);
+      if (rawA) {
+        var a = JSON.parse(rawA);
+        if (a && typeof a === 'object') state.applied = a;
+      }
+    } catch (e) { /* 무시 */ }
+  }
+
+  function saveApplied() {
+    try { localStorage.setItem(APPLIED_KEY, JSON.stringify(state.applied)); } catch (e) { /* 무시 */ }
   }
 
   /* ───────────────────────── 판정 ───────────────────────── */
@@ -229,13 +256,145 @@
       fails.push({ text: '무주택세대의 세대주만 신청 가능' });
     }
 
-    (L.extraRequirements || []).forEach(function (x) { warns.push(x); });
+    (L.extraRequirements || []).forEach(function (x) {
+      /* 소득·자산은 카드의 수치 요약 박스와 드로어 표로 따로 보여 준다 */
+      if (L.incomeAsset && /소득|자산/.test(x)) return;
+      warns.push(x);
+    });
 
     var status = statusOf(L);
     if (status.key === 'closed') warns.push('접수 마감된 공고');
     if (!L.verified) warns.push('공고문 원문 확인 필요');
 
     return { l: L, fails: fails, passes: passes, warns: warns, status: status, ok: fails.length === 0 };
+  }
+
+  /* ─────────────────── 소득·자산 기준 표시 ─────────────────── */
+  var iaHousehold = 0;   /* 드로어에서 고른 가구원수 칸(0부터) */
+
+  function iaPcts(ia) {
+    var out = [];
+    (ia.rows || []).forEach(function (r) {
+      if (out.indexOf(r.pct) === -1) out.push(r.pct);
+      if (r.dualPct && out.indexOf(r.dualPct) === -1) out.push(r.dualPct);
+    });
+    (ia.levels || []).forEach(function (l) { if (out.indexOf(l.pct) === -1) out.push(l.pct); });
+    return out.sort(function (a, b) { return a - b; });
+  }
+
+  /* 카드·판정에 쓰는 한 줄 요약 */
+  function iaSummary(ia) {
+    if (!ia) return '';
+    if (ia.status === '기준 없음') return '소득·자산 기준 없음';
+    if (ia.status !== '확인') return '소득·자산 기준 원문 확인 필요';
+    var singles = [], duals = [];
+    (ia.rows || []).forEach(function (r) {
+      if (singles.indexOf(r.pct) === -1) singles.push(r.pct);
+      if (r.dualPct && duals.indexOf(r.dualPct) === -1) duals.push(r.dualPct);
+    });
+    (ia.levels || []).forEach(function (l) { if (singles.indexOf(l.pct) === -1) singles.push(l.pct); });
+    singles.sort(function (a, b) { return a - b; });
+    duals.sort(function (a, b) { return a - b; });
+    var bits = [];
+    if (singles.length) {
+      bits.push('소득 ' + (singles.length > 1 ? singles[0] + '~' + singles[singles.length - 1] : singles[0]) + '%' +
+        (duals.length ? ' (맞벌이 ' + duals[duals.length - 1] + '%)' : ''));
+    }
+    if (ia.asset && ia.asset.realEstate) {
+      bits.push('자산 부동산 ' + cheonShort(ia.asset.realEstate) +
+        (ia.asset.car ? '·차 ' + cheonShort(ia.asset.car) : ''));
+    } else if (singles.length) {
+      bits.push('자산 기준 없음');
+    }
+    return bits.join(' · ');
+  }
+
+  function cardIncomeHTML(L) {
+    var ia = L.incomeAsset;
+    if (!ia) return '';
+    var tone = ia.status === '확인' ? 'ok' : ia.status === '기준 없음' ? 'none' : 'need';
+    var text = ia.status === '기준 없음'
+      ? '기준 없음 — 청약통장·소득·자산과 관계없이 신청'
+      : ia.status === '확인' ? iaSummary(ia)
+      : '원문 확인 필요 — 공고문 PDF 미첨부';
+    return '<div class="card-income card-income--' + tone + '">' +
+      '<span class="ci-tag">소득·자산</span>' +
+      '<span class="ci-text">' + esc(text) + '</span>' +
+      '</div>';
+  }
+
+  function iaTableHTML(ia) {
+    var cols = ia.columns || [];
+    var idx = Math.min(Math.max(iaHousehold, 0), Math.max(cols.length - 1, 0));
+    var hh = cols.length ? '<div class="ia-hh" role="group" aria-label="가구원수">' +
+      cols.map(function (c, i) {
+        return '<button type="button" data-ia-hh="' + i + '" aria-pressed="' + (i === idx) + '">' + esc(c) + '</button>';
+      }).join('') + '</div>' : '';
+    var rows = ia.rows || [], body = '', lastGroup = null;
+    rows.forEach(function (r) {
+      var amt = (r.amounts || [])[idx];
+      var dual = r.dualAmounts ? r.dualAmounts[idx] : null;
+      var groupCell = r.group && r.group !== lastGroup ? '<b class="ia-group">' + esc(r.group) + '</b>' : '';
+      if (r.group) lastGroup = r.group;
+      body += '<tr>' +
+        '<td class="ia-what">' + groupCell + (r.label ? '<span>' + esc(r.label) + '</span>' : '') + '</td>' +
+        '<td class="ia-num"><span>' + r.pct + '%</span><b>' + (amt == null ? '—' : wonShort(amt)) + '</b></td>' +
+        '<td class="ia-num">' + (r.dualPct
+          ? '<span>' + r.dualPct + '%</span><b>' + (dual == null ? '—' : wonShort(dual)) + '</b>'
+          : '<span class="ia-dash">—</span>') + '</td>' +
+        '</tr>';
+    });
+    var levelRows = '';
+    (ia.levels || []).forEach(function (l) {
+      var amt = (l.amounts || [])[idx];
+      levelRows += '<tr><td class="ia-what"><span>소득 ' + l.pct + '% 이하</span></td>' +
+        '<td class="ia-num"><b>' + (amt == null ? '—' : wonShort(amt)) + '</b></td><td class="ia-num ia-dash">—</td></tr>';
+    });
+    if (!body && !levelRows) return hh;
+    return hh +
+      '<div class="ia-table-wrap"><table class="d-table ia-table">' +
+      '<thead><tr><th>구분</th><th>소득 기준</th><th>맞벌이</th></tr></thead>' +
+      '<tbody>' + body + levelRows + '</tbody></table></div>'; }
+
+  function incomeAssetHTML(L) {
+    var ia = L.incomeAsset;
+    if (!ia) return '';
+    var badge = ia.status === '확인' ? '<span class="ia-badge ia-badge--ok">공고문 확인</span>' :
+      ia.status === '기준 없음' ? '<span class="ia-badge ia-badge--none">기준 없음</span>' :
+      '<span class="ia-badge ia-badge--need">원문 확인 필요</span>';
+    var inner = '';
+    if (ia.applies) {
+      inner += '<p class="ia-applies"><b>적용 대상</b> ' + esc(ia.applies) + '</p>';
+    }
+    if (ia.status === '확인') {
+      if ((ia.rows && ia.rows.length) || (ia.levels && ia.levels.length)) {
+        inner += '<p class="ia-cap">' + esc(ia.incomeLabel || '전년도 도시근로자 가구당 월평균소득') +
+          ' 기준 — 가구원수를 고르면 그 가구의 기준액이 보여요.</p>';
+        inner += iaTableHTML(ia);
+      }
+      if (ia.asset && ia.asset.realEstate) {
+        inner += '<ul class="ia-asset">' +
+          '<li><span>부동산(건물+토지) 공시가격</span><b>' + cheonShort(ia.asset.realEstate) + ' 원 이하</b></li>' +
+          (ia.asset.car ? '<li><span>자동차(비영업용 승용)</span><b>' + cheonShort(ia.asset.car) + ' 원 이하</b></li>' : '') +
+          '</ul>';
+        var rb = ia.asset.relaxedForBirth;
+        if (rb && rb.realEstate1Child) {
+          inner += '<p class="ia-note">출산가구 완화 — 자녀 1명: 부동산 ' + cheonShort(rb.realEstate1Child) +
+            (rb.car1Child ? '·자동차 ' + cheonShort(rb.car1Child) : '') +
+            ' / 2명 이상: 부동산 ' + cheonShort(rb.realEstate2Child) +
+            (rb.car2Child ? '·자동차 ' + cheonShort(rb.car2Child) : '') + ' 이하</p>';
+        }
+      } else if ((ia.rows && ia.rows.length) || (ia.levels && ia.levels.length)) {
+        inner += '<p class="ia-note">공고문에 별도의 자산보유기준은 없습니다.</p>';
+      }
+    }
+    if (ia.note) inner += '<p class="ia-warn">' + esc(ia.note) + '</p>';
+    if (ia.generalNote) inner += '<p class="ia-note">' + esc(ia.generalNote) + '</p>';
+    if (ia.source) {
+      inner += '<p class="ia-source">근거 · ' + esc(ia.source) + (ia.checkedAt ? ' · ' + esc(ia.checkedAt) + ' 확인' : '') + '</p>';
+    }
+    return '<section class="d-sec" id="drawerIncome">' +
+      '<h3 class="d-sec-title">소득·자산 기준 ' + badge + '</h3>' + inner + '</section>';
   }
 
   function evaluateAll() { evalCache = LISTINGS.map(evaluate); return evalCache; }
@@ -523,6 +682,7 @@
           '<div class="card-fact"><span>물량</span><b>' + esc(units) + '</b></div>' +
           '<div class="card-fact"><span>예치금</span><b>' + esc(dep) + '</b></div>' +
         '</div>' +
+        cardIncomeHTML(L) +
         '<div class="card-verdict">' +
           '<span class="verdict ' + (e.ok ? 'verdict-ok' : 'verdict-no') + '">' +
             (e.ok ? '✓ 지원 가능' : '✕ 조건 미달') +
@@ -582,7 +742,93 @@
     }
 
     renderOverlap();
+    renderSeqPanel();
     renderInterestBar();
+  }
+
+  /* ─────────────────── 관심 공고 연속 신청 모드 ─────────────────── */
+  function appliedAt(id) { return state.applied[id] || null; }
+
+  function seqRows() {
+    var out = [];
+    state.favs.forEach(function (id) {
+      var e = null;
+      for (var i = 0; i < evalCache.length; i++) if (evalCache[i].l.id === id) { e = evalCache[i]; break; }
+      if (e) out.push(e);
+    });
+    var rank = { open: 0, upcoming: 1, unknown: 2, closed: 3 };
+    return out.sort(function (a, b) {
+      var ra = rank[a.status.key], rb = rank[b.status.key];
+      if (ra !== rb) return ra - rb;
+      var da = a.l.applyStart || a.l.applyEnd || '9999', db = b.l.applyStart || b.l.applyEnd || '9999';
+      return da < db ? -1 : da > db ? 1 : 0;
+    });
+  }
+
+  function seqStepHTML(e, i) {
+    var L = e.l, st = e.status;
+    var done = !!appliedAt(L.id);
+    var cta = applyMeta(L, st, e.ok);
+    var canApply = cta.kind === 'apply';
+    var url = canApply ? cta.url : (L.detailUrl || L.applyUrl || '');
+    var when = st.key === 'open'
+      ? (st.days === 0 ? '오늘 17:30 마감' : st.label + ' · ' + md(L.applyEnd) + ' 마감')
+      : st.key === 'upcoming'
+        ? (L.applyStart ? md(L.applyStart) + ' 접수 시작' : '접수일 미정')
+        : st.key === 'closed' ? '접수 마감' : '일정 미확인';
+    var reason = !e.ok && e.fails.length ? e.fails[0].text : '';
+    return '<li class="seq-step' + (done ? ' is-done' : '') + '">' +
+      '<div class="seq-rail"><span class="seq-no">' + (done ? '✓' : (i + 1)) + '</span></div>' +
+      '<div class="seq-body">' +
+        '<div class="seq-top">' +
+          '<span class="chip chip-region">' + esc(L.region) + '</span>' +
+          '<span class="chip chip-type">' + esc(L.supplyType) + '</span>' +
+          '<span class="' + ddayClass(st) + '">' + esc(st.label) + '</span>' +
+        '</div>' +
+        '<p class="seq-name">' + esc(L.name) + '</p>' +
+        '<p class="seq-meta">' + esc(when) + (L.applyPath ? ' · ' + esc(L.applyPath) : '') + '</p>' +
+        (reason ? '<p class="seq-reason">✕ ' + esc(reason) + '</p>' : '') +
+        '<div class="seq-actions">' +
+          (url ? '<a class="seq-open" href="' + esc(url) + '" target="_blank" rel="noopener"' +
+            (canApply ? ' data-apply' : '') + '>' +
+            (canApply ? '청약홈 신청 열기 <b>→</b>' : '공고·신청 화면 열기 <b>↗</b>') + '</a>' : '') +
+          '<button type="button" class="seq-check" data-seq-check="' + esc(L.id) + '" aria-pressed="' + done + '">' +
+            (done ? '신청 완료 ✓' : '신청 완료 체크') + '</button>' +
+          '<button type="button" class="seq-detail" data-seq-detail="' + esc(L.id) + '">자세히</button>' +
+        '</div>' +
+      '</div></li>';
+  }
+
+  function renderSeqPanel() {
+    var host = $('#seqPanel');
+    if (!host) return;
+    if (state.filter !== 'fav') { host.innerHTML = ''; host.hidden = true; return; }
+    var rows = seqRows();
+    if (!rows.length) { host.innerHTML = ''; host.hidden = true; return; }
+    host.hidden = false;
+    var done = rows.filter(function (e) { return !!appliedAt(e.l.id); }).length;
+    var pct = Math.round(done / rows.length * 100);
+    host.innerHTML = '<section class="seq" aria-labelledby="seqTitle">' +
+      '<div class="seq-head">' +
+        '<div class="seq-head-top">' +
+          '<h3 class="seq-title" id="seqTitle">연속 신청 모드</h3>' +
+          '<span class="seq-progress-label"><b>' + done + '</b>/' + rows.length + ' 신청 완료</span>' +
+        '</div>' +
+        '<div class="seq-bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + rows.length + '" aria-valuenow="' + done + '">' +
+          '<span style="width:' + pct + '%"></span></div>' +
+        '<p class="seq-help">청약홈은 단지마다 <b>주택형·자격 선택</b>과 <b>전자서명</b>을 거쳐야 해서 한 번에 일괄 신청은 안 돼요. 마감이 급한 순서로 열어 하나씩 신청하고 체크하세요.</p>' +
+      '</div>' +
+      '<ol class="seq-list">' + rows.map(seqStepHTML).join('') + '</ol>' +
+      (done ? '<button type="button" class="seq-reset" id="seqReset">신청 완료 체크 모두 지우기</button>' : '') +
+      '</section>';
+  }
+
+  function toggleApplied(id) {
+    if (state.applied[id]) delete state.applied[id];
+    else state.applied[id] = new Date().toISOString();
+    saveApplied();
+    renderResults();
+    return !!state.applied[id];
   }
 
   function emptyHTML() {
@@ -640,9 +886,11 @@
     var cm = conflictMap();
     var conflictCount = Object.keys(cm.groups).filter(function (k) { return cm.groups[k].length > 1; }).length;
     $('#ibCount').textContent = state.favs.length;
-    $('#ibSub').textContent = conflictCount
+    var appliedN = state.favs.filter(function (id) { return !!state.applied[id]; }).length;
+    $('#ibSub').textContent = (conflictCount
       ? '발표일 겹침 ' + conflictCount + '쌍 — 확인이 필요해요'
-      : '발표일이 겹치는 공고가 없어요';
+      : '발표일이 겹치는 공고가 없어요') +
+      (appliedN ? ' · 신청 완료 ' + appliedN + '/' + state.favs.length : '');
   }
 
   /* ───────────────────────── 드로어 ───────────────────────── */
@@ -754,6 +1002,7 @@
           '<h3 class="d-sec-title">공급 금액</h3>' +
           typesHTML(L) +
         '</section>' +
+        incomeAssetHTML(L) +
         '<section class="d-sec">' +
           '<h3 class="d-sec-title">신청 전 확인</h3>' +
           '<dl class="d-dl">' +
@@ -894,6 +1143,44 @@
 
       var fbtn = ev.target.closest('[data-filter]');
       if (fbtn) { state.filter = fbtn.getAttribute('data-filter'); renderResults(); return; }
+
+      var seqCheck = ev.target.closest('[data-seq-check]');
+      if (seqCheck) {
+        var sNow = toggleApplied(seqCheck.getAttribute('data-seq-check'));
+        toast(sNow ? '신청 완료로 체크했어요' : '체크를 지웠어요');
+        return;
+      }
+      var seqDetail = ev.target.closest('[data-seq-detail]');
+      if (seqDetail) { openDrawer(seqDetail.getAttribute('data-seq-detail')); return; }
+      if (ev.target.closest('#seqReset')) {
+        state.favs.forEach(function (id) { delete state.applied[id]; });
+        saveApplied();
+        renderResults();
+        toast('신청 완료 체크를 모두 지웠어요');
+        return;
+      }
+      if (ev.target.closest('#ibSeqBtn')) {
+        state.filter = 'fav';
+        renderResults();
+        var seqHost = $('#seqPanel');
+        (seqHost && !seqHost.hidden ? seqHost : $('#cards')).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      var hhBtn = ev.target.closest('[data-ia-hh]');
+      if (hhBtn) {
+        iaHousehold = Number(hhBtn.getAttribute('data-ia-hh')) || 0;
+        var did = $('#drawer').getAttribute('data-id');
+        var de = null;
+        for (var k = 0; k < evalCache.length; k++) if (evalCache[k].l.id === did) { de = evalCache[k]; break; }
+        if (de) {
+          var sc = $('#drawer').scrollTop;
+          $('#drawer').innerHTML = drawerHTML(de);
+          $('#drawer').setAttribute('data-id', did);
+          $('#drawer').scrollTop = sc;
+        }
+        return;
+      }
 
       var favBtn = ev.target.closest('[data-fav]');
       if (favBtn) {
