@@ -88,7 +88,6 @@
             <h2 id="condTitle">내 조건</h2>
             <p class="cond-sub">한 번 넣으면 브라우저에 저장돼요</p>
           </div>
-          <button class="btn-ghost" id="presetBtn" type="button">예시 불러오기</button>
         </div>
 
         <div class="field">
@@ -101,15 +100,23 @@
           <div class="region-grid" id="segResidence" role="group" aria-label="거주지"></div>
         </div>
 
-        <div class="field">
-          <div class="field-label">청약통장 예치금</div>
+        <div class="field field-deposit">
+          <div class="field-label">청약통장 예치금 <span class="field-hint">통장에 실제로 넣어 둔 금액</span></div>
           <div class="deposit-value">
-            <strong id="depositValue">204만 원</strong>
+            <strong id="depositValue">2,000,000원</strong>
             <span class="deposit-hint" id="depositHint">경기 85㎡ 이하 1순위 기준 200만 원</span>
           </div>
-          <div class="chips" id="depositChips" role="group" aria-label="예치금 빠른 선택"></div>
-          <input class="range" id="depositRange" type="range" min="0" max="600" step="1" value="204" aria-label="청약통장 예치금">
-          <div class="range-scale"><span>0</span><span>300만</span><span>600만+</span></div>
+          <div class="chips chips-deposit" id="depositChips" role="group" aria-label="예치금 빠른 선택 — 50만 원 단위"></div>
+          <input class="range" id="depositRange" type="range" min="0" max="15000000" step="100000" value="2000000" aria-label="청약통장 예치금 — 10만 원 단위">
+          <div class="range-scale"><span>0원</span><span>750만</span><span>1,500만+</span></div>
+          <div class="deposit-input">
+            <label class="di-label" for="depositInput">직접 입력</label>
+            <span class="di-field">
+              <input id="depositInput" type="text" inputmode="numeric" autocomplete="off" value="2,000,000" aria-label="청약통장 예치금 직접 입력 (원)">
+              <span class="di-unit">원</span>
+            </span>
+          </div>
+          <p class="deposit-note">버튼은 50만 원, 슬라이더는 10만 원 단위로 움직여요. 금액은 원 단위로 직접 쓸 수 있어요.</p>
         </div>
 
         <div class="field">
@@ -174,6 +181,7 @@
           <li><b>거주지</b> — 전국 · 수도권 · 해당지역 요건을 공고문 그대로 판정하고, 해당지역 우선 공고는 남은 물량이라는 점을 따로 알려드려요.</li>
           <li><b>예치금</b> — 85㎡ 이하 1순위 기준 서울·부산 300만, 그 밖의 광역시 250만, 그 밖의 지역 200만 원이에요.</li>
           <li><b>발표일 중복</b> — 발표일이 같은 공고는 1인 1건만 유효해요. 관심 체크로 미리 확인하세요.</li>
+          <li><b>청약홈 신청</b> — 상세의 <b>청약홈에서 신청하기</b>는 공고 유형(1순위·무순위·임의공급·오피스텔·민간임대)에 맞는 청약홈 청약신청 화면으로 바로 넘어가요. 신청·전자서명은 청약홈에서 직접 하게 됩니다.</li>
         </ul>
         <p class="notice-note">
           공고 데이터: 청약홈(applyhome.co.kr) 입주자모집공고 · <b>2026-11-25 수집 · 전국 17개 시도</b> ·

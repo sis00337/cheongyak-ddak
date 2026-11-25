@@ -29,21 +29,25 @@
   ];
   var DEPOSIT_CHIPS = [
     { v: 0, l: '없음' },
-    { v: 200, l: '200만' },
-    { v: 204, l: '204만' },
-    { v: 250, l: '250만' },
-    { v: 300, l: '300만' },
-    { v: 500, l: '500만+' }
+    { v: 2000000, l: '200만' },
+    { v: 2500000, l: '250만' },
+    { v: 3000000, l: '300만' },
+    { v: 3500000, l: '350만' },
+    { v: 4000000, l: '400만' },
+    { v: 4500000, l: '450만' },
+    { v: 5000000, l: '500만+' }
   ];
-  var PRESET = { housing: '1주택', residence: '경기', deposit: 204, householder: '세대주' };
-  var STORE_KEY = 'cheongyakddak:v2';
+  var DEP_MAX = 15000000;   /* 슬라이더 상한 1,500만 원 */
+  var DEP_STEP = 100000;    /* 슬라이더 10만 원 단위 */
+  var STORE_KEY = 'cheongyakddak:v3';
+  var LEGACY_KEY = 'cheongyakddak:v2';
   var WD = ['일', '월', '화', '수', '목', '금', '토'];
 
   /* ───────────────────────── 상태 ───────────────────────── */
   var state = {
-    housing: '1주택',
+    housing: '무주택',
     residence: '경기',
-    deposit: 204,
+    deposit: 2000000,          /* 원 단위 */
     householder: '세대주',
     filter: 'eligible',
     sort: 'deadline',
@@ -63,6 +67,25 @@
     });
   }
   function num(n) { return Number(n).toLocaleString('ko-KR'); }
+  /* 금액은 앱 안에서 원 단위로 다룬다. */
+  function won(n) { return num(Math.round(n)) + '원'; }
+  function moneyLabel(n) {
+    n = Math.round(n);
+    if (n === 0) return '0원';
+    if (n >= 10000 && n % 10000 === 0) return num(n / 10000) + '만 원';
+    return num(n) + '원';
+  }
+  function moneyChip(n) {
+    if (!n) return '없음';
+    if (n >= 100000000) return num(Math.round(n / 100000000 * 10) / 10) + '억';
+    if (n % 10000 === 0) return num(n / 10000) + '만';
+    return won(n);
+  }
+  function parseWon(s) {
+    var digits = String(s == null ? '' : s).replace(/[^0-9]/g, '');
+    if (!digits) return 0;
+    return Math.min(Number(digits), 999999999);
+  }
   function parseDate(iso) {
     if (!iso) return null;
     var d = new Date(iso + 'T00:00:00+09:00');
@@ -121,20 +144,33 @@
       localStorage.setItem(STORE_KEY, JSON.stringify({
         housing: state.housing,
         residence: state.residence,
-        deposit: state.deposit,
+        depositWon: state.deposit,
         householder: state.householder,
         favs: state.favs
       }));
     } catch (e) { /* 저장 실패는 무시 */ }
   }
   function load() {
+    var s = null;
     try {
       var raw = localStorage.getItem(STORE_KEY);
-      if (!raw) return;
-      var s = JSON.parse(raw);
+      if (raw) s = JSON.parse(raw);
+      if (!s) {
+        /* 예전 버전(v2)은 예치금을 만원 단위(예: 204)로 저장했다 — 원 단위로 옮겨 온다. */
+        raw = localStorage.getItem(LEGACY_KEY);
+        if (raw) {
+          s = JSON.parse(raw);
+          if (typeof s.deposit === 'number') s.depositWon = s.deposit * 10000;
+        }
+      }
+    } catch (e) { s = null; }
+    if (!s) return;
+    try {
       if (HOUSING.some(function (o) { return o.v === s.housing; })) state.housing = s.housing;
       if (REGIONS.some(function (o) { return o.v === s.residence; })) state.residence = s.residence;
-      if (typeof s.deposit === 'number' && s.deposit >= 0) state.deposit = s.deposit;
+      if (typeof s.depositWon === 'number' && isFinite(s.depositWon) && s.depositWon >= 0) {
+        state.deposit = Math.min(Math.round(s.depositWon), 999999999);
+      }
       if (HOUSEHOLDER.some(function (o) { return o.v === s.householder; })) state.householder = s.householder;
       if (Array.isArray(s.favs)) state.favs = s.favs.slice(0, 20);
     } catch (e) { /* 무시 */ }
@@ -179,10 +215,11 @@
     }
 
     /* 3. 예치금 */
-    if (D < L.requiredDeposit) {
-      fails.push({ text: '예치금 ' + num(L.requiredDeposit - D) + '만 원 부족 (' + num(L.requiredDeposit) + '만 원 필요)' });
-    } else if (L.requiredDeposit > 0) {
-      passes.push('예치금 ' + num(L.requiredDeposit) + '만 원 충족');
+    var need = (L.requiredDeposit || 0) * 10000;
+    if (D < need) {
+      fails.push({ text: '예치금 ' + moneyLabel(need - D) + ' 부족 (' + moneyLabel(need) + ' 필요)' });
+    } else if (need > 0) {
+      passes.push('예치금 ' + moneyLabel(need) + ' 충족');
     } else {
       passes.push('예치금 요건 없음');
     }
@@ -236,29 +273,45 @@
     $('#segHousing').innerHTML = segHTML(HOUSING, state.housing, 'housing');
     $('#segHouseholder').innerHTML = segHTML(HOUSEHOLDER, state.householder, 'householder');
     $('#segResidence').innerHTML = regionHTML();
+    renderDeposit(true);
+    renderMini();
+  }
 
-    var dv = $('#depositValue');
-    dv.textContent = state.deposit === 0 ? '없음' : (state.deposit >= 600 ? '600만 원+' : num(state.deposit) + '만 원');
+  /* 예치금 표시 — 버튼(50만)·슬라이더(10만)·직접 입력(원)을 같은 값에서 그린다. */
+  function renderDeposit(syncInput) {
+    var v = state.deposit;
+    $('#depositValue').textContent = won(v);
     $('#depositHint').textContent = depositHint();
 
     $('#depositChips').innerHTML = DEPOSIT_CHIPS.map(function (c) {
-      var active = (c.v === 500) ? state.deposit >= 500 : state.deposit === c.v;
+      var active = c.v === 5000000 ? v >= 5000000 : v === c.v;
       return '<button type="button" class="chip-btn" data-dep="' + c.v + '" aria-pressed="' + active + '">' +
         esc(c.l) + '</button>';
     }).join('');
 
     var range = $('#depositRange');
-    range.value = Math.min(state.deposit, 600);
-    range.style.setProperty('--p', (Math.min(state.deposit, 600) / 600 * 100) + '%');
+    var snapped = Math.round(v / DEP_STEP) * DEP_STEP;
+    range.value = Math.max(0, Math.min(snapped, DEP_MAX));
+    range.style.setProperty('--p', (Math.min(v, DEP_MAX) / DEP_MAX * 100) + '%');
 
+    var inp = $('#depositInput');
+    if (syncInput && document.activeElement !== inp) inp.value = v ? num(v) : '';
+  }
+
+  function setDeposit(v, opts) {
+    state.deposit = Math.max(0, Math.min(Math.round(v), 999999999));
+    renderDeposit(!(opts && opts.keepInput));
     renderMini();
+    evaluateAll();
+    renderResults();
+    save();
   }
 
   function renderMini() {
     $('#miniChips').innerHTML =
       '<span class="mini-chip"><b>' + esc(state.residence) + '</b></span>' +
       '<span class="mini-chip"><b>' + esc(state.housing) + '</b></span>' +
-      '<span class="mini-chip"><b>' + (state.deposit === 0 ? '예치금 없음' : num(state.deposit) + '만') + '</b></span>' +
+      '<span class="mini-chip"><b>' + (state.deposit === 0 ? '예치금 없음' : '예치금 ' + moneyChip(state.deposit)) + '</b></span>' +
       '<span class="mini-chip">' + esc(state.householder) + '</span>';
   }
 
@@ -356,6 +409,73 @@
     return 'dday dday--unknown';
   }
 
+  /* ─────────────────── 청약홈 신청 동선 ─────────────────── */
+  function dateRange(a, b) {
+    if (!a && !b) return '';
+    if (!a || !b || a === b) return md(a || b);
+    return md(a) + '~' + md(b);
+  }
+
+  function applyNote(L, st) {
+    var bits = [];
+    var range = dateRange(L.applyStart, L.applyEnd);
+    if (st.key === 'upcoming') {
+      bits.push(range ? '접수 ' + (L.applyStart === L.applyEnd ? mdw(L.applyStart) : range) + ' 시작' : '접수일 미정');
+    } else if (st.key === 'closed') {
+      bits.push(range ? '접수 ' + range + ' 마감' : '접수 마감');
+    } else if (range) {
+      bits.push('접수 ' + range);
+      if (st.key === 'open' && st.days === 0) bits.push('오늘 17:30까지');
+    }
+    bits.push('청약홈 로그인 후 신청');
+    return bits.join(' · ');
+  }
+
+  /* 카드·드로어의 버튼 하나만 상태에 따라 바뀐다: 신청 → 공고 보기(마감·미달) */
+  function applyMeta(L, st, ok) {
+    var applyUrl = L.applyUrl || '';
+    var detailUrl = L.detailUrl || L.applyhomeUrl || '';
+    var path = L.applyPath || '청약홈 청약신청';
+    if (ok && st.key === 'open' && applyUrl) {
+      return { kind: 'apply', label: '청약홈에서 신청하기', short: '청약홈에서 신청 →',
+        url: applyUrl, path: path, tone: 'go', note: applyNote(L, st) };
+    }
+    if (st.key === 'closed') {
+      return { kind: 'closed', label: '접수 마감 · 공고 보기', short: '공고 보기',
+        url: detailUrl, path: path, tone: 'muted', note: applyNote(L, st) };
+    }
+    if (ok && st.key === 'upcoming' && applyUrl) {
+      return { kind: 'wait', label: '접수 D-' + st.days + ' · 공고 보기',
+        short: '접수 D-' + st.days + ' · 공고 보기', url: detailUrl, path: path, tone: 'wait',
+        note: applyNote(L, st) };
+    }
+    if (!ok) {
+      return { kind: 'no', label: '내 조건으로는 신청 불가 · 공고 보기', short: '공고 보기',
+        url: detailUrl, path: path, tone: 'muted', note: '' };
+    }
+    return { kind: 'detail', label: '청약홈 공고 보기', short: '공고 보기',
+      url: detailUrl, path: path, tone: 'muted', note: applyNote(L, st) };
+  }
+
+  function applyBoxHTML(e) {
+    var L = e.l, st = e.status;
+    var cta = applyMeta(L, st, e.ok);
+    var alt = [];
+    if (L.applyUrl && L.applyUrl !== cta.url) {
+      alt.push('<a class="d-link" href="' + esc(L.applyUrl) + '" target="_blank" rel="noopener">' +
+        esc(L.applyPath || '청약신청 화면') + ' ↗</a>');
+    }
+    return '<section class="d-sec d-apply">' +
+      '<a class="apply-cta apply-cta--' + cta.tone + '" href="' + esc(cta.url) + '" target="_blank" rel="noopener">' +
+        '<span class="apply-cta-label">' + esc(cta.label) + '</span>' +
+        (cta.kind === 'apply' ? '<span class="apply-cta-arrow">→</span>' : '') +
+      '</a>' +
+      (cta.note ? '<p class="apply-note">' + esc(cta.note) + '</p>' : '') +
+      (alt.length ? '<div class="apply-alt">' + alt.join('') + '</div>' : '') +
+      '<p class="apply-fine">신청·전자서명은 청약홈에서 본인 인증(공동인증서·금융인증서) 후 직접 해야 해요. 이 앱은 신청을 대신하지 않아요.</p>' +
+    '</section>';
+  }
+
   function cardHTML(row) {
     var e = row.e, L = e.l, st = e.status;
     var isFav = state.favs.indexOf(L.id) !== -1;
@@ -378,6 +498,11 @@
     if (rs.extra > 0) reasonsHTML += '<li class="r-more">외 ' + rs.extra + '가지 조건</li>';
 
     var announce = L.winnersDate ? '발표 <b>' + mdw(L.winnersDate) + '</b>' : '발표일 미정';
+    var cta = applyMeta(L, st, e.ok);
+    var applyRow = cta.kind === 'apply'
+      ? '<a class="card-apply" data-apply href="' + esc(cta.url) + '" target="_blank" rel="noopener"' +
+        ' aria-label="' + esc(L.name) + ' — 청약홈에서 신청">청약홈에서 신청하기 <b>→</b></a>'
+      : '';
 
     return '' +
       '<article class="card' + (isFav ? ' is-fav' : '') + '" data-id="' + esc(L.id) + '" tabindex="0" role="button" ' +
@@ -399,6 +524,7 @@
           '</span>' +
         '</div>' +
         '<ul class="reasons">' + reasonsHTML + '</ul>' +
+        applyRow +
         '<div class="card-foot">' +
           '<span class="card-announce">' + announce + '</span>' +
           '<div class="card-actions">' +
@@ -468,7 +594,7 @@
     return '<div class="empty"><div class="empty-emoji">🔍</div>' +
       '<p class="empty-title">지금 조건에 맞는 공고가 없어요</p>' +
       '<p class="empty-copy">주택 수·거주지·예치금을 바꾸면<br>신청 가능한 공고가 나타날 수 있어요.</p>' +
-      '<button type="button" class="empty-btn" data-preset>예시 조건으로 보기</button></div>';
+      '<button type="button" class="empty-btn" data-edit-cond>조건 바꾸기</button></div>';
   }
 
   function renderOverlap() {
@@ -581,7 +707,14 @@
 
     var sourceLinks = '';
     if (L.pdfUrl) sourceLinks += '<a class="d-link" href="' + esc(L.pdfUrl) + '" target="_blank" rel="noopener">입주자모집공고문 PDF 열기 ↗</a>';
-    sourceLinks += '<a class="d-link" href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do" target="_blank" rel="noopener">청약홈에서 공고 검색 ↗</a>';
+    if (L.detailUrl) {
+      sourceLinks += '<a class="d-link" href="' + esc(L.detailUrl) + '" target="_blank" rel="noopener">청약홈 공고 상세 ↗</a>';
+    } else {
+      sourceLinks += '<a class="d-link" href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do" target="_blank" rel="noopener">청약홈에서 공고 검색 ↗</a>';
+    }
+    if (L.applyUrl) {
+      sourceLinks += '<a class="d-link" href="' + esc(L.applyUrl) + '" target="_blank" rel="noopener">청약신청 화면 ↗</a>';
+    }
 
     return '' +
       '<div class="drawer-head">' +
@@ -602,6 +735,7 @@
         '</div>' +
       '</div>' +
       '<div class="drawer-body-inner">' +
+        applyBoxHTML(e) +
         '<section class="d-sec">' +
           '<h3 class="d-sec-title">공고문 원문 근거</h3>' +
           evidenceHTML(L) +
@@ -642,7 +776,8 @@
       '<div class="drawer-actions">' +
         '<button type="button" class="btn-secondary" id="drawerFav" aria-pressed="' + isFav + '">' +
           (isFav ? '관심 담김 ✓' : '관심 담기') + '</button>' +
-        '<button type="button" class="btn-primary" id="drawerClose2">닫기</button>' +
+        '<a class="btn-primary" href="' + esc(applyMeta(L, st, e.ok).url) + '" target="_blank" rel="noopener">' +
+          esc(applyMeta(L, st, e.ok).short) + '</a>' +
       '</div>';
   }
 
@@ -728,6 +863,9 @@
   /* ───────────────────────── 이벤트 ───────────────────────── */
   function bind() {
     document.addEventListener('click', function (ev) {
+      /* 청약홈 링크는 새 창으로 열고, 카드 상세(드로어)는 열지 않는다 */
+      if (ev.target.closest('[data-apply]')) return;
+
       var seg = ev.target.closest('[data-seg]');
       if (seg) {
         var key = seg.getAttribute('data-seg');
@@ -745,8 +883,7 @@
 
       var dep = ev.target.closest('[data-dep]');
       if (dep) {
-        state.deposit = Number(dep.getAttribute('data-dep'));
-        save(); refresh();
+        setDeposit(Number(dep.getAttribute('data-dep')));
         return;
       }
 
@@ -764,7 +901,10 @@
       var card = ev.target.closest('.card');
       if (card) { openDrawer(card.getAttribute('data-id')); return; }
 
-      if (ev.target.closest('[data-preset]') || ev.target.id === 'presetBtn') { applyPreset(); return; }
+      if (ev.target.closest('[data-edit-cond]')) {
+        $('#condCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
       if (ev.target.id === 'miniEdit' || ev.target.closest('#miniEdit')) {
         $('#condCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
@@ -801,16 +941,21 @@
     });
 
     $('#depositRange').addEventListener('input', function (ev) {
-      state.deposit = Number(ev.target.value);
-      $('#depositValue').textContent = state.deposit === 0 ? '없음' : (state.deposit >= 600 ? '600만 원+' : num(state.deposit) + '만 원');
-      ev.target.style.setProperty('--p', (state.deposit / 600 * 100) + '%');
-      document.querySelectorAll('[data-dep]').forEach(function (b) {
-        var v = Number(b.getAttribute('data-dep'));
-        var active = (v === 500) ? state.deposit >= 500 : state.deposit === v;
-        b.setAttribute('aria-pressed', active);
-      });
+      setDeposit(Number(ev.target.value));
     });
-    $('#depositRange').addEventListener('change', function () { save(); refresh(); });
+    $('#depositRange').addEventListener('change', function () { save(); });
+
+    /* 원 단위 직접 입력 — 타이핑하는 동안은 입력칸 글자를 그대로 두고 판정만 갱신한다 */
+    var dInput = $('#depositInput');
+    dInput.addEventListener('input', function (ev) {
+      setDeposit(parseWon(ev.target.value), { keepInput: true });
+    });
+    dInput.addEventListener('blur', function () {
+      dInput.value = state.deposit ? num(state.deposit) : '';
+    });
+    dInput.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter') { ev.preventDefault(); dInput.blur(); }
+    });
 
     $('#sortSel').addEventListener('change', function (ev) {
       state.sort = ev.target.value;
@@ -824,18 +969,6 @@
         openDrawer(ev.target.getAttribute('data-id'));
       }
     });
-  }
-
-  function applyPreset() {
-    state.housing = PRESET.housing;
-    state.residence = PRESET.residence;
-    state.deposit = PRESET.deposit;
-    state.householder = PRESET.householder;
-    state.filter = 'eligible';
-    save(); refresh();
-    toast('예시 조건을 불러왔어요 — 경기 · 1주택 · 204만 원');
-    var target = $('.results-head');
-    if (target && window.innerWidth < 980) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   /* ───────────────────────── 시작 ───────────────────────── */

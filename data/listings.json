@@ -69,7 +69,6 @@
       "builder": "남광토건(주), 중흥토건(주), (주)케이알산업, 극동건설(주), 씨앤씨종합건설(주)",
       "tel": "☎ 032-322-0548",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000457&pblancNo=2026000457&atchmnflSeqNo=2023090&atchmnflSn=3",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000457",
       "source": "청약홈 · 부천대장 하우스토리 디센트(부천대장지구 A2BL) 공공분양주택(2026000457)",
       "verified": true,
       "evidence": {
@@ -80,7 +79,13 @@
       "extraRequirements": [
         "소득·자산 기준 있음"
       ],
-      "winnersDate": "2026-12-01"
+      "winnersDate": "2026-12-01",
+      "category": "apt",
+      "houseManageNo": "2026000457",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000457&pblancNo=2026000457",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000576",
@@ -144,7 +149,6 @@
       "builder": "지에스건설(주)",
       "tel": "☎ 1833-3367",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000576&pblancNo=2026000576&atchmnflSeqNo=2023060&atchmnflSn=3",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000576",
       "source": "청약홈 · 아르뮤제자이(2026000576)",
       "verified": true,
       "evidence": {
@@ -155,7 +159,13 @@
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
       ],
-      "winnersDate": "2026-12-01"
+      "winnersDate": "2026-12-01",
+      "category": "apt",
+      "houseManageNo": "2026000576",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000576&pblancNo=2026000576",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000536",
@@ -214,7 +224,6 @@
       "builder": "주식회사 태영건설",
       "tel": "☎ 054-443-1355",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000536&pblancNo=2026000536&atchmnflSeqNo=1999131&atchmnflSn=6",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000536",
       "source": "청약홈 · 구미 파크원 데시앙(2026000536)",
       "verified": true,
       "evidence": {
@@ -223,7 +232,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-02"
+      "winnersDate": "2026-12-02",
+      "category": "apt",
+      "houseManageNo": "2026000536",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000536&pblancNo=2026000536",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026910298",
@@ -274,7 +289,6 @@
       "builder": "송정리버파크지역주택조합",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026910298&pblancNo=2026910298&atchmnflSeqNo=2027997&atchmnflSn=2",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026910298",
       "source": "청약홈 · 한양립스 에듀포레(조합원 취소분)(2026910298)",
       "verified": true,
       "evidence": {
@@ -283,7 +297,13 @@
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 없음 최초 당첨자발표일 로부터 개월 (2026.10.26.) 6 없음 미적용",
       "extraRequirements": [],
-      "winnersDate": "2026-11-30"
+      "winnersDate": "2026-11-30",
+      "category": "remndr",
+      "houseManageNo": "2026910298",
+      "houseSecd": "04",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910298&pblancNo=2026910298",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=04&ty=10",
+      "applyPath": "APT 무순위"
     },
     {
       "id": "ah2026910306",
@@ -320,7 +340,6 @@
       "builder": "광안지역주택조합",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026910306&pblancNo=2026910306&atchmnflSeqNo=2028171&atchmnflSn=5",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026910306",
       "source": "청약홈 · 광안센텀 비스타동원(조합원 취소분)(2026910306)",
       "verified": true,
       "evidence": {
@@ -329,7 +348,13 @@
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 없음 최초 당첨자발표일 (2026.11.02.)로부터 6개월 없음 미적용",
       "extraRequirements": [],
-      "winnersDate": "2026-11-30"
+      "winnersDate": "2026-11-30",
+      "category": "remndr",
+      "houseManageNo": "2026910306",
+      "houseSecd": "04",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910306&pblancNo=2026910306",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=04&ty=10",
+      "applyPath": "APT 무순위"
     },
     {
       "id": "ah2026000563",
@@ -381,7 +406,6 @@
       "builder": "(주)포스코이앤씨",
       "tel": "☎ 1600-3384",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000563&pblancNo=2026000563&atchmnflSeqNo=2023138&atchmnflSn=2",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000563",
       "source": "청약홈 · 더샵 트리센트(조합원 자격상실 세대분)(2026000563)",
       "verified": true,
       "evidence": {
@@ -392,7 +416,13 @@
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
       ],
-      "winnersDate": "2026-12-01"
+      "winnersDate": "2026-12-01",
+      "category": "apt",
+      "houseManageNo": "2026000563",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000563&pblancNo=2026000563",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026850056",
@@ -460,7 +490,6 @@
       "builder": "(주)지원홀딩스",
       "tel": "☎ 051-441-3800",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026850056&pblancNo=2026850056&atchmnflSeqNo=2014134&atchmnflSn=3",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026850056",
       "source": "청약홈 · 서면 지원 더뷰 드림아파트(공공지원민간임대)(2026850056)",
       "verified": true,
       "evidence": {
@@ -471,7 +500,13 @@
       "extraRequirements": [
         "소득 기준 있음"
       ],
-      "winnersDate": "2026-12-01"
+      "winnersDate": "2026-12-01",
+      "category": "other",
+      "houseManageNo": "2026850056",
+      "houseSecd": "03",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026850056&pblancNo=2026850056&houseSecd=03",
+      "applyUrl": "https://www.applyhome.co.kr/ap/apc/reqst/selectSubscrtReqstPRMainView.do",
+      "applyPath": "공공지원 민간임대 청약신청"
     },
     {
       "id": "ah2026000566",
@@ -527,7 +562,6 @@
       "builder": "(주)호반건설",
       "tel": "☎ 1670-3235",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000566&pblancNo=2026000566&atchmnflSeqNo=2020001&atchmnflSn=4",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000566",
       "source": "청약홈 · 호반써밋 초량(2026000566)",
       "verified": true,
       "evidence": {
@@ -538,7 +572,13 @@
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
       ],
-      "winnersDate": "2026-12-01"
+      "winnersDate": "2026-12-01",
+      "category": "apt",
+      "houseManageNo": "2026000566",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000566&pblancNo=2026000566",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026940257",
@@ -602,7 +642,6 @@
       "builder": "대명아파트가로주택정비사업조합",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026940257&pblancNo=2026940257&atchmnflSeqNo=2028027&atchmnflSn=6",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026940257",
       "source": "청약홈 · 강동한강 디에트르(2026940257)",
       "verified": true,
       "evidence": {
@@ -611,7 +650,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-11-30"
+      "winnersDate": "2026-11-30",
+      "category": "remndr",
+      "houseManageNo": "2026940257",
+      "houseSecd": "11",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026940257&pblancNo=2026940257",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=11&ty=10",
+      "applyPath": "APT 임의공급"
     },
     {
       "id": "ah2026000558",
@@ -675,7 +720,6 @@
       "builder": "(주)서한",
       "tel": "☎ 052-296-0056",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000558&pblancNo=2026000558&atchmnflSeqNo=2023062&atchmnflSn=4",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000558",
       "source": "청약홈 · 화정1지구 아르엘(2026000558)",
       "verified": true,
       "evidence": {
@@ -686,7 +730,13 @@
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
       ],
-      "winnersDate": "2026-12-01"
+      "winnersDate": "2026-12-01",
+      "category": "apt",
+      "houseManageNo": "2026000558",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000558&pblancNo=2026000558",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000559",
@@ -736,7 +786,6 @@
       "builder": "두산건설 주식회사",
       "tel": "☎ 063-858-1118",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000559&pblancNo=2026000559&atchmnflSeqNo=2028029&atchmnflSn=2",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000559",
       "source": "청약홈 · 두산위브 트레지움 익산(2026000559)",
       "verified": true,
       "evidence": {
@@ -745,7 +794,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-01"
+      "winnersDate": "2026-12-01",
+      "category": "apt",
+      "houseManageNo": "2026000559",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000559&pblancNo=2026000559",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000540",
@@ -797,7 +852,6 @@
       "builder": "계룡건설산업 주식회사",
       "tel": "☎ 1833-4990",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000540&pblancNo=2026000540&atchmnflSeqNo=2019999&atchmnflSn=3",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000540",
       "source": "청약홈 · 엘리프 논산 디에디션(2026000540)",
       "verified": true,
       "evidence": {
@@ -806,7 +860,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-02"
+      "winnersDate": "2026-12-02",
+      "category": "apt",
+      "houseManageNo": "2026000540",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000540&pblancNo=2026000540",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026940259",
@@ -878,7 +938,6 @@
       "builder": "주식회사 하나자산신탁",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026940259&pblancNo=2026940259&atchmnflSeqNo=2024058&atchmnflSn=3",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026940259",
       "source": "청약홈 · 음성자이 센트럴시티(2026940259)",
       "verified": true,
       "evidence": {
@@ -887,7 +946,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-11-30"
+      "winnersDate": "2026-11-30",
+      "category": "remndr",
+      "houseManageNo": "2026940259",
+      "houseSecd": "11",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026940259&pblancNo=2026940259",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=11&ty=10",
+      "applyPath": "APT 임의공급"
     },
     {
       "id": "ah2026950097",
@@ -975,7 +1040,6 @@
       "builder": "(주)무궁화신탁",
       "tel": "☎ 1600-3698",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026950097&pblancNo=2026950097&atchmnflSeqNo=2031017&atchmnflSn=2",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026950097",
       "source": "청약홈 · 힐스테이트 오송레이크센트럴 2단지(2026950097)",
       "verified": true,
       "evidence": {
@@ -984,7 +1048,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-04"
+      "winnersDate": "2026-12-04",
+      "category": "other",
+      "houseManageNo": "2026950097",
+      "houseSecd": "02",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950097&pblancNo=2026950097&houseSecd=02",
+      "applyUrl": "https://www.applyhome.co.kr/ap/apb/reqst/selectSubscrtReqstUOMainView.do",
+      "applyPath": "오피스텔·생활숙박시설 청약신청"
     },
     {
       "id": "ah2026940258",
@@ -1048,7 +1118,6 @@
       "builder": "원종동성락아파트 가로주택정비사업조합",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026940258&pblancNo=2026940258&atchmnflSeqNo=2021013&atchmnflSn=2",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026940258",
       "source": "청약홈 · 중앙하이츠 원종역(4차)(2026940258)",
       "verified": true,
       "evidence": {
@@ -1057,7 +1126,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-01"
+      "winnersDate": "2026-12-01",
+      "category": "remndr",
+      "houseManageNo": "2026940258",
+      "houseSecd": "11",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026940258&pblancNo=2026940258",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=11&ty=10",
+      "applyPath": "APT 임의공급"
     },
     {
       "id": "ah2026950090",
@@ -1129,7 +1204,6 @@
       "builder": "중화3재정비촉진구역도시환경정비사업토지등소유자",
       "tel": "☎ 1555-6223",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026950090&pblancNo=2026950090&atchmnflSeqNo=2023059&atchmnflSn=1",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026950090",
       "source": "청약홈 · 중화역 라온프라이빗 센트로(2026950090)",
       "verified": true,
       "evidence": {
@@ -1138,7 +1212,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-02"
+      "winnersDate": "2026-12-02",
+      "category": "other",
+      "houseManageNo": "2026950090",
+      "houseSecd": "02",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950090&pblancNo=2026950090&houseSecd=02",
+      "applyUrl": "https://www.applyhome.co.kr/ap/apb/reqst/selectSubscrtReqstUOMainView.do",
+      "applyPath": "오피스텔·생활숙박시설 청약신청"
     },
     {
       "id": "ah2026000560",
@@ -1190,7 +1270,6 @@
       "builder": "효성중공업 주식회사",
       "tel": "☎ 02-3463-7774",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000560&pblancNo=2026000560&atchmnflSeqNo=2022113&atchmnflSn=4",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000560",
       "source": "청약홈 · 해링턴 플레이스 문래(2026000560)",
       "verified": true,
       "evidence": {
@@ -1201,7 +1280,13 @@
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
       ],
-      "winnersDate": "2026-12-02"
+      "winnersDate": "2026-12-02",
+      "category": "apt",
+      "houseManageNo": "2026000560",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000560&pblancNo=2026000560",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026820015",
@@ -1251,13 +1336,18 @@
       "builder": "금호건설 주식회사",
       "tel": "☎ 1661-5596",
       "pdfUrl": null,
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026820015",
       "source": "청약홈 · 시흥 거모 아테라(시흥거모 A-6BL) 신혼희망타운(공공분양)(본청약)(2026820015)",
       "verified": false,
       "evidence": {},
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-08"
+      "winnersDate": "2026-12-08",
+      "category": "apt",
+      "houseManageNo": "2026820015",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026820015&pblancNo=2026820015",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026910304",
@@ -1294,7 +1384,6 @@
       "builder": "느티마을4단지 리모델링주택조합",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026910304&pblancNo=2026910304&atchmnflSeqNo=2027367&atchmnflSn=2",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026910304",
       "source": "청약홈 · 더샵 분당하이스트(2차)(2026910304)",
       "verified": true,
       "evidence": {
@@ -1303,7 +1392,13 @@
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 택지유형 10년 최초 당첨자발표일(2026.10.02.)로부터 3년간 (단, 소유권이전등기를 완료한 경우 소유권이전등기를 완료한 때까지) 없음 미적용 민간택지",
       "extraRequirements": [],
-      "winnersDate": "2026-12-03"
+      "winnersDate": "2026-12-03",
+      "category": "remndr",
+      "houseManageNo": "2026910304",
+      "houseSecd": "04",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910304&pblancNo=2026910304",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=04&ty=10",
+      "applyPath": "APT 무순위"
     },
     {
       "id": "ah2026930048",
@@ -1338,7 +1433,6 @@
       "builder": "주식회사 하이아트이앤씨",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026930048&pblancNo=2026930048&atchmnflSeqNo=2027422&atchmnflSn=3",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026930048",
       "source": "청약홈 · 동탄신도시 금강펜테리움 7차 센트럴파크 불법행위재공급(2026930048)",
       "verified": true,
       "evidence": {
@@ -1347,7 +1441,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-03"
+      "winnersDate": "2026-12-03",
+      "category": "remndr",
+      "houseManageNo": "2026930048",
+      "houseSecd": "06",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026930048&pblancNo=2026930048",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=06&ty=20",
+      "applyPath": "APT 불법행위 재공급"
     },
     {
       "id": "ah2026910303",
@@ -1382,7 +1482,6 @@
       "builder": "주식회사 하이아트이앤씨",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026910303&pblancNo=2026910303&atchmnflSeqNo=2027407&atchmnflSn=6",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026910303",
       "source": "청약홈 · 동탄신도시 금강펜테리움 7차 센트럴파크(2차)(2026910303)",
       "verified": true,
       "evidence": {
@@ -1391,7 +1490,13 @@
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 없음 최초 당첨자발표일(2023.11.07.)로부터 3년간 적용되어 현재 전매제한 기간 도과 5년 적용",
       "extraRequirements": [],
-      "winnersDate": "2026-12-03"
+      "winnersDate": "2026-12-03",
+      "category": "remndr",
+      "houseManageNo": "2026910303",
+      "houseSecd": "04",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910303&pblancNo=2026910303",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=04&ty=10",
+      "applyPath": "APT 무순위"
     },
     {
       "id": "ah2026850057",
@@ -1467,7 +1572,6 @@
       "builder": "주식회사 리젠시빌주택",
       "tel": "☎ 1899-0757",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026850057&pblancNo=2026850057&atchmnflSeqNo=2021998&atchmnflSn=5",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026850057",
       "source": "청약홈 · 의왕 백운밸리 리젠시빌 란트(2026850057)",
       "verified": true,
       "evidence": {
@@ -1478,7 +1582,13 @@
       "extraRequirements": [
         "소득 기준 있음"
       ],
-      "winnersDate": "2026-12-03"
+      "winnersDate": "2026-12-03",
+      "category": "other",
+      "houseManageNo": "2026850057",
+      "houseSecd": "03",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026850057&pblancNo=2026850057&houseSecd=03",
+      "applyUrl": "https://www.applyhome.co.kr/ap/apc/reqst/selectSubscrtReqstPRMainView.do",
+      "applyPath": "공공지원 민간임대 청약신청"
     },
     {
       "id": "ah2026910305",
@@ -1515,7 +1625,6 @@
       "builder": "(주)하이아트",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026910305&pblancNo=2026910305&atchmnflSeqNo=2023020&atchmnflSn=4",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026910305",
       "source": "청약홈 · 판교TH212(2차)(2026910305)",
       "verified": true,
       "evidence": {
@@ -1524,7 +1633,13 @@
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 없음 최초 당첨자 발표일(2024.02.27.)로부터 3년 3년 적용",
       "extraRequirements": [],
-      "winnersDate": "2026-12-03"
+      "winnersDate": "2026-12-03",
+      "category": "remndr",
+      "houseManageNo": "2026910305",
+      "houseSecd": "04",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910305&pblancNo=2026910305",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=04&ty=10",
+      "applyPath": "APT 무순위"
     },
     {
       "id": "ah2026910289",
@@ -1575,7 +1690,6 @@
       "builder": "(주)위성도시건설",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026910289&pblancNo=2026910289&atchmnflSeqNo=2030016&atchmnflSn=5",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026910289",
       "source": "청약홈 · 이안 엑소디움 에이펙스(2026910289)",
       "verified": true,
       "evidence": {
@@ -1583,7 +1697,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-03"
+      "winnersDate": "2026-12-03",
+      "category": "remndr",
+      "houseManageNo": "2026910289",
+      "houseSecd": "04",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910289&pblancNo=2026910289",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=04&ty=10",
+      "applyPath": "APT 무순위"
     },
     {
       "id": "ah2026000505",
@@ -1639,7 +1759,6 @@
       "builder": "에이치엘디앤아이한라 주식회사",
       "tel": "☎ 02-303-2280",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000505&pblancNo=2026000505&atchmnflSeqNo=2012203&atchmnflSn=4",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000505",
       "source": "청약홈 · 경희궁 에피트(2026000505)",
       "verified": true,
       "evidence": {
@@ -1650,7 +1769,13 @@
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
       ],
-      "winnersDate": "2026-12-04"
+      "winnersDate": "2026-12-04",
+      "category": "apt",
+      "houseManageNo": "2026000505",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000505&pblancNo=2026000505",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026910301",
@@ -1687,7 +1812,6 @@
       "builder": "안흥동 지역주택조합",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026910301&pblancNo=2026910301&atchmnflSeqNo=2022069&atchmnflSn=2",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026910301",
       "source": "청약홈 · 이천 서희스타힐스 SKY (조합원 취소분)(2026910301)",
       "verified": true,
       "evidence": {
@@ -1696,7 +1820,13 @@
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 없음 최초 당첨자발표일(2026.07.09.)로부터 6개월 없음 미적용",
       "extraRequirements": [],
-      "winnersDate": "2026-12-04"
+      "winnersDate": "2026-12-04",
+      "category": "remndr",
+      "houseManageNo": "2026910301",
+      "houseSecd": "04",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910301&pblancNo=2026910301",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=04&ty=10",
+      "applyPath": "APT 무순위"
     },
     {
       "id": "ah2026910302",
@@ -1731,7 +1861,6 @@
       "builder": "(주)한화",
       "tel": "",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026910302&pblancNo=2026910302&atchmnflSeqNo=2022219&atchmnflSn=3",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026910302",
       "source": "청약홈 · 한화포레나 영흥숲(4차)(2026910302)",
       "verified": true,
       "evidence": {
@@ -1740,7 +1869,13 @@
       },
       "ruleNote": "재당첨제한 전매제한 거주의무기간 분양가상한제 10년 최초 당첨자발표일(2021.09.08.)로부터 3년간 적용되어 현재 전매제한 기간 도과 없음 미적용",
       "extraRequirements": [],
-      "winnersDate": "2026-12-04"
+      "winnersDate": "2026-12-04",
+      "category": "remndr",
+      "houseManageNo": "2026910302",
+      "houseSecd": "04",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026910302&pblancNo=2026910302",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=04&ty=10",
+      "applyPath": "APT 무순위"
     },
     {
       "id": "ah2026850058",
@@ -1800,7 +1935,6 @@
       "builder": "대방건설 주식회사",
       "tel": "☎ 1688-9005",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026850058&pblancNo=2026850058&atchmnflSeqNo=2027434&atchmnflSn=1",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026850058",
       "source": "청약홈 · 부경경마공원역 대방 디에트르 더리버(AP1BL)(2026850058)",
       "verified": true,
       "evidence": {
@@ -1809,7 +1943,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-04"
+      "winnersDate": "2026-12-04",
+      "category": "other",
+      "houseManageNo": "2026850058",
+      "houseSecd": "03",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026850058&pblancNo=2026850058&houseSecd=03",
+      "applyUrl": "https://www.applyhome.co.kr/ap/apc/reqst/selectSubscrtReqstPRMainView.do",
+      "applyPath": "공공지원 민간임대 청약신청"
     },
     {
       "id": "ah2026000585",
@@ -1861,7 +2001,6 @@
       "builder": "한신공영 주식회사",
       "tel": "☎ 02-3159-3428",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000585&pblancNo=2026000585&atchmnflSeqNo=2021027&atchmnflSn=5",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000585",
       "source": "청약홈 · 고양 한신더휴 퍼스트원(2026000585)",
       "verified": true,
       "evidence": {
@@ -1872,7 +2011,13 @@
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
       ],
-      "winnersDate": "2026-12-09"
+      "winnersDate": "2026-12-09",
+      "category": "apt",
+      "houseManageNo": "2026000585",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000585&pblancNo=2026000585",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000591",
@@ -1940,7 +2085,6 @@
       "builder": "일신건영(주)",
       "tel": "☎ 032-675-0022",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000591&pblancNo=2026000591&atchmnflSeqNo=2027261&atchmnflSn=5",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000591",
       "source": "청약홈 · 소사 휴먼빌(2026000591)",
       "verified": true,
       "evidence": {
@@ -1951,7 +2095,13 @@
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
       ],
-      "winnersDate": "2026-12-08"
+      "winnersDate": "2026-12-08",
+      "category": "apt",
+      "houseManageNo": "2026000591",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000591&pblancNo=2026000591",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000575",
@@ -2003,7 +2153,6 @@
       "builder": "한신공영(주),쌍용건설(주),(주)대승글로벌,(주)고덕종합건설,(주)지아이",
       "tel": "☎ 1833-6650",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000575&pblancNo=2026000575&atchmnflSeqNo=2027378&atchmnflSn=2",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000575",
       "source": "청약홈 · 왕숙 한신더휴 센텀(남양주 왕숙 A-17BL) 공공분양주택(2026000575)",
       "verified": true,
       "evidence": {
@@ -2014,7 +2163,13 @@
       "extraRequirements": [
         "소득·자산 기준 있음"
       ],
-      "winnersDate": "2026-12-08"
+      "winnersDate": "2026-12-08",
+      "category": "apt",
+      "houseManageNo": "2026000575",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000575&pblancNo=2026000575",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000510",
@@ -2070,7 +2225,6 @@
       "builder": "주식회사 비에스한양",
       "tel": "☎ 051-852-0335",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000510&pblancNo=2026000510&atchmnflSeqNo=2028139&atchmnflSn=4",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000510",
       "source": "청약홈 · 연산역 수자인 센트리오(2026000510)",
       "verified": true,
       "evidence": {
@@ -2081,7 +2235,13 @@
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
       ],
-      "winnersDate": "2026-12-08"
+      "winnersDate": "2026-12-08",
+      "category": "apt",
+      "houseManageNo": "2026000510",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000510&pblancNo=2026000510",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000590",
@@ -2152,7 +2312,6 @@
       "builder": "두산건설 주식회사",
       "tel": "☎ 061-791-2691",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000590&pblancNo=2026000590&atchmnflSeqNo=2016073&atchmnflSn=3",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000590",
       "source": "청약홈 · 두산위브 시그니처 광양(2026000590)",
       "verified": true,
       "evidence": {
@@ -2161,7 +2320,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-08"
+      "winnersDate": "2026-12-08",
+      "category": "apt",
+      "houseManageNo": "2026000590",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000590&pblancNo=2026000590",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000598",
@@ -2211,7 +2376,6 @@
       "builder": "(주)태영건설",
       "tel": "☎ 063-562-8881",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000598&pblancNo=2026000598&atchmnflSeqNo=2027349&atchmnflSn=3",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000598",
       "source": "청약홈 · 고창 데시앙 2블록(공공분양)(2026000598)",
       "verified": true,
       "evidence": {
@@ -2222,7 +2386,13 @@
       "extraRequirements": [
         "소득·자산 기준 있음"
       ],
-      "winnersDate": "2026-12-08"
+      "winnersDate": "2026-12-08",
+      "category": "apt",
+      "houseManageNo": "2026000598",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000598&pblancNo=2026000598",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000596",
@@ -2272,7 +2442,6 @@
       "builder": "(주)태영건설",
       "tel": "☎ 063-562-8881",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000596&pblancNo=2026000596&atchmnflSeqNo=2027352&atchmnflSn=3",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000596",
       "source": "청약홈 · 고창 데시앙 2블록(민영)(2026000596)",
       "verified": true,
       "evidence": {
@@ -2281,7 +2450,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-08"
+      "winnersDate": "2026-12-08",
+      "category": "apt",
+      "houseManageNo": "2026000596",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000596&pblancNo=2026000596",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000597",
@@ -2335,7 +2510,6 @@
       "builder": "(주)태영건설",
       "tel": "☎ 063-562-8881",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000597&pblancNo=2026000597&atchmnflSeqNo=2028178&atchmnflSn=4",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000597",
       "source": "청약홈 · 고창 데시앙 3블록(공공분양)(2026000597)",
       "verified": true,
       "evidence": {
@@ -2346,7 +2520,13 @@
       "extraRequirements": [
         "소득·자산 기준 있음"
       ],
-      "winnersDate": "2026-12-08"
+      "winnersDate": "2026-12-08",
+      "category": "apt",
+      "houseManageNo": "2026000597",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000597&pblancNo=2026000597",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026000521",
@@ -2402,7 +2582,6 @@
       "builder": "(주)포스코이앤씨",
       "tel": "☎ 1600-6833",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000521&pblancNo=2026000521&atchmnflSeqNo=2028167&atchmnflSn=2",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026000521",
       "source": "청약홈 · 더샵 천안라크원(2026000521)",
       "verified": true,
       "evidence": {
@@ -2411,7 +2590,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-09"
+      "winnersDate": "2026-12-09",
+      "category": "apt",
+      "houseManageNo": "2026000521",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000521&pblancNo=2026000521",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위"
     },
     {
       "id": "ah2026950089",
@@ -2495,7 +2680,6 @@
       "builder": "(주)청라스마트시티",
       "tel": "☎ 1551-6881",
       "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026950089&pblancNo=2026950089&atchmnflSeqNo=2013062&atchmnflSn=5",
-      "applyhomeUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do?pblancNo=2026950089",
       "source": "청약홈 · 청라 아크원 푸르지오(2026950089)",
       "verified": true,
       "evidence": {
@@ -2504,7 +2688,13 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
-      "winnersDate": "2026-12-11"
+      "winnersDate": "2026-12-11",
+      "category": "other",
+      "houseManageNo": "2026950089",
+      "houseSecd": "02",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950089&pblancNo=2026950089&houseSecd=02",
+      "applyUrl": "https://www.applyhome.co.kr/ap/apb/reqst/selectSubscrtReqstUOMainView.do",
+      "applyPath": "오피스텔·생활숙박시설 청약신청"
     }
   ]
 }
