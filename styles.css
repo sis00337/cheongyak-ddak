@@ -136,6 +136,71 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   50% { opacity: .45; }
 }
 
+/* ───────────── 청약 접수 시간 안내 ───────────── */
+.apply-window {
+  display: inline-flex; align-items: center; gap: 10px;
+  max-width: 100%;
+  margin: 16px 0 0;
+  padding: 9px 12px 9px 14px;
+  border: 1px solid var(--blue-line);
+  border-radius: 13px;
+  background: linear-gradient(180deg, #eef5ff, #e8f2ff);
+  font-size: 12.5px; line-height: 1.45; letter-spacing: -0.01em;
+  color: var(--blue-deep);
+  font-feature-settings: "tnum" on;
+}
+.apply-window:empty { display: none; }
+.aw-dot {
+  flex: none; width: 8px; height: 8px; border-radius: 50%;
+  background: #12b76a; box-shadow: 0 0 0 3px rgba(18, 183, 106, .16);
+}
+.apply-window--soon .aw-dot { background: #f59e0b; box-shadow: 0 0 0 3px rgba(245, 158, 11, .18); }
+.apply-window--before .aw-dot,
+.apply-window--after .aw-dot,
+.apply-window--weekend .aw-dot,
+.apply-window--holiday .aw-dot { background: #b4bcc6; box-shadow: 0 0 0 3px rgba(180, 188, 198, .18); }
+.aw-body { min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+.aw-title { font-size: 13.5px; font-weight: 800; color: #0f3f8f; letter-spacing: -0.025em; }
+.aw-tip { color: var(--blue-deep); }
+.aw-hours {
+  flex: none; font-size: 11px; font-weight: 700; color: var(--blue-deep);
+  background: rgba(255, 255, 255, .72); border: 1px solid var(--blue-line);
+  padding: 4px 8px; border-radius: 8px; white-space: nowrap;
+}
+.apply-window--before,
+.apply-window--after,
+.apply-window--weekend,
+.apply-window--holiday {
+  background: #f5f7f9; border-color: var(--line); color: var(--ink-2);
+}
+.apply-window--before .aw-title,
+.apply-window--after .aw-title,
+.apply-window--weekend .aw-title,
+.apply-window--holiday .aw-title { color: var(--ink); }
+.apply-window--before .aw-tip,
+.apply-window--after .aw-tip,
+.apply-window--weekend .aw-tip,
+.apply-window--holiday .aw-tip { color: var(--ink-3); }
+.apply-window--before .aw-hours,
+.apply-window--after .aw-hours,
+.apply-window--weekend .aw-hours,
+.apply-window--holiday .aw-hours { color: var(--ink-3); border-color: var(--line); }
+.apply-window--soon {
+  background: linear-gradient(180deg, #fff8ea, #fff2d8);
+  border-color: #f2ddad; color: #8a5b00;
+}
+.apply-window--soon .aw-title { color: #6d4700; }
+.apply-window--soon .aw-tip { color: #8a5b00; }
+.apply-window--soon .aw-hours { color: #8a5b00; border-color: #f2ddad; }
+
+@media (max-width: 639px) {
+  .apply-window { display: flex; margin-top: 12px; padding: 9px 12px; gap: 4px 8px; flex-wrap: wrap; align-items: flex-start; }
+  .aw-dot { margin-top: 6px; }
+  .aw-body { display: block; }
+  .aw-title { display: block; font-size: 13px; }
+  .aw-hours { order: 3; }
+}
+
 /* 스크롤 시 붙는 요약 바 (모바일) */
 .mini-bar {
   position: fixed;
@@ -183,7 +248,7 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   padding: 0 22px 140px;
 }
 
-.hero { padding: 52px 0 30px; max-width: 700px; }
+.hero { padding: 34px 0 30px; max-width: 700px; }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 7px;
   font-size: 12.5px; font-weight: 700; color: var(--blue);
@@ -714,6 +779,17 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
 .card-apply:hover { background: #dbe9ff; }
 .card-apply:active { transform: scale(.99); }
 .card-apply b { font-weight: 800; }
+/* 접수 시간 밖 — 잠긴 신청 버튼(누르면 열리는 시간을 토스트로 알려 준다) */
+.card-apply--time {
+  color: var(--ink-2);
+  background: #f4f6f8;
+  border: 1px solid var(--line);
+  font-weight: 700;
+  font-size: 12.5px;
+  width: 100%;
+}
+.card-apply--time:hover { background: #eef1f4; }
+.card-apply--time:active { transform: none; }
 
 /* 카드 사이 광고 */
 .ad-card {
@@ -1116,6 +1192,13 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   text-decoration: none;
 }
 .d-link:hover { background: #dbe9ff; }
+.d-link--off {
+  color: var(--ink-3);
+  background: #f4f6f8;
+  border: 1px dashed var(--line);
+  cursor: default;
+}
+.d-link--off:hover { background: #f4f6f8; }
 
 .d-tip {
   margin-top: 12px;
@@ -1174,6 +1257,18 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   color: var(--ink-2);
   background: #f2f4f6;
 }
+/* 접수 시간 밖 — 신청 대신 잠금 안내 */
+.apply-cta--time {
+  color: var(--ink-2);
+  background: #f4f6f8;
+  border: 1px solid var(--line);
+  box-shadow: none;
+  cursor: default;
+}
+.apply-cta--time:active { transform: none; }
+.apply-cta-ico { flex: none; width: 16px; height: 16px; color: currentColor; }
+.apply-note.apply-note--time { text-align: left; padding: 0 2px; font-size: 12px; }
+.apply-note.apply-note--time b { color: var(--ink); }
 .apply-cta-arrow { font-weight: 800; }
 .apply-note {
   margin-top: 9px;
@@ -1198,6 +1293,13 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   transition: transform .15s, box-shadow .15s;
 }
 .btn-primary:active { transform: scale(.985); }
+/* 접수 시간 밖 — 신청 대신 잠금 안내 */
+.btn-primary--off {
+  color: var(--ink-3);
+  background: #f2f4f6;
+  box-shadow: none;
+  cursor: default;
+}
 .btn-secondary {
   flex: 1;
   font-size: 14px; font-weight: 800;
@@ -1512,6 +1614,10 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   white-space: nowrap;
 }
 .seq-open b { font-weight: 800; }
+.seq-open--time {
+  color: var(--ink-2); background: #f2f4f6;
+  border: 1px solid var(--line); font-weight: 700;
+}
 .seq-check {
   font-size: 12px; font-weight: 700; color: var(--ink-2);
   background: #f2f4f6; border: 1px solid transparent;

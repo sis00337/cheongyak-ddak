@@ -44,6 +44,43 @@
   var LEGACY_KEY = 'cheongyakddak:v2';
   var WD = ['일', '월', '화', '수', '목', '금', '토'];
 
+  /* ── 청약홈 접수 가능 시간 ────────────────────────────────
+     근거: 청약홈 「인터넷 주택청약업무 운영시간」 — 주택청약 접수 09:00~17:30 (영업일).
+     입주자모집공고문도 유형(특별공급·1순위·무순위·임의공급·민간임대)과 상관없이
+     '청약신청 시간 09:00~17:30'으로 같고, 17:30은 '접수 완료' 기준이라 그 전에
+     전자서명까지 끝나야 한다. 주말·공휴일은 접수 없음. 시각은 모두 한국 시간(KST). */
+  var APPLY_FROM = 9 * 60;          /* 09:00 — 분 단위 */
+  var APPLY_TO = 17 * 60 + 30;      /* 17:30 */
+  /* 청약홈이 쉬는 공휴일(주말 제외) — 관공서 공휴일 기준.
+     2026년은 확정분, 2027년은 우주항공청 월력요항 기준. 임시공휴일은 반영 전이라
+     그날은 평일처럼 열리며, 실제 접수 가능 여부는 청약홈이 최종 판단한다. */
+  var HOLIDAYS = {
+    '2026-01-01': '신정',
+    '2026-02-16': '설 연휴', '2026-02-17': '설날', '2026-02-18': '설 연휴',
+    '2026-03-01': '삼일절', '2026-03-02': '삼일절 대체공휴일',
+    '2026-05-01': '노동절', '2026-05-05': '어린이날',
+    '2026-05-24': '부처님오신날', '2026-05-25': '부처님오신날 대체공휴일',
+    '2026-06-03': '전국동시지방선거', '2026-06-06': '현충일',
+    '2026-07-17': '제헌절',
+    '2026-08-15': '광복절', '2026-08-17': '광복절 대체공휴일',
+    '2026-09-24': '추석 연휴', '2026-09-25': '추석', '2026-09-26': '추석 연휴',
+    '2026-10-03': '개천절', '2026-10-05': '개천절 대체공휴일', '2026-10-09': '한글날',
+    '2026-12-25': '성탄절',
+    '2027-01-01': '신정',
+    '2027-02-06': '설 연휴', '2027-02-07': '설날', '2027-02-08': '설 연휴',
+    '2027-02-09': '설 연휴 대체공휴일',
+    '2027-03-01': '삼일절',
+    '2027-05-01': '노동절', '2027-05-03': '노동절 대체공휴일',
+    '2027-05-05': '어린이날', '2027-05-13': '부처님오신날',
+    '2027-06-06': '현충일',
+    '2027-07-17': '제헌절', '2027-07-19': '제헌절 대체공휴일',
+    '2027-08-15': '광복절', '2027-08-16': '광복절 대체공휴일',
+    '2027-09-14': '추석 연휴', '2027-09-15': '추석', '2027-09-16': '추석 연휴',
+    '2027-10-03': '개천절', '2027-10-04': '개천절 대체공휴일',
+    '2027-10-09': '한글날', '2027-10-11': '한글날 대체공휴일',
+    '2027-12-25': '성탄절', '2027-12-27': '성탄절 대체공휴일'
+  };
+
   /* ───────────────────────── 상태 ───────────────────────── */
   var state = {
     housing: '무주택',
@@ -102,26 +139,36 @@
     if (!digits) return 0;
     return Math.min(Number(digits), 999999999);
   }
+  /* 접수일·발표일은 'YYYY-MM-DD' 하루 단위 값이라 클라이언트 시간대와 상관없이 UTC 자정으로 다룬다.
+     '오늘'은 한국 시간(Asia/Seoul) 기준으로 잡는다 — 접수 시간 안내와 기준이 같아야 한다. */
+  function pad2(n) { return ('0' + n).slice(-2); }
   function parseDate(iso) {
     if (!iso) return null;
-    var d = new Date(iso + 'T00:00:00+09:00');
+    var p = String(iso).slice(0, 10).split('-');
+    if (p.length !== 3) return null;
+    var d = new Date(Date.UTC(Number(p[0]), Number(p[1]) - 1, Number(p[2])));
     return isNaN(d.getTime()) ? null : d;
   }
+  /* UTC 필드를 그대로 읽으면 한국 시각이 되는 Date (클라이언트 시간대 무관) */
+  function kstWall() { return new Date(Date.now() + 9 * 3600000); }
+  function kstIso(w) {
+    w = w || kstWall();
+    return w.getUTCFullYear() + '-' + pad2(w.getUTCMonth() + 1) + '-' + pad2(w.getUTCDate());
+  }
   function startOfToday() {
-    var d = new Date();
-    d.setHours(0, 0, 0, 0);
-    return d;
+    var w = kstWall();
+    return new Date(Date.UTC(w.getUTCFullYear(), w.getUTCMonth(), w.getUTCDate()));
   }
   function diffDays(a, b) { return Math.round((a.getTime() - b.getTime()) / 86400000); }
   function md(iso) {
     var d = parseDate(iso);
     if (!d) return '미정';
-    return (d.getMonth() + 1) + '/' + ('0' + d.getDate()).slice(-2);
+    return (d.getUTCMonth() + 1) + '/' + pad2(d.getUTCDate());
   }
   function mdw(iso) {
     var d = parseDate(iso);
     if (!d) return '미정';
-    return md(iso) + '(' + WD[d.getDay()] + ')';
+    return md(iso) + '(' + WD[d.getUTCDay()] + ')';
   }
   function mySidos() {
     for (var i = 0; i < REGIONS.length; i++) {
@@ -153,6 +200,92 @@
     var left = diffDays(end, today);
     if (left === 0) return { key: 'open', label: '오늘 마감', days: 0, urgent: true };
     return { key: 'open', label: 'D-' + left, days: left, urgent: left <= 2 };
+  }
+
+  /* ─────────────────── 청약 접수 시간 게이트 ───────────────────
+     접수 기간(접수중)이라도 한국 시간 09:00~17:30 밖이거나 주말·공휴일이면
+     실제 신청 화면으로 넘어가지 않게 막고, 언제 열리는지 알려 준다. */
+  function minutesText(m) {
+    m = Math.max(0, Math.round(m));
+    var h = Math.floor(m / 60), mm = m % 60;
+    if (h && mm) return h + '시간 ' + mm + '분';
+    if (h) return h + '시간';
+    return mm + '분';
+  }
+  function dayLabel(w) {  /* '오늘 11/26' · '내일 11/27' · '월요일 11/30' */
+    if (!w) return '';
+    var diff = diffDays(w, startOfToday());
+    var text = (w.getUTCMonth() + 1) + '/' + pad2(w.getUTCDate());
+    if (diff === 0) return '오늘 ' + text;
+    if (diff === 1) return '내일 ' + text;
+    return WD[w.getUTCDay()] + '요일 ' + text;
+  }
+  function isClosedDay(w) {
+    var day = w.getUTCDay();
+    return day === 0 || day === 6 || !!HOLIDAYS[kstIso(w)];
+  }
+  /* from 다음 날부터 10일 안에서 처음 만나는 접수일(09:00) */
+  function nextOpenDay(from) {
+    var base = new Date(Date.UTC(from.getUTCFullYear(), from.getUTCMonth(), from.getUTCDate()));
+    for (var i = 1; i <= 10; i++) {
+      var cand = new Date(base.getTime() + i * 86400000);
+      if (!isClosedDay(cand)) return cand;
+    }
+    return null;
+  }
+
+  function applyGate() {
+    var w = kstWall();
+    var mins = w.getUTCHours() * 60 + w.getUTCMinutes();
+    var iso = kstIso(w);
+    var holiday = HOLIDAYS[iso];
+    var g = {
+      open: false, reason: 'open', iso: iso, minutes: mins, left: 0,
+      hours: '평일 09:00~17:30 (KST)', head: '', tip: '', short: '', card: '', next: null
+    };
+
+    if (holiday) g.reason = 'holiday';
+    else if (w.getUTCDay() === 0 || w.getUTCDay() === 6) g.reason = 'weekend';
+    else if (mins < APPLY_FROM) g.reason = 'before';
+    else if (mins >= APPLY_TO) g.reason = 'after';
+    else { g.open = true; g.left = APPLY_TO - mins; }
+
+    if (g.open) {
+      g.head = '지금은 청약 접수 시간이에요';
+      g.tip = '오늘 17:30 마감' + (g.left <= 120 ? ' · ' + minutesText(g.left) + ' 남았어요' : '');
+      g.short = '청약홈에서 신청하기';
+      return g;
+    }
+
+    if (g.reason === 'before') {
+      g.next = new Date(Date.UTC(w.getUTCFullYear(), w.getUTCMonth(), w.getUTCDate()));
+      g.head = '오전 9시부터 신청할 수 있어요';
+      g.tip = minutesText(APPLY_FROM - mins) + ' 남았어요';
+      g.short = '접수 시작 전 — 09:00부터';
+      g.card = '09:00부터 신청';
+      return g;
+    }
+
+    g.next = nextOpenDay(w);
+    var dayText = g.next ? dayLabel(g.next) : '다음 접수일';
+    var when = dayText + ' 09:00부터 신청할 수 있어요';
+    if (g.reason === 'after') {
+      g.head = '오늘 접수 시간(17:30)이 지났어요';
+      g.tip = when;
+      g.short = '오늘 접수 마감 — ' + dayText + ' 09:00부터';
+      g.card = dayText + ' 09:00부터';
+    } else if (g.reason === 'weekend') {
+      g.head = '주말에는 청약 접수가 없어요';
+      g.tip = when;
+      g.short = '주말 — ' + dayText + ' 09:00부터';
+      g.card = dayText + ' 09:00부터';
+    } else {
+      g.head = '공휴일(' + holiday + ')에는 청약 접수가 없어요';
+      g.tip = when;
+      g.short = '공휴일 — ' + dayText + ' 09:00부터';
+      g.card = dayText + ' 09:00부터';
+    }
+    return g;
   }
 
   function save() {
@@ -587,14 +720,30 @@
     return bits.join(' · ');
   }
 
-  /* 카드·드로어의 버튼 하나만 상태에 따라 바뀐다: 신청 → 공고 보기(마감·미달) */
+  /* 카드·드로어의 버튼 하나만 상태에 따라 바뀐다: 신청 → 접수 시간 아님 → 공고 보기(마감·미달) */
   function applyMeta(L, st, ok) {
     var applyUrl = L.applyUrl || '';
     var detailUrl = L.detailUrl || L.applyhomeUrl || '';
     var path = L.applyPath || '청약홈 청약신청';
+    var gate = applyGate();
+    var endedToday = st.key === 'open' && st.days === 0 && gate.reason === 'after';
     if (ok && st.key === 'open' && applyUrl) {
+      if (endedToday) {
+        /* 오늘이 마지막 접수일인데 17:30이 지났다 — 이 공고는 이미 끝났다 */
+        return { kind: 'ended', label: '오늘 접수 마감 · 공고 보기', short: '오늘 접수 끝',
+          url: detailUrl, path: path, tone: 'muted',
+          note: '오늘 접수 시간(17:30)이 지나 이 공고는 신청할 수 없어요' +
+            (gate.next ? ' · ' + dayLabel(gate.next) + ' 09:00부터 다른 공고를 신청할 수 있어요' : ''),
+          gate: gate, detailUrl: detailUrl };
+      }
+      if (!gate.open) {
+        /* 접수 기간은 맞지만 지금은 접수 시간이 아니다 — 신청 화면으로 넘기지 않는다 */
+        return { kind: 'time', label: '청약 접수 시간(09:00~17:30)이 아니에요',
+          short: '지금은 접수 시간 아님', url: detailUrl, path: path, tone: 'time',
+          note: gate.head + ' · ' + gate.tip, gate: gate, detailUrl: detailUrl };
+      }
       return { kind: 'apply', label: '청약홈에서 신청하기', short: '청약홈에서 신청 →',
-        url: applyUrl, path: path, tone: 'go', note: applyNote(L, st) };
+        url: applyUrl, path: path, tone: 'go', note: applyNote(L, st), gate: gate };
     }
     if (st.key === 'closed') {
       return { kind: 'closed', label: '접수 마감 · 공고 보기', short: '공고 보기',
@@ -616,8 +765,28 @@
   function applyBoxHTML(e) {
     var L = e.l, st = e.status;
     var cta = applyMeta(L, st, e.ok);
+    var fine = '<p class="apply-fine">신청·전자서명은 청약홈에서 본인 인증(공동인증서·금융인증서) 후 직접 해야 해요. 이 앱은 신청을 대신하지 않아요.</p>';
+
+    /* 접수 시간 밖 — 신청 버튼을 잠그고 공고 확인 링크만 남긴다 */
+    if (cta.kind === 'time') {
+      var g = cta.gate;
+      var look = [];
+      if (cta.detailUrl) look.push('<a class="d-link" href="' + esc(cta.detailUrl) + '" target="_blank" rel="noopener">청약홈 공고 보기 ↗</a>');
+      if (L.pdfUrl) look.push('<a class="d-link" href="' + esc(L.pdfUrl) + '" target="_blank" rel="noopener">공고문 PDF 열기 ↗</a>');
+      return '<section class="d-sec d-apply">' +
+        '<div class="apply-cta apply-cta--time" role="note">' +
+          CLOCK_SVG +
+          '<span class="apply-cta-label">청약 접수 시간(09:00~17:30)이 아니에요</span>' +
+        '</div>' +
+        '<p class="apply-note apply-note--time"><b>' + esc(g.head) + '</b><br>' +
+          esc(g.hours) + ' · ' + esc(g.tip) + '</p>' +
+        (look.length ? '<div class="apply-alt">' + look.join('') + '</div>' : '') +
+        fine +
+      '</section>';
+    }
+
     var alt = [];
-    if (L.applyUrl && L.applyUrl !== cta.url) {
+    if (L.applyUrl && L.applyUrl !== cta.url && cta.kind !== 'ended') {
       alt.push('<a class="d-link" href="' + esc(L.applyUrl) + '" target="_blank" rel="noopener">' +
         esc(L.applyPath || '청약신청 화면') + ' ↗</a>');
     }
@@ -628,7 +797,7 @@
       '</a>' +
       (cta.note ? '<p class="apply-note">' + esc(cta.note) + '</p>' : '') +
       (alt.length ? '<div class="apply-alt">' + alt.join('') + '</div>' : '') +
-      '<p class="apply-fine">신청·전자서명은 청약홈에서 본인 인증(공동인증서·금융인증서) 후 직접 해야 해요. 이 앱은 신청을 대신하지 않아요.</p>' +
+      fine +
     '</section>';
   }
 
@@ -655,10 +824,18 @@
 
     var announce = L.winnersDate ? '발표 <b>' + mdw(L.winnersDate) + '</b>' : '발표일 미정';
     var cta = applyMeta(L, st, e.ok);
-    var applyRow = cta.kind === 'apply'
-      ? '<a class="card-apply" data-apply href="' + esc(cta.url) + '" target="_blank" rel="noopener"' +
-        ' aria-label="' + esc(L.name) + ' — 청약홈에서 신청">청약홈에서 신청하기 <b>→</b></a>'
-      : '';
+    var applyRow = '';
+    if (cta.kind === 'apply') {
+      applyRow = '<a class="card-apply" data-apply href="' + esc(cta.url) + '" target="_blank" rel="noopener"' +
+        ' aria-label="' + esc(L.name) + ' — 청약홈에서 신청">청약홈에서 신청하기 <b>→</b></a>';
+    } else if (cta.kind === 'time') {
+      applyRow = '<button type="button" class="card-apply card-apply--time" data-time-note' +
+        ' aria-label="' + esc(L.name) + ' — 청약 접수 시간이 아니에요">' +
+        CLOCK_SVG + '접수 시간 아님 · ' + esc(cta.gate.card) + '</button>';
+    } else if (cta.kind === 'ended') {
+      applyRow = '<a class="card-apply card-apply--time" href="' + esc(cta.url || L.detailUrl || '') + '"' +
+        ' target="_blank" rel="noopener">오늘 접수 마감(17:30) · 공고 보기</a>';
+    }
 
     return '' +
       '<article class="card' + (isFav ? ' is-fav' : '') + '" data-id="' + esc(L.id) + '" tabindex="0" role="button" ' +
@@ -709,9 +886,11 @@
 
   function renderResults() {
     var c = counts();
+    var gate = applyGate();
     $('#eligibleCount').textContent = c.ok;
-    $('#resultsSub').innerHTML =
-      '지원 가능 <b>' + c.ok + '건</b> 중 지금 접수 가능 <b>' + c.open + '건</b> · 조건 미달 ' + c.excluded + '건';
+    $('#resultsSub').innerHTML = gate.open
+      ? '지원 가능 <b>' + c.ok + '건</b> 중 지금 접수 가능 <b>' + c.open + '건</b> · 조건 미달 ' + c.excluded + '건'
+      : '지원 가능 <b>' + c.ok + '건</b> 중 접수 중 <b>' + c.open + '건</b> · 지금은 접수 시간이 아니에요 · 조건 미달 ' + c.excluded + '건';
 
     $('#segFilter').innerHTML = [
       { v: 'eligible', l: '지원 가능', n: c.ok },
@@ -733,9 +912,31 @@
       host.innerHTML = chunks.join('');
     }
 
+    renderApplyWindow();
     renderOverlap();
     renderSeqPanel();
     renderInterestBar();
+  }
+
+  /* ─────────────── 청약 접수 시간 안내 스트립 ─────────────── */
+  var CLOCK_SVG = '<svg class="apply-cta-ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">' +
+    '<circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
+    '<path d="M12 7.4V12l3.2 2.1" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+    'stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function renderApplyWindow() {
+    var host = $('#applyWindow');
+    if (!host) return;
+    var g = applyGate();
+    var tone = g.open ? (g.left <= 60 ? 'soon' : 'open') : g.reason;
+    host.className = 'apply-window apply-window--' + tone;
+    host.innerHTML =
+      '<span class="aw-dot" aria-hidden="true"></span>' +
+      '<div class="aw-body">' +
+        '<b class="aw-title">' + esc(g.head) + '</b>' +
+        '<span class="aw-tip">' + esc(g.tip) + '</span>' +
+      '</div>' +
+      '<span class="aw-hours">청약 접수 ' + esc(g.hours.replace(' (KST)', '')) + ' <b>KST</b></span>';
   }
 
   /* ─────────────────── 관심 공고 연속 신청 모드 ─────────────────── */
@@ -762,6 +963,8 @@
     var done = !!appliedAt(L.id);
     var cta = applyMeta(L, st, e.ok);
     var canApply = cta.kind === 'apply';
+    var gated = cta.kind === 'time';
+    var ended = cta.kind === 'ended';
     var url = canApply ? cta.url : (L.detailUrl || L.applyUrl || '');
     var when = st.key === 'open'
       ? (st.days === 0 ? '오늘 17:30 마감' : st.label + ' · ' + md(L.applyEnd) + ' 마감')
@@ -781,9 +984,14 @@
         '<p class="seq-meta">' + esc(when) + (L.applyPath ? ' · ' + esc(L.applyPath) : '') + '</p>' +
         (reason ? '<p class="seq-reason">✕ ' + esc(reason) + '</p>' : '') +
         '<div class="seq-actions">' +
-          (url ? '<a class="seq-open" href="' + esc(url) + '" target="_blank" rel="noopener"' +
-            (canApply ? ' data-apply' : '') + '>' +
-            (canApply ? '청약홈 신청 열기 <b>→</b>' : '공고·신청 화면 열기 <b>↗</b>') + '</a>' : '') +
+          (gated
+            ? '<button type="button" class="seq-open seq-open--time" data-time-note>' +
+              CLOCK_SVG + '접수 시간 아님 · ' + esc(cta.gate.card) + '</button>'
+            : (url ? '<a class="seq-open" href="' + esc(url) + '" target="_blank" rel="noopener"' +
+              (canApply ? ' data-apply' : '') + '>' +
+              (canApply ? '청약홈 신청 열기 <b>→</b>'
+                : ended ? '오늘 접수 마감 · 공고 보기 <b>↗</b>'
+                : '공고·신청 화면 열기 <b>↗</b>') + '</a>' : '')) +
           '<button type="button" class="seq-check" data-seq-check="' + esc(L.id) + '" aria-pressed="' + done + '">' +
             (done ? '신청 완료 ✓' : '신청 완료 체크') + '</button>' +
           '<button type="button" class="seq-detail" data-seq-detail="' + esc(L.id) + '">자세히</button>' +
@@ -937,6 +1145,7 @@
   function drawerHTML(e) {
     var L = e.l, st = e.status;
     var isFav = state.favs.indexOf(L.id) !== -1;
+    var cta = applyMeta(L, st, e.ok);
     var verdictLines = (e.ok ? e.passes : e.fails).slice(0, 5).map(function (x) {
       var line = typeof x === 'string' ? x : x.text;
       return '<p class="dv-line">' + (e.ok ? '✓ ' : '✕ ') + esc(line) + '</p>';
@@ -958,7 +1167,12 @@
       sourceLinks += '<a class="d-link" href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do" target="_blank" rel="noopener">청약홈에서 공고 검색 ↗</a>';
     }
     if (L.applyUrl) {
-      sourceLinks += '<a class="d-link" href="' + esc(L.applyUrl) + '" target="_blank" rel="noopener">청약신청 화면 ↗</a>';
+      if (cta.kind === 'apply') {
+        sourceLinks += '<a class="d-link" href="' + esc(L.applyUrl) + '" target="_blank" rel="noopener">청약신청 화면 ↗</a>';
+      } else if (st.key === 'open') {
+        /* 접수 시간 밖에는 신청 화면으로 가는 링크를 열지 않는다 */
+        sourceLinks += '<span class="d-link d-link--off">청약신청 화면 — 접수 시간(평일 09:00~17:30)에 열려요</span>';
+      }
     }
 
     return '' +
@@ -1022,8 +1236,9 @@
       '<div class="drawer-actions">' +
         '<button type="button" class="btn-secondary" id="drawerFav" aria-pressed="' + isFav + '">' +
           (isFav ? '관심 담김 ✓' : '관심 담기') + '</button>' +
-        '<a class="btn-primary" href="' + esc(applyMeta(L, st, e.ok).url) + '" target="_blank" rel="noopener">' +
-          esc(applyMeta(L, st, e.ok).short) + '</a>' +
+        (cta.kind === 'apply'
+          ? '<a class="btn-primary" href="' + esc(cta.url) + '" target="_blank" rel="noopener">' + esc(cta.short) + '</a>'
+          : '<span class="btn-primary btn-primary--off" aria-disabled="true">' + esc(cta.short) + '</span>') +
       '</div>';
   }
 
@@ -1066,7 +1281,7 @@
 
   /* ───────────────────────── 토스트 ───────────────────────── */
   var toastTimer = null;
-  function toast(msg) {
+  function toast(msg, ms) {
     var el = $('#toast');
     if (!el) {
       el = document.createElement('div');
@@ -1078,7 +1293,7 @@
     el.textContent = msg;
     el.classList.add('on');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { el.classList.remove('on'); }, 2400);
+    toastTimer = setTimeout(function () { el.classList.remove('on'); }, ms || 2400);
   }
 
   /* ───────────────────────── 미니 바 ───────────────────────── */
@@ -1111,6 +1326,15 @@
     document.addEventListener('click', function (ev) {
       /* 청약홈 링크는 새 창으로 열고, 카드 상세(드로어)는 열지 않는다 */
       if (ev.target.closest('[data-apply]')) return;
+
+      /* 접수 시간 밖 안내 — 신청 화면으로도, 드로어로도 넘어가지 않고 언제 열리는지만 알린다 */
+      if (ev.target.closest('[data-time-note]')) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var tg = applyGate();
+        toast(tg.head + ' · ' + tg.tip, 4200);
+        return;
+      }
 
       var seg = ev.target.closest('[data-seg]');
       if (seg) {
@@ -1255,10 +1479,45 @@
     });
   }
 
+  /* ─────────────── 접수 시간이 바뀌면 화면을 다시 그린다 ─────────────── */
+  var lastGateOpen = null;
+  function redrawOpenDrawer() {
+    var d = $('#drawer');
+    if (!d || d.hidden) return;
+    var id = d.getAttribute('data-id');
+    var e = null;
+    for (var i = 0; i < evalCache.length; i++) if (evalCache[i].l.id === id) { e = evalCache[i]; break; }
+    if (!e) return;
+    var sc = d.scrollTop;
+    d.innerHTML = drawerHTML(e);
+    d.setAttribute('data-id', id);
+    d.scrollTop = sc;
+  }
+  function tickClock() {
+    var open = applyGate().open;
+    if (lastGateOpen !== null && open !== lastGateOpen) {
+      lastGateOpen = open;
+      refresh();
+      redrawOpenDrawer();
+      return;
+    }
+    lastGateOpen = open;
+    renderApplyWindow();
+  }
+  function startClock() {
+    lastGateOpen = applyGate().open;
+    setInterval(tickClock, 20000);
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) tickClock();
+    });
+  }
+
   /* ───────────────────────── 시작 ───────────────────────── */
   function boot(data) {
     LISTINGS = data.listings || [];
     META = data.meta || {};
+    /* 검증용 훅 — 현재 접수 시간 판정을 그대로 돌려준다(화면에는 영향 없음) */
+    window.__CHEONGYAK_GATE__ = applyGate;
 
     $('#hdrCount').textContent = LISTINGS.length;
     if (META.collectedAt) {
@@ -1273,6 +1532,7 @@
     renderResults();
     setupMiniBar();
     bind();
+    startClock();
   }
 
   function fail(msg) {
