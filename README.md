@@ -43,6 +43,8 @@ cheongyak-filter-app/
 ├── tmp/verify.py           헤드리스 Chromium 검증 + 스크린샷
 ├── tmp/verify_features.py  소득·자산 표시·연속 신청 모드 검증
 ├── tmp/verify_hours.py     청약 접수 시간(09:00~17:30) 게이트 검증
+├── tmp/verify_labels.py    '공고 보기' 문구·연결, 마감 공고 숨김 검증
+├── tmp/verify_live.py      배포 URL(GitHub Pages) 검증
 ├── tmp/build_income_asset.py  listings.json 의 incomeAsset 재생성
 └── preview-*.png           화면 캡처
 ```
@@ -247,6 +249,8 @@ PLAYWRIGHT_BROWSERS_PATH=<system browsers> python3 tmp/build_icons.py
 PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify.py
 PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify_features.py
 PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify_hours.py
+PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify_labels.py
+PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify_live.py   # 배포 URL
 python3 tmp/check_links.py      # 38건의 청약홈 공고 상세·신청 화면이 200으로 열리는지
 ```
 
@@ -254,17 +258,24 @@ python3 tmp/check_links.py      # 38건의 청약홈 공고 상세·신청 화�
 규제지역(투기과열) 1주택 탈락, 경기 전용 공고의 타지역 탈락, 드로어·중복 배너,
 카드·드로어의 발표일이 `winnersDate`인지, 예치금 3단 입력(칩·슬라이더·원 단위 직접 입력)과
 `204만` 저장값의 원 단위 이전, 카드·드로어의 청약홈 링크, 아이콘·매니페스트·OG 메타 응답까지 확인하고
-`preview-*.png`를 다시 찍습니다. (2026-11-26 실행: 56/56 통과)
+`preview-*.png`를 다시 찍습니다. (2026-11-26 실행: 61/61 통과)
 
-`tmp/verify_features.py` 는 새 기능만 따로 굴립니다(2026-11-26 실행: 43/43 통과).
+`tmp/verify_features.py` 는 새 기능만 따로 굴립니다(2026-11-26 실행: 45/45 통과).
 카드 소득·자산 한 줄(공공분양 2억 1,550만/4,542만, 민간임대 소득 100~120%, `기준 없음`, `원문 확인 필요`),
 드로어 표(16행·3인 이하 753만 → 4인 880만 전환, 출산가구 완화),
 연속 신청 모드(정렬·진행률 0/4→2/4·새로고침 유지·초기화·모바일 레이아웃)를 확인합니다.
 
 `tmp/verify_hours.py` 는 접수 시간 게이트를 시간별로 고정(mock)해 확인합니다
-(2026-11-26 실행: 57/57 통과). 07:40·10:00·17:20·17:31·토요일·성탄절, 오늘이 마지막 접수일인 경우,
-카드·드로어·연속 신청 모드의 잠금 여부, 잠긴 버튼 클릭 토스트, 390 폭 넘침, 콘솔 오류 0.
+(2026-11-26 실행: 63/63 통과). 07:40·10:00·17:20·17:31·토요일·성탄절, 오늘이 마지막 접수일인 경우
+(17:31에는 목록에서 빠지고 `관심` 탭에만 `오늘 접수 마감`으로 남음), 카드·드로어·연속 신청 모드의
+잠금 여부, 잠긴 버튼 클릭 토스트, 390 폭 넘침, 콘솔 오류 0.
 스크린샷은 `downloads/cheongyak-hours/`에 저장합니다.
+
+`tmp/verify_labels.py` 는 이번 문구·숨김 정책을 따로 확인합니다(2026-11-26 실행: 34/34 통과).
+연속 신청 모드의 신청 불가 단계가 모두 `공고 보기 ↗` + 청약홈 공고 상세(`detailUrl`)인지,
+`공고·신청 화면 열기`가 app.js·index.html·README 에 남아 있지 않은지, 마감 공고가 기본 목록·
+헤더 카운트·연속 신청 모드에서 빠지고 `관심` 탭에만 남는지 봅니다.
+`tmp/verify_live.py` 는 같은 항목을 배포 URL 에서 확인합니다(2026-11-26 실행: 18/18 통과).
 
 ## 주의
 
