@@ -44,14 +44,6 @@
   var LEGACY_KEY = 'cheongyakddak:v2';
   var WD = ['일', '월', '화', '수', '목', '금', '토'];
 
-  /* ── 청약홈 접수 가능 시간 ────────────────────────────────
-     근거: 청약홈 「인터넷 주택청약업무 운영시간」 — 주택청약 접수 09:00~17:30 (영업일).
-     입주자모집공고문도 유형(특별공급·1순위·무순위·임의공급·민간임대)과 상관없이
-     '청약신청 시간 09:00~17:30'으로 같고, 17:30은 '접수 완료' 기준이라 그 전에
-     전자서명까지 끝나야 한다. 주말·공휴일은 접수 없음. 시각은 모두 한국 시간(KST). */
-  var APPLY_FROM = 9 * 60;          /* 09:00 — 분 단위 */
-  var APPLY_TO = 17 * 60 + 30;      /* 17:30 */
-
   /* ── 청약홈 로그인 먼저 하기 ────────────────────────────────
      청약신청 화면(selectSubscrtReqstAptMainView.do 등)에서 '청약신청하기'를 누르면
      청약홈이 로그인 화면을 먼저 보여 주고, 그 로그인 화면의 복귀 주소(nextUrl)는
@@ -61,6 +53,14 @@
      그래서 앱은 로그인을 먼저 마치도록 이 주소를 '로그인 먼저' 링크로 열어 주고,
      로그인을 마치면 청약신청 단지 선택 단계로 들어가 바로 이어서 신청하게 한다. */
   var APPLYHOME_LOGIN_URL = 'https://www.applyhome.co.kr/ap/aph/reqst/selectPblancChoise.do';
+
+  /* ── 청약홈 접수 가능 시간 ────────────────────────────────
+     근거: 청약홈 「인터넷 주택청약업무 운영시간」 — 주택청약 접수 09:00~17:30 (영업일).
+     입주자모집공고문도 유형(특별공급·1순위·무순위·임의공급·민간임대)과 상관없이
+     '청약신청 시간 09:00~17:30'으로 같고, 17:30은 '접수 완료' 기준이라 그 전에
+     전자서명까지 끝나야 한다. 주말·공휴일은 접수 없음. 시각은 모두 한국 시간(KST). */
+  var APPLY_FROM = 9 * 60;          /* 09:00 — 분 단위 */
+  var APPLY_TO = 17 * 60 + 30;      /* 17:30 */
   /* 청약홈이 쉬는 공휴일(주말 제외) — 관공서 공휴일 기준.
      2026년은 확정분, 2027년은 우주항공청 월력요항 기준. 임시공휴일은 반영 전이라
      그날은 평일처럼 열리며, 실제 접수 가능 여부는 청약홈이 최종 판단한다. */
@@ -731,11 +731,11 @@
   /* '청약홈 로그인 먼저 하기' 링크 + 한 줄 안내 — 연속 신청 모드와 드로어 신청 박스가 함께 쓴다.
      비로그인 상태에서 신청 버튼을 누르면 로그인 화면을 거치며 보던 자리를 잃는다는 것을
      버튼 위에서 먼저 알려 주고, 로그인은 새 탭에서 하게 해 이 앱 화면을 잃지 않게 한다. */
-  function loginFirstHTML(variant) {
+  function loginFirstHTML(variant, applyLabel) {
     return '<div class="login-first login-first--' + variant + '">' +
       '<a class="login-first-link" href="' + APPLYHOME_LOGIN_URL + '" target="_blank" rel="noopener">' +
         '1) 청약홈 로그인 먼저 하기 ↗</a>' +
-      '<p class="login-first-tip">비로그인 상태에서 <b>청약홈 신청 열기</b>를 누르면 로그인 화면을 거친 뒤 ' +
+      '<p class="login-first-tip">비로그인 상태에서 <b>' + esc(applyLabel) + '</b>를 누르면 로그인 화면을 거친 뒤 ' +
         '신청 화면이 처음으로 돌아가요. 한 번만 미리 로그인해 두면 바로 신청 화면으로 들어가요.</p>' +
     '</div>';
   }
@@ -853,7 +853,7 @@
         esc(L.applyPath || '청약신청 화면') + ' ↗</a>');
     }
     return '<section class="d-sec d-apply">' +
-      (cta.kind === 'apply' ? loginFirstHTML('drawer') : '') +
+      (cta.kind === 'apply' ? loginFirstHTML('drawer', '청약홈에서 신청하기') : '') +
       '<a class="apply-cta apply-cta--' + cta.tone + '" href="' + esc(cta.url) + '" target="_blank" rel="noopener">' +
         '<span class="apply-cta-label">' + esc(cta.label) + '</span>' +
         (cta.kind === 'apply' ? '<span class="apply-cta-arrow">→</span>' : '') +
@@ -1127,7 +1127,7 @@
         '<p class="seq-help">' + (apt.length
           ? '청약홈은 단지마다 <b>주택형·자격 선택</b>과 <b>전자서명</b>을 거쳐야 해서 한 번에 일괄 신청은 안 돼요. 마감이 급한 순서로 열어 하나씩 신청하고 체크하세요.'
           : '청약홈은 단지마다 <b>주택형·자격 선택</b>과 <b>전자서명</b>을 거쳐야 해서 한 번에 일괄 신청은 안 돼요. <b>지금은 접수 기간 중인 공고가 없어요</b> — 접수가 시작되면 그 단계에 <b>신청 완료 체크</b>가 나타나요.') + '</p>' +
-        (apt.length ? loginFirstHTML('seq') : '') +
+        (apt.length ? loginFirstHTML('seq', '청약홈 신청 열기') : '') +
       '</div>' +
       '<ol class="seq-list">' + rows.map(seqStepHTML).join('') + '</ol>' +
       (anyDone ? '<button type="button" class="seq-reset" id="seqReset">신청 완료 체크 모두 지우기</button>' : '') +
