@@ -915,6 +915,28 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   padding: 10px 16px; border-radius: 10px;
   box-shadow: 0 6px 16px rgba(49, 130, 246, .3);
 }
+.empty-btn--ghost {
+  color: var(--ink-2);
+  background: #fff; border: 1px solid var(--line);
+  box-shadow: none;
+}
+
+/* 관심 탭 — 마감·목록에서 빠져 숫자에 넣지 않은 관심 공고 안내 */
+.fav-stale {
+  grid-column: 1 / -1;   /* 카드 격자에서 한 줄을 다 쓴다 */
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin-top: 2px; padding: 12px 14px;
+  font-size: 12.5px; color: var(--ink-3); line-height: 1.5;
+  background: var(--line-soft); border: 1px solid var(--line); border-radius: var(--r-md);
+}
+.fav-stale b { color: var(--ink-2); }
+.fav-stale-btn {
+  margin-left: auto;
+  font-size: 12px; font-weight: 700; color: var(--ink-2);
+  background: #fff; border: 1px solid var(--line); border-radius: 8px;
+  padding: 6px 10px;
+}
+.fav-stale-btn:hover { border-color: var(--ink-4); color: var(--ink); }
 
 /* ───────────── 관심 바 ───────────── */
 .interest-bar {

@@ -547,10 +547,6 @@
   }
 
   function evaluateAll() { evalCache = LISTINGS.map(evaluate); return evalCache; }
-  function byId(id) {
-    for (var i = 0; i < LISTINGS.length; i++) if (LISTINGS[i].id === id) return LISTINGS[i];
-    return null;
-  }
 
   /* ───────────────────────── 조건 UI ───────────────────────── */
   function segHTML(list, current, name) {
@@ -637,11 +633,32 @@
     return { ok: ok, excluded: total - ok, open: open, total: total };
   }
 
+  /* ── 지금 화면에 실제로 보이는 관심 공고 ──
+     localStorage의 favs에는 예전에 담아 둔 ID가 그대로 남아 있을 수 있다 — 접수가 끝난 공고,
+     새로 받아온 listings.json에서 빠진 공고. 관심 탭 목록·관심 숫자(세그먼트·하단 바)·
+     연속 신청 모드·발표일 겹침 검사는 모두 이 목록 하나만 센다.
+     그래서 화면에 보이는 관심 카드 수와 '관심 N' 숫자가 언제나 같다. */
+  function favEntries() {
+    var out = [];
+    evalCache.forEach(function (e) {
+      if (isEnded(e)) return;
+      if (state.favs.indexOf(e.l.id) !== -1) out.push(e);
+    });
+    return out;
+  }
+  function favCount() { return favEntries().length; }
+  /* 화면·숫자에서 빠진 관심 ID — 접수가 끝났거나 목록에 없는 공고 */
+  function staleFavIds() {
+    var seen = {};
+    favEntries().forEach(function (e) { seen[e.l.id] = 1; });
+    return state.favs.filter(function (id) { return !seen[id]; });
+  }
+
   function conflictMap() {
     var groups = {}, map = {};
-    state.favs.forEach(function (id) {
-      var L = byId(id);
-      if (!L || !L.winnersDate) return;
+    favEntries().forEach(function (e) {
+      var L = e.l;
+      if (!L.winnersDate) return;
       (groups[L.winnersDate] = groups[L.winnersDate] || []).push(L);
     });
     Object.keys(groups).forEach(function (k) {
@@ -653,9 +670,9 @@
   function filterList() {
     var cm = conflictMap();
     return evalCache.filter(function (e) {
-      /* 관심에 담아 둔 공고는 마감돼도 '관심'에서만 남긴다 */
-      if (state.filter === 'fav') return state.favs.indexOf(e.l.id) !== -1;
+      /* 관심도 다른 탭과 같은 기준 — 접수 마감·목록에서 빠진 공고는 관심 탭에도 올리지 않는다 */
       if (isEnded(e)) return false;
+      if (state.filter === 'fav') return state.favs.indexOf(e.l.id) !== -1;
       if (state.filter === 'eligible') return e.ok;
       if (state.filter === 'excluded') return !e.ok;
       return true;
@@ -964,7 +981,7 @@
     $('#segFilter').innerHTML = [
       { v: 'eligible', l: '지원 가능', n: c.ok },
       { v: 'excluded', l: '조건 미달', n: c.excluded },
-      { v: 'fav', l: '관심', n: state.favs.length },
+      { v: 'fav', l: '관심', n: favCount() },
       { v: 'all', l: '전체', n: c.total }
     ].map(function (o) {
       return '<button type="button" data-filter="' + o.v + '" aria-pressed="' + (state.filter === o.v) + '">' +
@@ -978,6 +995,11 @@
     } else {
       var chunks = rows.map(cardHTML);
       if (chunks.length > 2) chunks.splice(2, 0, adCardHTML());
+      if (state.filter === 'fav') {
+        var stale = staleFavIds().length;
+        /* 숫자와 화면이 왜 다른지 먼저 알리고, 목록에서 빠진 건은 맨 위에 둔다 */
+        if (stale) chunks.unshift(favStaleHTML(stale));
+      }
       host.innerHTML = chunks.join('');
     }
 
@@ -1024,12 +1046,8 @@
   }
 
   function seqRows() {
-    var out = [];
-    state.favs.forEach(function (id) {
-      var e = null;
-      for (var i = 0; i < evalCache.length; i++) if (evalCache[i].l.id === id) { e = evalCache[i]; break; }
-      if (e && !isEnded(e)) out.push(e);     /* 마감된 공고는 연속 신청 모드에서 뺀다 */
-    });
+    /* 화면에 보이는 관심 공고와 같은 목록에서 — 마감된 공고·목록에 없는 공고는 연속 신청 모드에도 없다 */
+    var out = favEntries();
     var rank = { open: 0, upcoming: 1, unknown: 2, closed: 3 };
     return out.sort(function (a, b) {
       var ra = rank[a.status.key], rb = rank[b.status.key];
@@ -1142,8 +1160,22 @@
     return !!state.applied[id];
   }
 
+  /* 관심 탭과 숫자에서 빠진 관심 공고 — 마감됐거나 목록에서 사라진 건. 숫자와 화면이 왜 다른지 설명하고 정리 버튼을 준다. */
+  function favStaleHTML(n) {
+    return '<p class="fav-stale">접수 마감·목록에서 빠진 관심 공고 <b>' + n + '건</b>은 관심 숫자에 넣지 않았어요.' +
+      '<button type="button" class="fav-stale-btn" data-fav-clean>정리하기</button></p>';
+  }
+
   function emptyHTML() {
     if (state.filter === 'fav') {
+      var stale = staleFavIds().length;
+      if (stale) {
+        return '<div class="empty"><div class="empty-emoji">🗓️</div>' +
+          '<p class="empty-title">관심 공고 ' + stale + '건이 모두 접수 마감됐어요</p>' +
+          '<p class="empty-copy">접수 마감·목록에서 빠진 공고는 <b>관심 숫자에도 넣지 않아요</b>.<br>' +
+          '카드의 <b>관심</b>을 눌러 지금 접수 중인 공고를 담아 두세요.</p>' +
+          '<button type="button" class="empty-btn empty-btn--ghost" data-fav-clean>마감된 관심 공고 정리</button></div>';
+      }
       return '<div class="empty"><div class="empty-emoji">🤍</div>' +
         '<p class="empty-title">아직 담은 공고가 없어요</p>' +
         '<p class="empty-copy">카드의 <b>관심</b>을 눌러 두면<br>발표일이 겹치는지 한 번에 확인해 드려요.</p></div>';
@@ -1183,11 +1215,11 @@
         '</div></div>';
       return;
     }
-    if (state.favs.length >= 2) {
+    if (favCount() >= 2) {
       host.innerHTML = '<div class="overlap overlap-ok" role="status">' +
         '<span class="overlap-ico">✓</span>' +
         '<div class="overlap-body">' +
-          '<p class="overlap-title">관심 ' + state.favs.length + '곳 — 발표일이 모두 달라요</p>' +
+          '<p class="overlap-title">관심 ' + favCount() + '곳 — 발표일이 모두 달라요</p>' +
           '<p class="overlap-item">발표일이 다르면 각각 신청할 수 있어요. 다만 빠른 공고에 당첨되면 늦은 공고 당첨은 자동 취소돼요.</p>' +
         '</div></div>';
       return;
@@ -1197,18 +1229,14 @@
 
   function renderInterestBar() {
     var bar = $('#interestBar');
-    if (!state.favs.length) { bar.hidden = true; return; }
+    /* 하단 바 숫자도 화면에 보이는 관심 카드 수와 같다 — 마감된 공고만 남았으면 바 자체를 띄우지 않는다 */
+    if (!favCount()) { bar.hidden = true; return; }
     bar.hidden = false;
     var cm = conflictMap();
     var conflictCount = Object.keys(cm.groups).filter(function (k) { return cm.groups[k].length > 1; }).length;
-    $('#ibCount').textContent = state.favs.length;
-    /* 진행률은 연속 신청 모드와 같게 — 마감된 공고와 접수 예정·조건 미달 공고는 분모에서 뺀다 */
-    var aptIds = state.favs.filter(function (id) {
-      for (var i = 0; i < evalCache.length; i++) {
-        if (evalCache[i].l.id === id) return canApplyNow(evalCache[i]);
-      }
-      return false;
-    });
+    $('#ibCount').textContent = favCount();
+    /* 진행률은 연속 신청 모드와 같게 — 접수 예정·조건 미달 공고는 분모에서 뺀다 */
+    var aptIds = favEntries().filter(canApplyNow).map(function (e) { return e.l.id; });
     var appliedN = aptIds.filter(function (id) { return !!state.applied[id]; }).length;
     $('#ibSub').textContent = (conflictCount
       ? '발표일 겹침 ' + conflictCount + '쌍 — 확인이 필요해요'
@@ -1529,6 +1557,19 @@
         return;
       }
 
+      /* 마감·목록에서 빠진 관심 공고 정리 — 화면에 없는 ID를 favs에서 지운다 */
+      if (ev.target.closest('[data-fav-clean]')) {
+        var stale = staleFavIds();
+        if (!stale.length) return;
+        state.favs = state.favs.filter(function (id) { return stale.indexOf(id) === -1; });
+        stale.forEach(function (id) { delete state.applied[id]; });
+        save();
+        saveApplied();
+        renderResults();
+        toast('마감된 관심 공고 ' + stale.length + '건을 정리했어요');
+        return;
+      }
+
       var card = ev.target.closest('.card');
       if (card) { openDrawer(card.getAttribute('data-id')); return; }
 
@@ -1661,7 +1702,8 @@
     }
 
     load();
-    state.favs = state.favs.filter(function (id) { return !!byId(id); });
+    /* favs에는 예전에 담아 둔 ID가 남아 있을 수 있다(마감·목록에서 빠진 공고).
+       화면·숫자는 favEntries()가 걸러 내고, 남은 ID는 관심 탭의 '정리하기'로 사용자가 지운다. */
     renderCondition();
     evaluateAll();
     renderResults();
