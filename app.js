@@ -1699,6 +1699,8 @@
     if (META.collectedAt) {
       $('#hdrDate').textContent = META.collectedAt.replace(/-/g, '.');
       $('#footDate').textContent = META.collectedAt;
+      /* 본문 안내문에 박혀 있던 수집일을 데이터에서 채운다(날짜가 굳어 남지 않도록) */
+      if ($('#footCollected')) $('#footCollected').textContent = META.collectedAt;
     }
 
     load();
