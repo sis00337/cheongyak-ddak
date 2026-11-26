@@ -722,12 +722,12 @@
     var bits = [];
     var range = dateRange(L.applyStart, L.applyEnd);
     if (st.key === 'upcoming') {
+      /* 접수 시작 전에는 '청약홈 로그인 후 신청'을 붙이지 않는다 — 지금 신청할 수 있다고 읽힌다 */
       if (L.applyStart) {
-        bits.push('접수 시작 ' + mdw(L.applyStart) +
-          (L.applyEnd && L.applyEnd !== L.applyStart ? ' · 마감 ' + md(L.applyEnd) : ''));
-      } else {
-        bits.push('접수일 미정');
+        return '접수 시작 ' + mdw(L.applyStart) + ' 09:00' +
+          (L.applyEnd && L.applyEnd !== L.applyStart ? ' · 마감 ' + md(L.applyEnd) : '');
       }
+      return '접수일 미정';
     } else if (st.key === 'closed') {
       /* 이미 끝난 접수다 — '청약홈 로그인 후 신청'을 붙이면 지금도 신청할 수 있는 것처럼 읽힌다 */
       return range ? '접수 ' + range + ' 마감' : '접수 마감';
@@ -769,8 +769,9 @@
         url: detailUrl, path: path, tone: 'muted', note: applyNote(L, st) };
     }
     if (ok && st.key === 'upcoming' && applyUrl) {
-      return { kind: 'wait', label: '접수 D-' + st.days + ' · 공고 보기',
-        short: '접수 D-' + st.days + ' · 공고 보기', url: detailUrl, path: path, tone: 'wait',
+      /* 아직 접수 시작 전 — 신청 버튼이 아니라 '신청일이 아니다' 안내로 둔다 */
+      return { kind: 'wait', label: '아직 신청일이 아니에요 · ' + st.days + '일 남았어요',
+        short: 'D-' + st.days + ' · 접수 시작 전', url: detailUrl, path: path, tone: 'wait',
         note: applyNote(L, st) };
     }
     if (!ok) {
@@ -805,9 +806,27 @@
     }
 
     var alt = [];
-    /* 신청 화면 참고 링크는 접수 예정·일정 미확인 공고에만 둔다.
+    /* 접수 시작 전(D-n) — 신청 버튼 대신 '아직 신청일이 아니다' 안내만 두고,
+       공고 원문·PDF는 작은 링크로 남긴다. */
+    if (cta.kind === 'wait') {
+      var det = cta.detailUrl || L.detailUrl || L.applyhomeUrl || '';
+      if (det) alt.push('<a class="d-link" href="' + esc(det) + '" target="_blank" rel="noopener">청약홈 공고 보기 ↗</a>');
+      if (L.pdfUrl) alt.push('<a class="d-link" href="' + esc(L.pdfUrl) + '" target="_blank" rel="noopener">공고문 PDF 열기 ↗</a>');
+      return '<section class="d-sec d-apply">' +
+        '<div class="apply-cta apply-cta--time" role="note">' +
+          CLOCK_SVG +
+          '<span class="apply-cta-label">아직 신청일이 아니에요 · ' + st.days + '일 남았어요</span>' +
+        '</div>' +
+        '<p class="apply-note apply-note--time"><b>' + esc(applyNote(L, st)) + '</b>' +
+          (L.applyPath ? '<br>' + esc(L.applyPath) + '로 접수해요' : '') + '</p>' +
+        (alt.length ? '<div class="apply-alt">' + alt.join('') + '</div>' : '') +
+        fine +
+      '</section>';
+    }
+
+    /* 신청 화면 참고 링크는 일정 미확인 공고에만 둔다.
        마감·조건 미달 공고는 신청할 수 없으므로 공고 상세·공고문만 연다. */
-    if (L.applyUrl && L.applyUrl !== cta.url && (cta.kind === 'wait' || cta.kind === 'detail')) {
+    if (L.applyUrl && L.applyUrl !== cta.url && cta.kind === 'detail') {
       alt.push('<a class="d-link" href="' + esc(L.applyUrl) + '" target="_blank" rel="noopener">' +
         esc(L.applyPath || '청약신청 화면') + ' ↗</a>');
     }
@@ -854,8 +873,13 @@
         ' aria-label="' + esc(L.name) + ' — 청약 접수 시간이 아니에요">' +
         CLOCK_SVG + '접수 시간 아님 · ' + esc(cta.gate.card) + '</button>';
     } else if (cta.kind === 'ended') {
-      applyRow = '<a class="card-apply card-apply--time" href="' + esc(cta.url || L.detailUrl || '') + '"' +
-        ' target="_blank" rel="noopener">오늘 접수 마감(17:30) · 공고 보기</a>';
+      /* 오늘 17:30이 지나 끝난 공고 — 신청 링크 대신 상태만 알리고 자세히로 보낸다 */
+      applyRow = '<p class="card-status"><b>오늘 접수 마감(17:30)</b>' +
+        '<span>신청할 수 없어요</span></p>';
+    } else if (cta.kind === 'wait') {
+      /* 접수 시작 전(D-n) — 큰 버튼 대신 '아직 신청일이 아니다' 안내 */
+      applyRow = '<p class="card-status"><b>아직 신청일이 아니에요</b>' +
+        '<span>' + st.days + '일 남았어요 · ' + md(L.applyStart) + ' 접수 시작</span></p>';
     }
 
     return '' +
@@ -1000,17 +1024,30 @@
     var canApply = cta.kind === 'apply';
     var gated = cta.kind === 'time';
     var ended = cta.kind === 'ended';
-    /* 신청할 수 없는 공고는 신청 화면이 아니라 공고 상세로만 보낸다 */
-    var detail = L.detailUrl || L.link || '';
-    var url = canApply ? cta.url : detail;
+    /* 신청할 수 없는 단계는 공고 링크를 두지 않는다 — 공고 원문은 '자세히' 드로어의 '원문 보기'에서 연다 */
     var when = st.key === 'open'
       ? (st.days === 0 ? '오늘 17:30 마감' : st.label + ' · ' + md(L.applyEnd) + ' 마감')
       : st.key === 'upcoming'
         ? (L.applyStart ? md(L.applyStart) + ' 접수 시작' : '접수일 미정')
         : st.key === 'closed' ? '접수 마감' : '일정 미확인';
     var reason = !e.ok && e.fails.length ? e.fails[0].text : '';
+    /* 신청할 수 없는 이유를 버튼 자리에 한 줄로 남긴다 */
+    var status = '';
+    if (!canApply && !gated) {
+      if (!e.ok) {
+        status = '<p class="seq-status seq-status--no">✕ 내 조건으로는 신청할 수 없어요' +
+          (reason ? ' <span class="seq-status-sub">· ' + esc(reason) + '</span>' : '') + '</p>';
+      } else if (ended) {
+        status = '<p class="seq-status">' + CLOCK_SVG + '오늘 접수 시간(17:30)이 지나 신청할 수 없어요</p>';
+      } else if (st.key === 'upcoming') {
+        status = '<p class="seq-status">' + CLOCK_SVG + '아직 신청일이 아니에요 · <b>' + st.days +
+          '일 남았어요</b> <span class="seq-status-sub">(' + md(L.applyStart) + ' 접수 시작)</span></p>';
+      } else {
+        status = '<p class="seq-status">' + CLOCK_SVG + '지금은 신청할 수 없는 공고예요</p>';
+      }
+    }
     return '<li class="seq-step' + (done ? ' is-done' : '') + '"' +
-      (applicable ? ' data-can-apply="1"' : '') + '>' +
+      (applicable ? ' data-can-apply="1"' : '') + (e.ok ? ' data-ok="1"' : '') + '>' +
       '<div class="seq-rail"><span class="seq-no">' + (done ? '✓' : (i + 1)) + '</span></div>' +
       '<div class="seq-body">' +
         '<div class="seq-top">' +
@@ -1020,17 +1057,14 @@
         '</div>' +
         '<p class="seq-name">' + esc(L.name) + '</p>' +
         '<p class="seq-meta">' + esc(when) + (L.applyPath ? ' · ' + esc(L.applyPath) : '') + '</p>' +
-        (reason ? '<p class="seq-reason">✕ ' + esc(reason) + '</p>' : '') +
+        status +
         '<div class="seq-actions' + (applicable || done ? '' : ' seq-actions--no-check') + '">' +
           (gated
             ? '<button type="button" class="seq-open seq-open--time" data-time-note>' +
               CLOCK_SVG + '접수 시간 아님 · ' + esc(cta.gate.card) + '</button>'
-            : (url ? '<a class="seq-open" href="' + esc(url) + '" target="_blank" rel="noopener"' +
-              (canApply ? ' data-apply' : '') +
-              (canApply ? '' : ' aria-label="' + esc(L.name) + ' — 청약홈 공고 보기"') + '>' +
-              (canApply ? '청약홈 신청 열기 <b>→</b>'
-                : ended ? '오늘 접수 마감 · 공고 보기 <b>↗</b>'
-                : '공고 보기 <b>↗</b>') + '</a>' : '')) +
+            : (canApply
+              ? '<a class="seq-open" href="' + esc(cta.url) + '" target="_blank" rel="noopener" data-apply>청약홈 신청 열기 <b>→</b></a>'
+              : '')) +
           (applicable || done
             ? '<button type="button" class="seq-check" data-seq-check="' + esc(L.id) + '" aria-pressed="' + done + '">' +
               (done ? '신청 완료 ✓' : '신청 완료 체크') + '</button>'

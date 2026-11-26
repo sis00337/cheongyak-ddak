@@ -790,6 +790,22 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
 }
 .card-apply--time:hover { background: #eef1f4; }
 .card-apply--time:active { transform: none; }
+/* 신청할 수 없는 카드의 상태 안내 — 누를 수 있는 버튼이 아니고, 자세히는 카드 하단에 있다 */
+.card-status {
+  display: block;
+  margin-top: 12px;
+  padding: 10px 12px;
+  font-size: 12.5px; line-height: 1.45;
+  letter-spacing: -0.02em;
+  color: var(--ink-2);
+  background: #f7f8fa;
+  border: 1px solid var(--line-soft);
+  border-radius: 11px;
+  font-feature-settings: "tnum" on;
+  word-break: keep-all;
+}
+.card-status b { display: block; color: var(--ink); font-weight: 800; }
+.card-status span { display: block; color: var(--ink-3); font-weight: 600; font-size: 12px; }
 
 /* 카드 사이 광고 */
 .ad-card {
@@ -1605,7 +1621,22 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
 .seq-name { margin-top: 7px; font-size: 14.5px; font-weight: 800; letter-spacing: -0.02em; }
 .seq-step.is-done .seq-name { color: var(--ink-3); }
 .seq-meta { margin-top: 3px; font-size: 11.5px; color: var(--ink-3); font-feature-settings: "tnum" on; }
-.seq-reason { margin-top: 5px; font-size: 11.5px; color: var(--no); }
+/* 신청할 수 없는 단계의 상태 한 줄 — 큰 파란 버튼 대신 */
+.seq-status {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 5px;
+  margin-top: 9px;
+  padding: 8px 10px;
+  font-size: 12px; font-weight: 700; line-height: 1.45;
+  color: var(--ink-2);
+  background: #f7f8fa;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  font-feature-settings: "tnum" on;
+}
+.seq-status b { color: var(--ink); font-weight: 800; }
+.seq-status-sub { color: var(--ink-3); font-weight: 600; }
+.seq-status--no { color: var(--ink-2); background: var(--no-bg); border-color: #f6dede; }
+.seq-status .apply-cta-ico { width: 14px; height: 14px; color: var(--ink-4); }
 .seq-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .seq-open {
   flex: 1 1 auto; min-width: 130px;
@@ -1631,6 +1662,11 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   padding: 9px 8px; border-radius: 10px;
 }
 .seq-detail:hover { background: var(--line-soft); }
+/* 버튼이 '자세히' 하나뿐인 단계 — 회색 테두리로 누를 수 있게 보이게 */
+.seq-actions--no-check .seq-detail {
+  color: var(--ink-2); background: #fff;
+  border: 1px solid var(--line);
+}
 .seq-reset {
   margin-top: 12px; font-size: 11.5px; font-weight: 700; color: var(--ink-3);
   text-decoration: underline; text-underline-offset: 2px;
@@ -1642,7 +1678,7 @@ button:focus-visible, [tabindex]:focus-visible, select:focus-visible, input:focu
   .seq-open { grid-column: 1 / -1; }
   .seq-check, .seq-detail { justify-content: center; }
   /* 신청 완료 체크가 없는 단계(접수 예정·조건 미달)는 '자세히'가 한 줄을 다 쓴다 */
-  .seq-actions--no-check .seq-detail { grid-column: 1 / -1; }
+  .seq-actions--no-check .seq-detail { grid-column: 1 / -1; border-color: var(--line); }
 }
 
 /* 관심 바 — 연속 신청 버튼 */
