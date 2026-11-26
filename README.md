@@ -45,6 +45,7 @@ cheongyak-filter-app/
 ├── tmp/verify_hours.py     청약 접수 시간(09:00~17:30) 게이트 검증
 ├── tmp/verify_labels.py    신청 불가 단계의 상태 안내·자세히, 마감 공고 숨김 검증
 ├── tmp/verify_live.py      배포 URL(GitHub Pages) 검증
+├── tmp/verify_login_first.py  '1) 청약홈 로그인 먼저 하기' 안내 검증
 ├── tmp/build_income_asset.py  listings.json 의 incomeAsset 재생성
 └── preview-*.png           화면 캡처
 ```
@@ -56,6 +57,7 @@ cheongyak-filter-app/
 | 내 조건 3초 입력 | 주택 수 / 거주지(8개 광역권) / 예치금 / 세대주 여부 → `localStorage`에 저장 |
 | 예치금 입력 3단 | **50만 원 단위 칩**(없음·200만~500만+) + **10만 원 단위 슬라이더**(0~1,500만+) + **원 단위 직접 입력**(예: `3,500,000 원`)이 서로 동기화. 초기값은 무주택·경기·**2,000,000원** |
 | 청약홈 신청 연결 | 카드·드로어에서 공고 유형에 맞는 청약홈 **청약신청 화면**으로 바로 이동(APT 1순위·2순위 / 무순위·잔여세대 / 임의공급 / 불법행위재공급 / 오피스텔 / 공공지원민간임대). **접수 시작 전(D-n)** 은 큰 버튼 대신 `아직 신청일이 아니에요 · N일 남았어요 (MM/DD 접수 시작)` 안내가 서고, 마감·조건 미달은 회색 보조 버튼 **공고 보기**(청약홈 공고 상세)로 바뀝니다 |
+| **청약홈 로그인 먼저** | 청약홈은 로그인 없이 `청약신청하기`를 누르면 로그인 화면을 먼저 띄우고, 로그인을 마치면 보던 화면 대신 청약신청 처음(단지 선택)으로 돌아갑니다. 로그인 페이지의 복귀 주소는 청약홈 서버가 고정해 두어 `returnUrl` 같은 파라미터로는 되돌릴 수 없습니다(2026-11-26 확인). 그래서 **연속 신청 모드와 상세 드로어의 신청 버튼 위**에 `1) 청약홈 로그인 먼저 하기 ↗`(새 탭, 청약홈 로그인 화면)와 한 줄 안내를 둡니다 — 먼저 로그인해 두면 신청 버튼에서 로그인 화면 없이 바로 신청 화면으로 들어갑니다 |
 | **접수 시간 게이트** | 청약홈 접수는 **평일 09:00~17:30(KST)**. 이 시간 밖이거나 주말·공휴일이면 카드·드로어·연속 신청 모드의 **신청 버튼이 잠기고**(청약신청 화면으로 넘어가지 않음), 화면 위 띠에 `오전 9시부터 신청할 수 있어요 · 1시간 20분 남았어요`처럼 언제 열리는지가 나옵니다. `공고 보기`·공고문 PDF는 그대로 열립니다 |
 | 전국 필터 | 서울·경기·인천·부산·울산·경남·대구·경북·대전·세종·충청·광주·전라·강원·제주를 8개 광역권 칩으로 선택, 판정은 시도 단위 |
 | 스마트 필터 | 지원 가능·조건 미달·관심·전체, 마감 임박·발표일·분양가·물량·지역 정렬 |
@@ -262,6 +264,7 @@ PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify.py
 PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify_features.py
 PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify_hours.py
 PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify_labels.py
+PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify_login_first.py
 PLAYWRIGHT_BROWSERS_PATH=... LD_LIBRARY_PATH=... python3 tmp/verify_live.py   # 배포 URL
 python3 tmp/check_links.py      # 38건의 청약홈 공고 상세·신청 화면이 200으로 열리는지
 ```
@@ -296,6 +299,22 @@ python3 tmp/check_links.py      # 38건의 청약홈 공고 상세·신청 화�
 `tmp/verify_live.py` 는 같은 항목을 배포 URL 에서 확인합니다.
 배포본에서도 `신청 완료 체크`가 접수 중·조건 충족 공고에만 붙고(접수 예정·조건 미달 단계는 상태 안내 + `자세히`만),
 진행률 분모가 `0/1`처럼 신청 가능 공고만 세는지 함께 봅니다.
+
+`tmp/verify_login_first.py` 는 `1) 청약홈 로그인 먼저 하기` 안내를 확인합니다(2026-11-26 실행: 27/27 통과).
+연속 신청 모드에 **신청 가능한 공고가 있을 때만** 안내와 링크(`selectPblancChoise.do`, 새 탭 + `noopener`)가
+단계 목록 위에 서는지, 드로어는 **신청 버튼이 실제로 열리는 단계에만** 신청 버튼 위에 안내가 서고
+접수 예정·마감·조건 미달에는 없는지, 390 폭에서 넘치지 않는지, 콘솔 오류 0인지 봅니다.
+스크린샷은 `downloads/cheongyak-login-first-*.png`.
+
+### 청약홈 로그인 뒤 화면 초기화 — 조사 결과(2026-11-26)
+
+| 확인 | 결과 |
+|---|---|
+| 신청 화면에서 `청약신청하기`(비로그인) | 청약홈이 `/ap/aph/reqst/selectPblancChoise.do`로 보내고 그 자리에 **로그인 화면**(공동·금융·간편인증서)을 그립니다 |
+| 로그인 후 돌아갈 주소 | 로그인 페이지의 hidden `nextUrl` = `/ap/aph/reqst/selectPblancChoise.do` **고정**(청약신청 단지 선택). 로그인 콜백도 이 값만 씁니다 |
+| 복귀 파라미터 | 같은 주소에 `returnUrl`·`nextUrl`·`redirectUrl`·`returnURL`·`url`·`menuId`를 붙여 봤지만 `nextUrl`은 그대로 — **앱에서 되돌려 줄 수 없음** |
+| 공고별 신청 딥링크 | `/ap/aph/reqst/selectSubscrtReqstApt*View.do?pblancNo=…` 류는 404. 가장 깊은 링크는 유형별 청약신청 화면(`selectSubscrtReqstAptMainView.do?se=..&ty=..` 등) |
+| 우회 | `selectPblancChoise.do`를 **로그인 전에 먼저 열면** 로그인 화면이 바로 뜨고, 로그인을 마치면 같은 주소(= 단지 선택)로 들어갑니다. 미리 로그인해 두면 앱의 `청약홈 신청 열기 → 청약신청하기`가 로그인 화면 없이 바로 신청 단계로 넘어갑니다 |
 
 ## 주의
 
