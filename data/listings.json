@@ -1,250 +1,16 @@
 {
   "meta": {
     "source": "청약홈(applyhome.co.kr) 입주자모집공고",
-    "collectedAt": "2026-11-26",
-    "count": 27,
+    "collectedAt": "2026-11-27",
+    "count": 31,
     "scope": "전국 17개 시도 · APT 분양정보 + APT 잔여세대(무순위·임의공급·불법행위재공급) + 오피스텔·민간임대",
     "unverified": [
-      "ah2026820015"
+      "ah2026820015",
+      "ah2026000611"
     ],
     "unit": "금액 단위: 만 원"
   },
   "listings": [
-    {
-      "id": "ah2026940258",
-      "pblancNo": "2026940258",
-      "name": "중앙하이츠 원종역(4차)",
-      "region": "경기",
-      "regionGroup": "경기",
-      "district": "부천시 오정구 원종동 276-2",
-      "address": "경기도 부천시 오정구 원종동 276-2",
-      "supplyType": "임의공급",
-      "housingRequirement": "무관",
-      "requiredDeposit": 0,
-      "depositNote": "예치금 요건 없음 — 임의공급 신청",
-      "residenceRequirement": "전국",
-      "eligibleRegions": [
-        "서울",
-        "경기",
-        "인천",
-        "부산",
-        "대구",
-        "광주",
-        "대전",
-        "울산",
-        "세종",
-        "강원",
-        "충북",
-        "충남",
-        "전북",
-        "전남",
-        "경북",
-        "경남",
-        "제주"
-      ],
-      "priorityRegions": [],
-      "householderOnly": null,
-      "priceLabel": "분양가",
-      "priceMin": 46200,
-      "priceMax": 52700,
-      "priceRange": "4억 6,200만 ~ 5억 2,700만",
-      "units": 10,
-      "applyStart": "2026-11-24",
-      "applyEnd": "2026-11-26",
-      "applyDates": "2026-11-24 ~ 2026-11-26",
-      "announceDate": "2026-11-20",
-      "winnersDate": "2026-12-01",
-      "contractStart": "2026-12-08",
-      "moveIn": "2028.03",
-      "types": [
-        {
-          "label": "60E",
-          "price": 46200
-        },
-        {
-          "label": "63H",
-          "price": 51340
-        },
-        {
-          "label": "68F",
-          "price": 52700
-        }
-      ],
-      "builder": "원종동성락아파트 가로주택정비사업조합",
-      "tel": "",
-      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026940258&pblancNo=2026940258&atchmnflSeqNo=2021013&atchmnflSn=2",
-      "category": "remndr",
-      "houseManageNo": "2026940258",
-      "houseSecd": "11",
-      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026940258&pblancNo=2026940258",
-      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=11&ty=10",
-      "applyPath": "APT 임의공급",
-      "source": "청약홈 · 중앙하이츠 원종역(4차)(2026940258)",
-      "verified": true,
-      "evidence": {
-        "residence": "청약통장 가입여부와 무관하게 신청가능 → 거주지·청약통장 제한 없음",
-        "housing": "청약통장 가입여부와 무관하게 신청가능 → 청약통장·주택 수 요건 없음"
-      },
-      "ruleNote": null,
-      "extraRequirements": [],
-      "incomeAsset": null
-    },
-    {
-      "id": "ah2026950090",
-      "pblancNo": "2026950090",
-      "name": "중화역 라온프라이빗 센트로",
-      "region": "서울",
-      "regionGroup": "서울",
-      "district": "중랑구 중화동",
-      "address": "서울특별시 중랑구 중화동 303-9번지 일원",
-      "supplyType": "오피스텔",
-      "housingRequirement": "무관",
-      "requiredDeposit": 0,
-      "depositNote": "예치금 요건 없음 — 오피스텔 신청",
-      "residenceRequirement": "전국",
-      "eligibleRegions": [
-        "서울",
-        "경기",
-        "인천",
-        "부산",
-        "대구",
-        "광주",
-        "대전",
-        "울산",
-        "세종",
-        "강원",
-        "충북",
-        "충남",
-        "전북",
-        "전남",
-        "경북",
-        "경남",
-        "제주"
-      ],
-      "priorityRegions": [],
-      "householderOnly": null,
-      "priceLabel": "분양가",
-      "priceMin": 17800,
-      "priceMax": 54800,
-      "priceRange": "1억 7,800만 ~ 5억 4,800만",
-      "units": 74,
-      "applyStart": "2026-11-25",
-      "applyEnd": "2026-11-26",
-      "applyDates": "2026-11-25 ~ 2026-11-26",
-      "announceDate": "2026-11-12",
-      "winnersDate": "2026-12-02",
-      "contractStart": "2026-12-08",
-      "moveIn": "2029.02",
-      "types": [
-        {
-          "label": "20OA",
-          "price": 17800
-        },
-        {
-          "label": "41OA",
-          "price": 36800
-        },
-        {
-          "label": "41OB",
-          "price": 37200
-        },
-        {
-          "label": "59OA",
-          "price": 52000
-        },
-        {
-          "label": "59OB",
-          "price": 54800
-        }
-      ],
-      "builder": "중화3재정비촉진구역도시환경정비사업토지등소유자",
-      "tel": "☎ 1555-6223",
-      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026950090&pblancNo=2026950090&atchmnflSeqNo=2023059&atchmnflSn=1",
-      "category": "other",
-      "houseManageNo": "2026950090",
-      "houseSecd": "02",
-      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2026950090&pblancNo=2026950090&houseSecd=02",
-      "applyUrl": "https://www.applyhome.co.kr/ap/apb/reqst/selectSubscrtReqstUOMainView.do",
-      "applyPath": "오피스텔·생활숙박시설 청약신청",
-      "source": "청약홈 · 중화역 라온프라이빗 센트로(2026950090)",
-      "verified": true,
-      "evidence": {
-        "residence": ") 현재 대한민국에 거주하는 만 19세 이상인 자[국내에 거주하고 있는 재외동포(재외국민, 외국국적 동포) 및 외국인 포함] 또는 법인의 경우 신청 가능함 → 거주지·청약통장 제한 없음",
-        "housing": ") 현재 대한민국에 거주하는 만 19세 이상인 자[국내에 거주하고 있는 재외동포(재외국민, 외국국적 동포) 및 외국인 포함] 또는 법인의 경우 신청 가능함 → 청약통장·주택 수 요건 없음"
-      },
-      "ruleNote": null,
-      "extraRequirements": [],
-      "incomeAsset": null
-    },
-    {
-      "id": "ah2026000560",
-      "pblancNo": "2026000560",
-      "name": "해링턴 플레이스 문래",
-      "region": "서울",
-      "regionGroup": "서울",
-      "district": "영등포구 문래동3가",
-      "address": "서울특별시 영등포구 문래동3가 27-1번지 일원",
-      "supplyType": "민영 1순위",
-      "housingRequirement": "무주택 전용",
-      "requiredDeposit": 300,
-      "depositNote": "서울·부산 기준 — 85㎡ 이하 1순위 300만 원 (85㎡ 초과는 배액)",
-      "residenceRequirement": "수도권",
-      "eligibleRegions": [
-        "서울",
-        "경기",
-        "인천"
-      ],
-      "priorityRegions": [
-        "서울"
-      ],
-      "householderOnly": null,
-      "priceLabel": "분양가",
-      "priceMin": 177500,
-      "priceMax": 182700,
-      "priceRange": "17억 7,500만 ~ 18억 2,700만",
-      "units": 218,
-      "applyStart": "2026-11-23",
-      "applyEnd": "2026-11-26",
-      "applyDates": "2026-11-23 ~ 2026-11-26",
-      "announceDate": "2026-11-13",
-      "winnersDate": "2026-12-02",
-      "contractStart": "2026-12-14",
-      "moveIn": "2030.03",
-      "types": [
-        {
-          "label": "84A",
-          "price": 182700
-        },
-        {
-          "label": "84B",
-          "price": 178500
-        },
-        {
-          "label": "84C",
-          "price": 177500
-        }
-      ],
-      "builder": "효성중공업 주식회사",
-      "tel": "☎ 02-3463-7774",
-      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000560&pblancNo=2026000560&atchmnflSeqNo=2022113&atchmnflSn=4",
-      "category": "apt",
-      "houseManageNo": "2026000560",
-      "houseSecd": null,
-      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000560&pblancNo=2026000560",
-      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
-      "applyPath": "APT 1순위·2순위",
-      "source": "청약홈 · 해링턴 플레이스 문래(2026000560)",
-      "verified": true,
-      "evidence": {
-        "housing": "규제지역(투기과열지구) — 1순위는 무주택세대구성원",
-        "residence": "지역 : 해당지역 거주자(서울특별시 2년 이상 계속 거주자) → 기타지역 거주자(서울특별시 2년 미만 및 경기도, 인천광역시 거주자) 순위 내용 1순위 현재 혼인관계에 있는 배우자와의 혼인기간 중 자녀를 출산(태아, 입양자"
-      },
-      "ruleNote": null,
-      "extraRequirements": [
-        "추첨 물량의 75%는 무주택 우선"
-      ],
-      "incomeAsset": null
-    },
     {
       "id": "ah2026820015",
       "pblancNo": "2026820015",
@@ -1909,6 +1675,56 @@
       "incomeAsset": null
     },
     {
+      "id": "ah2026930047",
+      "pblancNo": "2026930047",
+      "name": "청량리 롯데캐슬 하이루체",
+      "region": "서울",
+      "regionGroup": "서울",
+      "district": "동대문구 청량리동",
+      "address": "서울특별시 동대문구 청량리동 199번지 일원",
+      "supplyType": "불법행위재공급",
+      "housingRequirement": "무주택 전용",
+      "requiredDeposit": 0,
+      "depositNote": "예치금 요건 없음 — 불법행위재공급 신청",
+      "residenceRequirement": "해당지역",
+      "eligibleRegions": [
+        "서울"
+      ],
+      "priorityRegions": [],
+      "householderOnly": true,
+      "priceLabel": "분양가",
+      "priceMin": null,
+      "priceMax": null,
+      "priceRange": null,
+      "units": 1,
+      "applyStart": "2026-12-02",
+      "applyEnd": "2026-12-02",
+      "applyDates": "2026-12-02 ~ 2026-12-02",
+      "announceDate": "2026-11-26",
+      "winnersDate": "2026-12-07",
+      "contractStart": "2026-12-10",
+      "moveIn": null,
+      "types": [],
+      "builder": "청량리제7구역주택재개발정비사업조합",
+      "tel": "",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026930047&pblancNo=2026930047&atchmnflSeqNo=2027014&atchmnflSn=3",
+      "category": "remndr",
+      "houseManageNo": "2026930047",
+      "houseSecd": "06",
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2026930047&pblancNo=2026930047",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=06&ty=20",
+      "applyPath": "APT 불법행위 재공급",
+      "source": "청약홈 · 청량리 롯데캐슬 하이루체(2026930047)",
+      "verified": true,
+      "evidence": {
+        "housing": "해당 주택건설지역인 서울특별시에 거주하는 무주택세대주",
+        "residence": "서울특별시에 거주하는 무주택세대주(무주택세대의 세대주) 당첨자 선정방법 ■ 경쟁이 있는 경우 추첨의 방법으로 입"
+      },
+      "ruleNote": null,
+      "extraRequirements": [],
+      "incomeAsset": null
+    },
+    {
       "id": "ah2026000590",
       "pblancNo": "2026000590",
       "name": "두산위브 시그니처 광양",
@@ -2995,6 +2811,490 @@
       },
       "ruleNote": null,
       "extraRequirements": [],
+      "incomeAsset": null
+    },
+    {
+      "id": "ah2026000568",
+      "pblancNo": "2026000568",
+      "name": "사천선인지구 S4블록(한림풀에버)",
+      "region": "경남",
+      "regionGroup": "부산·울산·경남",
+      "district": "사천시 사천선인 공공주택지구 S-4BL",
+      "address": "경상남도 사천시 사천선인 공공주택지구 S-4BL",
+      "supplyType": "민영 1순위",
+      "housingRequirement": "1주택 가능",
+      "requiredDeposit": 200,
+      "depositNote": "그 밖의 지역 기준 — 85㎡ 이하 1순위 200만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "해당지역",
+      "eligibleRegions": [
+        "부산",
+        "울산",
+        "경남"
+      ],
+      "priorityRegions": [
+        "경남"
+      ],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 46625,
+      "priceMax": 115188,
+      "priceRange": "4억 6,625만 ~ 11억 5,188만",
+      "units": 562,
+      "applyStart": "2026-12-07",
+      "applyEnd": "2026-12-09",
+      "applyDates": "2026-12-07 ~ 2026-12-09",
+      "announceDate": "2026-11-26",
+      "winnersDate": "2026-12-15",
+      "contractStart": "2026-12-28",
+      "moveIn": "2029.11",
+      "types": [
+        {
+          "label": "84",
+          "price": 46625
+        },
+        {
+          "label": "96",
+          "price": 55056
+        },
+        {
+          "label": "105",
+          "price": 85746
+        },
+        {
+          "label": "137",
+          "price": 115188
+        }
+      ],
+      "builder": "한림건설(주)",
+      "tel": "☎ 055-854-9600",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000568&pblancNo=2026000568&atchmnflSeqNo=2016034&atchmnflSn=5",
+      "category": "apt",
+      "houseManageNo": "2026000568",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000568&pblancNo=2026000568",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 사천선인지구 S4블록(한림풀에버)(2026000568)",
+      "verified": true,
+      "evidence": {
+        "housing": "단지 주요정보 표 '비규제지역' + 가점제·추첨제 병행 — 1순위에 무주택 제한 없음",
+        "residence": "지역 : 해당지역 거주자(사천시 거주자) → 기타지역 거주자(경상남도, 부산광역시, 울산광역시 거주자) ② 청약부금 : 청약부금에 가입하여 6개월이 경과하고, 매월 약정납입일에 납부한 월납입인정금액이 예"
+      },
+      "ruleNote": null,
+      "extraRequirements": [],
+      "incomeAsset": null
+    },
+    {
+      "id": "ah2026000592",
+      "pblancNo": "2026000592",
+      "name": "경북도청 푸르지오 퍼스티온",
+      "region": "경북",
+      "regionGroup": "대구·경북",
+      "district": "예천군 호명읍 경북도청신도시 2단계 B-10BL",
+      "address": "경상북도 예천군 호명읍 경북도청신도시 2단계 B-10BL",
+      "supplyType": "민영 1순위",
+      "housingRequirement": "1주택 가능",
+      "requiredDeposit": 200,
+      "depositNote": "그 밖의 지역 기준 — 85㎡ 이하 1순위 200만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "전국",
+      "eligibleRegions": [
+        "서울",
+        "경기",
+        "인천",
+        "부산",
+        "대구",
+        "광주",
+        "대전",
+        "울산",
+        "세종",
+        "강원",
+        "충북",
+        "충남",
+        "전북",
+        "전남",
+        "경북",
+        "경남",
+        "제주"
+      ],
+      "priorityRegions": [
+        "경북"
+      ],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 43610,
+      "priceMax": 44960,
+      "priceRange": "4억 3,610만 ~ 4억 4,960만",
+      "units": 1165,
+      "applyStart": "2026-12-07",
+      "applyEnd": "2026-12-09",
+      "applyDates": "2026-12-07 ~ 2026-12-09",
+      "announceDate": "2026-11-27",
+      "winnersDate": "2026-12-15",
+      "contractStart": "2026-12-28",
+      "moveIn": "2029.08",
+      "types": [
+        {
+          "label": "84A",
+          "price": 44610
+        },
+        {
+          "label": "84B",
+          "price": 44120
+        },
+        {
+          "label": "84C",
+          "price": 44960
+        },
+        {
+          "label": "84D",
+          "price": 43610
+        }
+      ],
+      "builder": "(주)대우건설",
+      "tel": "☎ 054-858-1165",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000592&pblancNo=2026000592&atchmnflSeqNo=2024049&atchmnflSn=7",
+      "category": "apt",
+      "houseManageNo": "2026000592",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000592&pblancNo=2026000592",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 경북도청 푸르지오 퍼스티온(2026000592)",
+      "verified": true,
+      "evidence": {
+        "housing": "단지 주요정보 표 '비규제지역' + 가점제·추첨제 병행 — 1순위에 무주택 제한 없음",
+        "residence": "입주자모집공고일 현재 해당 주택건설지역(예천군, 안동시) 및 전국에 거주하는"
+      },
+      "ruleNote": null,
+      "extraRequirements": [],
+      "incomeAsset": null
+    },
+    {
+      "id": "ah2026000588",
+      "pblancNo": "2026000588",
+      "name": "일광 THE S",
+      "region": "부산",
+      "regionGroup": "부산·울산·경남",
+      "district": "기장군 일광읍 이천리",
+      "address": "부산광역시 기장군 일광읍 이천리 345-1번지 일원",
+      "supplyType": "민영 1순위",
+      "housingRequirement": "1주택 가능",
+      "requiredDeposit": 300,
+      "depositNote": "서울·부산 기준 — 85㎡ 이하 1순위 300만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "해당지역",
+      "eligibleRegions": [
+        "부산",
+        "울산",
+        "경남"
+      ],
+      "priorityRegions": [
+        "부산"
+      ],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 97000,
+      "priceMax": 410000,
+      "priceRange": "9억 7,000만 ~ 41억",
+      "units": 1968,
+      "applyStart": "2026-12-07",
+      "applyEnd": "2026-12-09",
+      "applyDates": "2026-12-07 ~ 2026-12-09",
+      "announceDate": "2026-11-27",
+      "winnersDate": "2026-12-15",
+      "contractStart": "2026-12-28",
+      "moveIn": "2029.07",
+      "types": [
+        {
+          "label": "84",
+          "price": 97000
+        },
+        {
+          "label": "103",
+          "price": 129500
+        },
+        {
+          "label": "111",
+          "price": 146800
+        },
+        {
+          "label": "189",
+          "price": 320000
+        },
+        {
+          "label": "217",
+          "price": 410000
+        }
+      ],
+      "builder": "(주)동일스위트",
+      "tel": "☎ 051-746-1010",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000588&pblancNo=2026000588&atchmnflSeqNo=2037290&atchmnflSn=1",
+      "category": "apt",
+      "houseManageNo": "2026000588",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000588&pblancNo=2026000588",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 일광 THE S(2026000588)",
+      "verified": true,
+      "evidence": {
+        "housing": "1순위 추첨 단계에 '무주택세대구성원과 1주택을 소유한 세대에 속한 분' 포함 → 1주택자 응모 가능",
+        "residence": "지역 : 해당지역 거주자(부산광역시 1년 이상 계속 거주자) → 기타지역 거주자(부산광역시 1년 미만 거주자 및 울산광역시, 경상남도 거주자)"
+      },
+      "ruleNote": null,
+      "extraRequirements": [
+        "추첨 물량의 75%는 무주택 우선"
+      ],
+      "incomeAsset": null
+    },
+    {
+      "id": "ah2026000574",
+      "pblancNo": "2026000574",
+      "name": "송도 대광로제비앙 모아엘가",
+      "region": "인천",
+      "regionGroup": "인천",
+      "district": "연수구 송도동 544 (송도국제도시 11공구 RC2BL)",
+      "address": "인천광역시 연수구 송도동 544 (송도국제도시 11공구 RC2BL)",
+      "supplyType": "민영 1순위",
+      "housingRequirement": "1주택 가능",
+      "requiredDeposit": 250,
+      "depositNote": "광역시 기준 — 85㎡ 이하 1순위 250만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "수도권",
+      "eligibleRegions": [
+        "서울",
+        "경기",
+        "인천"
+      ],
+      "priorityRegions": [
+        "인천"
+      ],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 88200,
+      "priceMax": 88800,
+      "priceRange": "8억 8,200만 ~ 8억 8,800만",
+      "units": 592,
+      "applyStart": "2026-12-07",
+      "applyEnd": "2026-12-09",
+      "applyDates": "2026-12-07 ~ 2026-12-09",
+      "announceDate": "2026-11-27",
+      "winnersDate": "2026-12-15",
+      "contractStart": "2026-12-28",
+      "moveIn": "2030.01",
+      "types": [
+        {
+          "label": "84A",
+          "price": 88800
+        },
+        {
+          "label": "84B",
+          "price": 88800
+        },
+        {
+          "label": "84C",
+          "price": 88200
+        },
+        {
+          "label": "84D",
+          "price": 88800
+        },
+        {
+          "label": "84E",
+          "price": 88800
+        }
+      ],
+      "builder": "주식회사 대광건영,모아건설산업(주)",
+      "tel": "☎ 1551-3300",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000574&pblancNo=2026000574&atchmnflSeqNo=2014088&atchmnflSn=8",
+      "category": "apt",
+      "houseManageNo": "2026000574",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000574&pblancNo=2026000574",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 송도 대광로제비앙 모아엘가(2026000574)",
+      "verified": true,
+      "evidence": {
+        "housing": "단지 주요정보 표 '비규제지역' + 가점제·추첨제 병행 — 1순위에 무주택 제한 없음",
+        "residence": "입주자모집공고일현재인천광역시에거주하거나수도권서울특별시경기도에거주하는"
+      },
+      "ruleNote": null,
+      "extraRequirements": [
+        "추첨 물량의 75%는 무주택 우선"
+      ],
+      "incomeAsset": null
+    },
+    {
+      "id": "ah2026000611",
+      "pblancNo": "2026000611",
+      "name": "병점복합타운 주복1블록 공공분양",
+      "region": "경기",
+      "regionGroup": "경기",
+      "district": "화성시 병점구 병점동, 진안동",
+      "address": "경기도 화성시 병점구 병점동, 진안동 일원 병점복합타운 내 주복1블록",
+      "supplyType": "공공분양",
+      "housingRequirement": "확인 필요",
+      "requiredDeposit": 200,
+      "depositNote": "그 밖의 지역 기준 — 85㎡ 이하 1순위 200만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "확인 필요",
+      "eligibleRegions": [],
+      "priorityRegions": [],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 50089,
+      "priceMax": 69218,
+      "priceRange": "5억 89만 ~ 6억 9,218만",
+      "units": 726,
+      "applyStart": "2026-12-07",
+      "applyEnd": "2026-12-10",
+      "applyDates": "2026-12-07 ~ 2026-12-10",
+      "announceDate": "2026-11-26",
+      "winnersDate": "2026-12-23",
+      "contractStart": "2027-03-09",
+      "moveIn": "2030.06",
+      "types": [
+        {
+          "label": "61A",
+          "price": 50089
+        },
+        {
+          "label": "63A",
+          "price": 51584
+        },
+        {
+          "label": "65A",
+          "price": 53858
+        },
+        {
+          "label": "66A",
+          "price": 54657
+        },
+        {
+          "label": "71A",
+          "price": 58665
+        },
+        {
+          "label": "72A",
+          "price": 59562
+        },
+        {
+          "label": "72B",
+          "price": 59562
+        },
+        {
+          "label": "73A",
+          "price": 60388
+        },
+        {
+          "label": "84A",
+          "price": 69218
+        }
+      ],
+      "builder": "(주)태왕이앤씨,우경건설(주), 토브디엔씨(주)",
+      "tel": "☎ 031-8077-7989",
+      "pdfUrl": null,
+      "category": "apt",
+      "houseManageNo": "2026000611",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000611&pblancNo=2026000611",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 병점복합타운 주복1블록 공공분양(2026000611)",
+      "verified": false,
+      "evidence": {},
+      "ruleNote": null,
+      "extraRequirements": [],
+      "incomeAsset": {
+        "status": "원문 확인 필요",
+        "rows": [],
+        "asset": null,
+        "note": "공고문 PDF를 받지 못해 소득·자산 기준을 확인하지 못했습니다."
+      }
+    },
+    {
+      "id": "ah2026000612",
+      "pblancNo": "2026000612",
+      "name": "용인반도체클러스터 동일하이빌 파크밸리 2단지(D1-2블록)",
+      "region": "경기",
+      "regionGroup": "경기",
+      "district": "용인시 처인구 원삼면 용인 반도체 클러스터 일반산업단지 D1-2BL",
+      "address": "경기도 용인시 처인구 원삼면 용인 반도체 클러스터 일반산업단지 D1-2BL",
+      "supplyType": "민영 1순위",
+      "housingRequirement": "1주택 가능",
+      "requiredDeposit": 200,
+      "depositNote": "그 밖의 지역 기준 — 85㎡ 이하 1순위 200만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "전국",
+      "eligibleRegions": [
+        "서울",
+        "경기",
+        "인천",
+        "부산",
+        "대구",
+        "광주",
+        "대전",
+        "울산",
+        "세종",
+        "강원",
+        "충북",
+        "충남",
+        "전북",
+        "전남",
+        "경북",
+        "경남",
+        "제주"
+      ],
+      "priorityRegions": [
+        "경기"
+      ],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 43200,
+      "priceMax": 56800,
+      "priceRange": "4억 3,200만 ~ 5억 6,800만",
+      "units": 661,
+      "applyStart": "2026-12-07",
+      "applyEnd": "2026-12-10",
+      "applyDates": "2026-12-07 ~ 2026-12-10",
+      "announceDate": "2026-11-27",
+      "winnersDate": "2026-12-16",
+      "contractStart": "2026-12-28",
+      "moveIn": "2029.05",
+      "types": [
+        {
+          "label": "59A",
+          "price": 44300
+        },
+        {
+          "label": "59B",
+          "price": 43200
+        },
+        {
+          "label": "71B",
+          "price": 49500
+        },
+        {
+          "label": "84A",
+          "price": 56800
+        }
+      ],
+      "builder": "(주)동일토건",
+      "tel": "☎ 1533-0589",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000612&pblancNo=2026000612&atchmnflSeqNo=2037190&atchmnflSn=3",
+      "category": "apt",
+      "houseManageNo": "2026000612",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000612&pblancNo=2026000612",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 용인반도체클러스터 동일하이빌 파크밸리 2단지(D1-2블록)(2026000612)",
+      "verified": true,
+      "evidence": {
+        "housing": "단지 주요정보 표 '비규제지역' + 가점제·추첨제 병행 — 1순위에 무주택 제한 없음",
+        "residence": "입주자모집공고일 현재 경기도 용인시에 거주하거나 전국에 거주하는"
+      },
+      "ruleNote": null,
+      "extraRequirements": [
+        "추첨 물량의 75%는 무주택 우선"
+      ],
       "incomeAsset": null
     }
   ]
