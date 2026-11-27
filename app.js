@@ -621,16 +621,19 @@
 
   /* ───────────────────────── 결과 ───────────────────────── */
   function counts() {
-    var ok = 0, open = 0, total = 0;
+    var ok = 0, open = 0, upcoming = 0, total = 0;
     evalCache.forEach(function (e) {
       if (isEnded(e)) return;      /* 마감된 공고는 카운트에도 넣지 않는다 */
       total++;
       if (e.ok) {
         ok++;
-        if (e.status.key === 'open' || e.status.key === 'upcoming') open++;
+        /* open = 오늘 접수할 수 있는 공고, upcoming = 아직 접수일이 아닌 공고.
+           둘을 합쳐 '지금 접수 가능'이라고 쓰면 접수 전 공고까지 신청 가능으로 읽힌다. */
+        if (e.status.key === 'open') open++;
+        else if (e.status.key === 'upcoming') upcoming++;
       }
     });
-    return { ok: ok, excluded: total - ok, open: open, total: total };
+    return { ok: ok, excluded: total - ok, open: open, upcoming: upcoming, total: total };
   }
 
   /* ── 지금 화면에 실제로 보이는 관심 공고 ──
@@ -974,9 +977,10 @@
     var gate = applyGate();
     $('#hdrCount').textContent = c.total;   /* 헤더 카운트도 지금 볼 수 있는 공고만 센다 */
     $('#eligibleCount').textContent = c.ok;
+    var upcomingBit = c.upcoming ? ' · 접수 예정 <b>' + c.upcoming + '건</b>' : '';
     $('#resultsSub').innerHTML = gate.open
-      ? '지원 가능 <b>' + c.ok + '건</b> 중 지금 접수 가능 <b>' + c.open + '건</b> · 조건 미달 ' + c.excluded + '건'
-      : '지원 가능 <b>' + c.ok + '건</b> 중 접수 중 <b>' + c.open + '건</b> · 지금은 접수 시간이 아니에요 · 조건 미달 ' + c.excluded + '건';
+      ? '지원 가능 <b>' + c.ok + '건</b> 중 지금 접수 가능 <b>' + c.open + '건</b>' + upcomingBit + ' · 조건 미달 ' + c.excluded + '건'
+      : '지원 가능 <b>' + c.ok + '건</b> 중 접수 중 <b>' + c.open + '건</b>' + upcomingBit + ' · 지금은 접수 시간이 아니에요 · 조건 미달 ' + c.excluded + '건';
 
     $('#segFilter').innerHTML = [
       { v: 'eligible', l: '지원 가능', n: c.ok },
