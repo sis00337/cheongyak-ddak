@@ -1,89 +1,15 @@
 {
   "meta": {
     "source": "청약홈(applyhome.co.kr) 입주자모집공고",
-    "collectedAt": "2026-11-27",
-    "count": 31,
+    "collectedAt": "2026-11-28",
+    "count": 35,
     "scope": "전국 17개 시도 · APT 분양정보 + APT 잔여세대(무순위·임의공급·불법행위재공급) + 오피스텔·민간임대",
     "unverified": [
-      "ah2026820015",
       "ah2026000611"
     ],
     "unit": "금액 단위: 만 원"
   },
   "listings": [
-    {
-      "id": "ah2026820015",
-      "pblancNo": "2026820015",
-      "name": "시흥 거모 아테라(시흥거모 A-6BL) 신혼희망타운(공공분양)(본청약)",
-      "region": "경기",
-      "regionGroup": "경기",
-      "district": "시흥시 거모지구 내 A-6블록",
-      "address": "경기도 시흥시 거모지구 내 A-6블록",
-      "supplyType": "공공분양",
-      "housingRequirement": "확인 필요",
-      "requiredDeposit": 200,
-      "depositNote": "그 밖의 지역 기준 — 85㎡ 이하 1순위 200만 원 (85㎡ 초과는 배액)",
-      "residenceRequirement": "확인 필요",
-      "eligibleRegions": [],
-      "priorityRegions": [],
-      "householderOnly": null,
-      "priceLabel": "분양가",
-      "priceMin": 43390,
-      "priceMax": 46436,
-      "priceRange": "4억 3,390만 ~ 4억 6,436만",
-      "units": 480,
-      "applyStart": "2026-11-16",
-      "applyEnd": "2026-11-27",
-      "applyDates": "2026-11-16 ~ 2026-11-27",
-      "announceDate": "2026-11-06",
-      "winnersDate": "2026-12-08",
-      "contractStart": "2027-03-11",
-      "moveIn": "2029.09",
-      "types": [
-        {
-          "label": "55A",
-          "price": 43390
-        },
-        {
-          "label": "59A",
-          "price": 46436
-        },
-        {
-          "label": "59B",
-          "price": 46359
-        },
-        {
-          "label": "59C",
-          "price": 46328
-        }
-      ],
-      "builder": "금호건설 주식회사",
-      "tel": "☎ 1661-5596",
-      "pdfUrl": null,
-      "category": "apt",
-      "houseManageNo": "2026820015",
-      "houseSecd": null,
-      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026820015&pblancNo=2026820015",
-      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
-      "applyPath": "APT 1순위·2순위",
-      "source": "청약홈 · 시흥 거모 아테라(시흥거모 A-6BL) 신혼희망타운(공공분양)(본청약)(2026820015)",
-      "verified": false,
-      "evidence": {},
-      "ruleNote": null,
-      "extraRequirements": [],
-      "incomeAsset": {
-        "status": "원문 확인 필요",
-        "applies": "신혼희망타운(공공분양) 본청약 — 일반·특별공급",
-        "generalNote": "청약홈 공고에는 공고문 PDF가 첨부되어 있지 않고 LH 청약플러스에 게시되어 있어, 소득·자산 기준을 원문으로 확인하지 못했습니다. 추측 수치는 넣지 않았습니다.",
-        "source": "청약홈 주요정보(2026-11-06 경향신문 공고) — 공고문 원문 미확보",
-        "asset": null,
-        "rows": [],
-        "columns": null,
-        "incomeLabel": null,
-        "checkedAt": "2026-11-26",
-        "curated": true
-      }
-    },
     {
       "id": "ah2026910304",
       "pblancNo": "2026910304",
@@ -2715,6 +2641,80 @@
       "incomeAsset": null
     },
     {
+      "id": "ah2026000589",
+      "pblancNo": "2026000589",
+      "name": "트리븐 가흥",
+      "region": "경북",
+      "regionGroup": "대구·경북",
+      "district": "영주시 가흥동 1059-10",
+      "address": "경상북도 영주시 가흥동 1059-10 일원",
+      "supplyType": "민영 1순위",
+      "housingRequirement": "1주택 가능",
+      "requiredDeposit": 200,
+      "depositNote": "그 밖의 지역 기준 — 85㎡ 이하 1순위 200만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "해당지역",
+      "eligibleRegions": [
+        "대구",
+        "경북"
+      ],
+      "priorityRegions": [
+        "경북"
+      ],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 49900,
+      "priceMax": 76100,
+      "priceRange": "4억 9,900만 ~ 7억 6,100만",
+      "units": 765,
+      "applyStart": "2026-12-02",
+      "applyEnd": "2026-12-04",
+      "applyDates": "2026-12-02 ~ 2026-12-04",
+      "announceDate": "2026-11-27",
+      "winnersDate": "2026-12-10",
+      "contractStart": "2026-12-21",
+      "moveIn": "2030.02",
+      "types": [
+        {
+          "label": "84A",
+          "price": 52700
+        },
+        {
+          "label": "84B",
+          "price": 49900
+        },
+        {
+          "label": "84C",
+          "price": 55600
+        },
+        {
+          "label": "84D",
+          "price": 55700
+        },
+        {
+          "label": "113",
+          "price": 76100
+        }
+      ],
+      "builder": "두산에너빌리티(주)",
+      "tel": "☎ 054-633-8898",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000589&pblancNo=2026000589&atchmnflSeqNo=2036074&atchmnflSn=6",
+      "category": "apt",
+      "houseManageNo": "2026000589",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000589&pblancNo=2026000589",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 트리븐 가흥(2026000589)",
+      "verified": true,
+      "evidence": {
+        "housing": "단지 주요정보 표 '비규제지역' + 가점제·추첨제 병행 — 1순위에 무주택 제한 없음",
+        "residence": "지역 : 해당지역 거주자(영주시 거주자) → 기타지역 거주자(경상북도 및 대구광역시 거주자)"
+      },
+      "ruleNote": null,
+      "extraRequirements": [],
+      "incomeAsset": null
+    },
+    {
       "id": "ah2026950089",
       "pblancNo": "2026950089",
       "name": "청라 아크원 푸르지오",
@@ -3044,6 +3044,338 @@
       "extraRequirements": [
         "추첨 물량의 75%는 무주택 우선"
       ],
+      "incomeAsset": null
+    },
+    {
+      "id": "ah2026000573",
+      "pblancNo": "2026000573",
+      "name": "세종스마트시티 엘 수자인(행정중심복합도시 5-1생활권 L11블록, 꽃나루마을 28단지)",
+      "region": "세종",
+      "regionGroup": "대전·세종·충청",
+      "district": "합강동",
+      "address": "세종특별자치시 합강동 40번지 일원(행정중심복합도시 5-1생활권 L11BL)",
+      "supplyType": "민영 1순위",
+      "housingRequirement": "1주택 가능",
+      "requiredDeposit": 200,
+      "depositNote": "그 밖의 지역 기준 — 85㎡ 이하 1순위 200만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "전국",
+      "eligibleRegions": [
+        "서울",
+        "경기",
+        "인천",
+        "부산",
+        "대구",
+        "광주",
+        "대전",
+        "울산",
+        "세종",
+        "강원",
+        "충북",
+        "충남",
+        "전북",
+        "전남",
+        "경북",
+        "경남",
+        "제주"
+      ],
+      "priorityRegions": [
+        "세종"
+      ],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 63830,
+      "priceMax": 65790,
+      "priceRange": "6억 3,830만 ~ 6억 5,790만",
+      "units": 507,
+      "applyStart": "2026-12-07",
+      "applyEnd": "2026-12-09",
+      "applyDates": "2026-12-07 ~ 2026-12-09",
+      "announceDate": "2026-11-27",
+      "winnersDate": "2026-12-16",
+      "contractStart": "2026-12-28",
+      "moveIn": "2029.11",
+      "types": [
+        {
+          "label": "84A",
+          "price": 65790
+        },
+        {
+          "label": "84B",
+          "price": 65780
+        },
+        {
+          "label": "84C",
+          "price": 63830
+        }
+      ],
+      "builder": "주식회사 비에스한양",
+      "tel": "☎ 1866-2122",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000573&pblancNo=2026000573&atchmnflSeqNo=2026041&atchmnflSn=6",
+      "category": "apt",
+      "houseManageNo": "2026000573",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000573&pblancNo=2026000573",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 세종스마트시티 엘 수자인(행정중심복합도시 5-1생활권 L11블록, 꽃나루마을 28단지)(2026000573)",
+      "verified": true,
+      "evidence": {
+        "housing": "단지 주요정보 표 '비규제지역' + 가점제·추첨제 병행 — 1순위에 무주택 제한 없음",
+        "residence": "입주자모집공고일 현재 세종특별자치시에 거주하거나 전국에 거주하는"
+      },
+      "ruleNote": null,
+      "extraRequirements": [],
+      "incomeAsset": null
+    },
+    {
+      "id": "ah2026000570",
+      "pblancNo": "2026000570",
+      "name": "세종스마트시티 엘 수자인(행정중심복합도시 5-1생활권 L6블록, 꽃나루마을 16단지)",
+      "region": "세종",
+      "regionGroup": "대전·세종·충청",
+      "district": "합강동",
+      "address": "세종특별자치시 합강동 171-3번지 일원 (행정중심복합도시 5-1생활권 L6BL)",
+      "supplyType": "민영 1순위",
+      "housingRequirement": "1주택 가능",
+      "requiredDeposit": 200,
+      "depositNote": "그 밖의 지역 기준 — 85㎡ 이하 1순위 200만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "전국",
+      "eligibleRegions": [
+        "서울",
+        "경기",
+        "인천",
+        "부산",
+        "대구",
+        "광주",
+        "대전",
+        "울산",
+        "세종",
+        "강원",
+        "충북",
+        "충남",
+        "전북",
+        "전남",
+        "경북",
+        "경남",
+        "제주"
+      ],
+      "priorityRegions": [
+        "세종"
+      ],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 65470,
+      "priceMax": 68060,
+      "priceRange": "6억 5,470만 ~ 6억 8,060만",
+      "units": 818,
+      "applyStart": "2026-12-07",
+      "applyEnd": "2026-12-09",
+      "applyDates": "2026-12-07 ~ 2026-12-09",
+      "announceDate": "2026-11-27",
+      "winnersDate": "2026-12-15",
+      "contractStart": "2026-12-27",
+      "moveIn": "2030.01",
+      "types": [
+        {
+          "label": "84A",
+          "price": 68060
+        },
+        {
+          "label": "84B",
+          "price": 66810
+        },
+        {
+          "label": "84C",
+          "price": 65470
+        },
+        {
+          "label": "84D",
+          "price": 67480
+        }
+      ],
+      "builder": "주식회사 비에스한양",
+      "tel": "☎ 1866-2122",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000570&pblancNo=2026000570&atchmnflSeqNo=2026046&atchmnflSn=5",
+      "category": "apt",
+      "houseManageNo": "2026000570",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000570&pblancNo=2026000570",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 세종스마트시티 엘 수자인(행정중심복합도시 5-1생활권 L6블록, 꽃나루마을 16단지)(2026000570)",
+      "verified": true,
+      "evidence": {
+        "housing": "단지 주요정보 표 '비규제지역' + 가점제·추첨제 병행 — 1순위에 무주택 제한 없음",
+        "residence": "입주자모집공고일 현재 세종특별자치시에 거주하거나 전국에 거주하는"
+      },
+      "ruleNote": null,
+      "extraRequirements": [],
+      "incomeAsset": null
+    },
+    {
+      "id": "ah2026000571",
+      "pblancNo": "2026000571",
+      "name": "세종스마트시티 엘 수자인(행정중심복합도시 5-1생활권 L7블록, 꽃나루마을 24단지)",
+      "region": "세종",
+      "regionGroup": "대전·세종·충청",
+      "district": "합강동 산",
+      "address": "세종특별자치시 합강동 산74-1번지 일원(행정중심복합도시 5-1생활권 L7BL)",
+      "supplyType": "민영 1순위",
+      "housingRequirement": "1주택 가능",
+      "requiredDeposit": 200,
+      "depositNote": "그 밖의 지역 기준 — 85㎡ 이하 1순위 200만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "전국",
+      "eligibleRegions": [
+        "서울",
+        "경기",
+        "인천",
+        "부산",
+        "대구",
+        "광주",
+        "대전",
+        "울산",
+        "세종",
+        "강원",
+        "충북",
+        "충남",
+        "전북",
+        "전남",
+        "경북",
+        "경남",
+        "제주"
+      ],
+      "priorityRegions": [
+        "세종"
+      ],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 65660,
+      "priceMax": 65670,
+      "priceRange": "6억 5,660만 ~ 6억 5,670만",
+      "units": 648,
+      "applyStart": "2026-12-07",
+      "applyEnd": "2026-12-09",
+      "applyDates": "2026-12-07 ~ 2026-12-09",
+      "announceDate": "2026-11-27",
+      "winnersDate": "2026-12-15",
+      "contractStart": "2026-12-27",
+      "moveIn": "2029.10",
+      "types": [
+        {
+          "label": "84A",
+          "price": 65670
+        },
+        {
+          "label": "84B",
+          "price": 65660
+        },
+        {
+          "label": "84C",
+          "price": 65660
+        },
+        {
+          "label": "84D",
+          "price": 65660
+        }
+      ],
+      "builder": "주식회사 비에스한양",
+      "tel": "☎ 1866-2122",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000571&pblancNo=2026000571&atchmnflSeqNo=2026043&atchmnflSn=4",
+      "category": "apt",
+      "houseManageNo": "2026000571",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000571&pblancNo=2026000571",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 세종스마트시티 엘 수자인(행정중심복합도시 5-1생활권 L7블록, 꽃나루마을 24단지)(2026000571)",
+      "verified": true,
+      "evidence": {
+        "housing": "단지 주요정보 표 '비규제지역' + 가점제·추첨제 병행 — 1순위에 무주택 제한 없음",
+        "residence": "입주자모집공고일 현재 세종특별자치시에 거주하거나 전국에 거주하는"
+      },
+      "ruleNote": null,
+      "extraRequirements": [],
+      "incomeAsset": null
+    },
+    {
+      "id": "ah2026000572",
+      "pblancNo": "2026000572",
+      "name": "세종스마트시티 엘 수자인(행정중심복합도시 5-1생활권 L8블록, 꽃나루마을 26단지)",
+      "region": "세종",
+      "regionGroup": "대전·세종·충청",
+      "district": "합강동 산",
+      "address": "세종특별자치시 합강동 산74-1번지 일원(행정중심복합도시 5-1생활권 L8BL)",
+      "supplyType": "민영 1순위",
+      "housingRequirement": "1주택 가능",
+      "requiredDeposit": 200,
+      "depositNote": "그 밖의 지역 기준 — 85㎡ 이하 1순위 200만 원 (85㎡ 초과는 배액)",
+      "residenceRequirement": "전국",
+      "eligibleRegions": [
+        "서울",
+        "경기",
+        "인천",
+        "부산",
+        "대구",
+        "광주",
+        "대전",
+        "울산",
+        "세종",
+        "강원",
+        "충북",
+        "충남",
+        "전북",
+        "전남",
+        "경북",
+        "경남",
+        "제주"
+      ],
+      "priorityRegions": [
+        "세종"
+      ],
+      "householderOnly": null,
+      "priceLabel": "분양가",
+      "priceMin": 64400,
+      "priceMax": 66380,
+      "priceRange": "6억 4,400만 ~ 6억 6,380만",
+      "units": 218,
+      "applyStart": "2026-12-07",
+      "applyEnd": "2026-12-09",
+      "applyDates": "2026-12-07 ~ 2026-12-09",
+      "announceDate": "2026-11-27",
+      "winnersDate": "2026-12-17",
+      "contractStart": "2026-12-29",
+      "moveIn": "2029.05",
+      "types": [
+        {
+          "label": "84A",
+          "price": 66380
+        },
+        {
+          "label": "84B",
+          "price": 65720
+        },
+        {
+          "label": "84C",
+          "price": 64400
+        }
+      ],
+      "builder": "주식회사 비에스한양",
+      "tel": "☎ 1866-2122",
+      "pdfUrl": "https://static.applyhome.co.kr/ai/aia/getAtchmnfl.do?houseManageNo=2026000572&pblancNo=2026000572&atchmnflSeqNo=2027058&atchmnflSn=4",
+      "category": "apt",
+      "houseManageNo": "2026000572",
+      "houseSecd": null,
+      "detailUrl": "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2026000572&pblancNo=2026000572",
+      "applyUrl": "https://www.applyhome.co.kr/ap/aph/reqst/selectSubscrtReqstAptMainView.do?se=01&ty=10",
+      "applyPath": "APT 1순위·2순위",
+      "source": "청약홈 · 세종스마트시티 엘 수자인(행정중심복합도시 5-1생활권 L8블록, 꽃나루마을 26단지)(2026000572)",
+      "verified": true,
+      "evidence": {
+        "housing": "단지 주요정보 표 '비규제지역' + 가점제·추첨제 병행 — 1순위에 무주택 제한 없음",
+        "residence": "입주자모집공고일 현재 세종특별자치시에 거주하거나 전국에 거주하는"
+      },
+      "ruleNote": null,
+      "extraRequirements": [],
       "incomeAsset": null
     },
     {
